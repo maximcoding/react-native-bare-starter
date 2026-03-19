@@ -1,9 +1,12 @@
+**Not architecture SSOT.** Product backlog and publishing checklist only. For structure and rules see [AGENTS.md](../AGENTS.md), [README.md](../README.md), and [MOBILE_E2E_GUIDE_additions.md](MOBILE_E2E_GUIDE_additions.md).
+
+---
+
 ## Roadmap
 
 - [x] Zustand stores in `src/shared/stores/`
 - [ ] Extend shared components: Inputs, Cards, Lists, Toasts
 - [ ] Sentry / Crashlytics integration
-- [ ] Storybook for shared components
 - [ ] CodePush / OTA update support
 - [ ] Clean up GitHub workflow files (keep only android/ios/release)
 - [ ] End-to-end tests (Detox or Maestro)

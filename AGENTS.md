@@ -4,7 +4,7 @@ Primary project context for AI agents: follow this file first when editing or ad
 
 ## Project
 
-React Native 0.82 app, TypeScript strict, bare workflow. **`src/shared/`** holds all cross-app code (navigation, UI, hooks, services, theme, i18n, session, config, types); **`src/features/<name>/`** holds feature slices.
+React Native 0.82 app, TypeScript strict, bare workflow. Top-level under `src/`: **`navigation/`**, **`session/`**, **`config/`**, **`i18n/`** (app wiring and app-level concerns). **`src/shared/`** holds cross-app code that must not import from features (UI kit, hooks, `services/`, stores, theme, utils, types). **`src/features/<name>/`** holds feature slices.
 
 ## Build and run
 
@@ -15,7 +15,7 @@ React Native 0.82 app, TypeScript strict, bare workflow. **`src/shared/`** holds
 
 ## Quality and guards
 
-- **Lint/format:** `npm run lint` (Biome); `npm run format` to apply fixes
+- **Biome:** `npm run lint` → `biome check .`; `npm run format` → `biome check . --write`
 - **Type-check:** `npx tsc --noEmit`
 - **Tests:** `npm test`
 - **Guards:** `npm run check:icons`, `npm run check:imports`
@@ -30,6 +30,7 @@ When changing SVGs, run `npm run gen:icons`. When changing i18n keys, run `npm r
 - **src/i18n/** — useT, locales, extraction.
 - **src/shared/components/ui/** — Reusable UI primitives (Button, Text, ScreenWrapper, …). If a component needs sharing, it either belongs here (truly generic) or stays in the feature that owns it — there is no intermediate category.
 - **src/shared/hooks/** — Shared hooks.
+- **src/shared/constants/** — Shared non-config constants (e.g. query invalidation tag lists). Storage key names and env-backed flags stay in **`src/config/`**.
 - **src/shared/services/api/** — HTTP, transport, query client, network, offline.
 - **src/shared/services/storage/** — MMKV, cache, Zustand persistence adapter.
 - **src/shared/utils/platform/** — device-info, haptics, permissions.
@@ -76,6 +77,12 @@ Use path alias `@/` only (e.g. `@/navigation/`, `@/session/`, `@/config/`, `@/i1
 - **New API/query:** feature `services/` + `api/keys.ts`; use transport from `src/shared/services/api/`; validate with Zod.
 - **New shared UI:** `src/shared/components/ui/`; feature-specific UI in the feature’s `components/`.
 
-## More context
+## Documentation map (single source of truth by audience)
 
-Full docs: README.md. Detailed patterns: .claude/CLAUDE.md.
+| Doc | Role |
+|-----|------|
+| [README.md](README.md) | Human onboarding, commands, structure, architecture summary |
+| **AGENTS.md** (this file) | Cursor / generic agents — follow first for edits |
+| [.claude/CLAUDE.md](.claude/CLAUDE.md) | Claude Code — same rules; stack reference |
+| [docs/MOBILE_E2E_GUIDE_additions.md](docs/MOBILE_E2E_GUIDE_additions.md) | Extended policies, checklists, patterns (aligned to this repo’s paths) |
+| [docs/TODO.md](docs/TODO.md) | Roadmap and backlog (not normative for architecture) |

@@ -17,7 +17,7 @@ Thanks for your interest in contributing. This document explains how to get your
 
 Run these locally; CI will run them as well:
 
-- **Lint and format:** `npm run lint` (Biome). Use `npm run format` to auto-fix.
+- **Biome:** `npm run lint` runs `biome check .` (no writes). `npm run format` applies fixes (`biome check . --write`). There is no ESLint/Prettier in this repo.
 - **Type-check:** `npx tsc --noEmit`
 - **Tests:** `npm test`
 - **Guards (if you touched relevant files):**

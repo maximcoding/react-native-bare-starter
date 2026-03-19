@@ -21,7 +21,7 @@ shared/services/
 ```
 
 ## Must
-- All HTTP calls must go through `http/axios.instance.ts` or a `transport/` adapter — never bare `fetch`.
+- All HTTP calls must go through `http/http.client.ts` (exported `httpClient`) / `http/api.ts` helpers or a `transport/` adapter — never bare `fetch`.
 - Every adapter must pass responses through `normalize-error.ts` for consistent error shapes.
 - React Query client configuration (staleTime, retry, persistence) must live in `query/policy/` and `query/client/` — not scattered across feature hooks.
 - MMKV key strings must be imported from `src/config/constants.ts`.

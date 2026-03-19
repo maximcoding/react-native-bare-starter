@@ -2,7 +2,7 @@
 
 ![React Native](https://img.shields.io/badge/React%20Native-0.82.1-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/React-19.1-61DAFB?logo=react&logoColor=white)
+![React](https://img.shields.io/badge/React-19.1.1-61DAFB?logo=react&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen?logo=node.js)
 
@@ -35,12 +35,11 @@ Full setup (prerequisites, env, scripts): see [Getting Started](#getting-started
 - [Hooks](#hooks)
 - [Architecture Overview](#architecture-overview)
 - [Feature Development](#feature-development)
-- [Theme](#theme)
+- [SVG Icons](#svg-icons)
 - [i18n Workflow](#i18n-workflow)
 - [Permissions](#permissions)
 - [CI/CD & Release](#cicd--release)
-- [Conventions](#conventions)
-- [Roadmap](#roadmap)
+- [Roadmap & backlog](docs/TODO.md)
 
 ---
 
@@ -82,8 +81,8 @@ If you need a managed workflow or a different stack, this starter is not for you
 | **SVG** | react-native-svg | ^15.15.1 | SVG rendering; icons auto-generated via `npm run gen:icons` |
 | **Splash Screen** | react-native-bootsplash | ^6.3.11 | `npm run bootsplash:generate` |
 | **Native Utils** | — | — | Device info, haptics, runtime permissions |
-| **Lint / Format** | Biome | ^2.4.8 | High-performance Lint and format in one tool |
-| **CI/CD** | GitHub Actions | — | Separate Android and iOS workflows; lint, test, build, release |
+| **Biome** | @biomejs/biome | ^2.4.8 | Single tool: format, lint rules, import organization (`biome check`) |
+| **CI/CD** | GitHub Actions | — | Android / iOS build workflows; run **Biome** and tests locally before push |
 
 ---
 
@@ -98,6 +97,7 @@ src/
 ├── shared/                     # Cross-app code (must NOT import from features)
 │   ├── components/ui/          # Button, Text, ScreenWrapper, OfflineBanner, IconSvg
 │   ├── hooks/                  # Shared hooks (useAppState, useToggle, …)
+│   ├── constants/              # Shared non-config constants (e.g. query tag lists)
 │   ├── services/
 │   │   ├── api/                # http, transport, query, network, offline
 │   │   └── storage/            # MMKV, cache, Zustand persistence adapter
@@ -169,8 +169,8 @@ npm run android
 | `npm start` | Start Metro bundler (with cache reset) |
 | `npm run ios` | Run on iOS simulator |
 | `npm run android` | Run on Android emulator/device |
-| `npm run lint` | Run Biome (lint + format check) |
-| `npm run format` | Run Biome and apply fixes (format, organize imports, safe fixes) |
+| `npm run lint` | **Biome:** `biome check .` (format + lint + import check; no writes) |
+| `npm run format` | **Biome:** `biome check . --write` (apply format, organize imports, safe fixes) |
 | `npm test` | Run Jest test suite |
 | `npx tsc --noEmit` | Type-check without emitting |
 
@@ -211,8 +211,20 @@ npm run android
 
 ## Documentation
 
-- [Permissions (bare RN)](docs/permissions-bare-rn.md) — Catalog of Android/iOS permissions and how to declare them.
-- [Mobile E2E guide additions](docs/MOBILE_E2E_GUIDE_additions.md) — E2E testing notes and tooling.
+**Where to look (single source of truth by topic)**
+
+| Topic | Doc |
+|-------|-----|
+| Onboarding, commands, overview | This README |
+| Agent rules (Cursor, coding agents) | [AGENTS.md](AGENTS.md) |
+| Claude Code stack reference | [.claude/CLAUDE.md](.claude/CLAUDE.md) |
+| Extended policies & PR checklists | [docs/MOBILE_E2E_GUIDE_additions.md](docs/MOBILE_E2E_GUIDE_additions.md) |
+| Roadmap & backlog | [docs/TODO.md](docs/TODO.md) |
+
+**Guides**
+
+- [Permissions (bare RN)](docs/permissions-bare-rn.md) — Android/iOS permission catalog.
+- [Mobile E2E guide additions](docs/MOBILE_E2E_GUIDE_additions.md) — Production mobile guidelines (state, Query, navigation, CI); paths match this repo.
 
 ---
 
@@ -265,10 +277,10 @@ Reusable hooks in `@/shared/hooks` — import and use across any feature.
 
 ### Navigation
 
-- Root Navigator switches `ROOT_AUTH` (AuthStack) ↔ `ROOT_APP` (AppStack + Tabs)
+- Root stack (`src/navigation/root/root-navigator.tsx`): `ROOT_ONBOARDING` (OnboardingStack), `ROOT_AUTH` (AuthStack), `ROOT_APP` (HomeTabs) — initial route from `getBootstrapRoute()` in `src/session/bootstrap.ts`
 - Route names: `src/navigation/routes.ts`
-- Options: `navigation.tokens.ts`, `navigation.presets.ts`
-- ParamLists: per-feature `param-list.ts`; root in `root-param-list.ts`
+- Options: `src/navigation/options/navigation.tokens.ts`, `src/navigation/options/navigation.presets.ts`
+- ParamLists: per-feature `param-list.ts`; root in `src/navigation/root-param-list.ts`
 
 ### Theme System
 
@@ -280,13 +292,12 @@ Reusable hooks in `@/shared/hooks` — import and use across any feature.
 
 ### Transport & Services
 
-Transport layer, abstracts the data source. 
-Feature services use it; 
-Zod validates responses; mappers convert to domain models.
+`src/shared/services/api/transport/` — `setTransport()` in `App.tsx` picks an adapter (e.g. REST vs mock via `flags.USE_MOCK` in `src/config/constants.ts`). Feature services call the transport; screens use feature services only. Zod validates responses; mappers convert to domain models.
 
 | Adapter | Use case |
 |---------|----------|
 | `rest.adapter.ts` | REST (apisauce) |
+| `mock.adapter.ts` | Local / dev mock data |
 | `graphql.adapter.ts` | GraphQL |
 | `websocket.adapter.ts` | WebSocket |
 | `firebase.adapter.ts` | Firebase |
@@ -297,10 +308,10 @@ Flow: Offline → queue buffers mutations → online → sync replays queue → 
 
 | File | Role |
 |------|------|
-| `offline-queue.ts` | Buffer mutations while offline |
-| `sync-engine.ts` | Replay queue when online |
-| `cache-engine.ts` | Snapshots for offline reads |
-| `netinfo.ts` | NetInfo wrapper |
+| `src/shared/services/api/offline/offline-queue.ts` | Buffer mutations while offline |
+| `src/shared/services/api/offline/sync-engine.ts` | Replay queue when online |
+| `src/shared/services/storage/cache-engine.ts` | Snapshots for offline reads |
+| `src/shared/services/api/network/netinfo.ts` | NetInfo wrapper |
 
 ### React Query
 
@@ -315,9 +326,9 @@ Flow: Offline → queue buffers mutations → online → sync replays queue → 
 
 | Need | Use | Where |
 |------|-----|-------|
-| Key-value (sync) | MMKV | `kvStorage` from `mmkv.ts`; keys in `constants.ts` |
-| Server / API data | TanStack Query | Feature `api/keys.ts`; see `useMeQuery`, `useLoginMutation` |
-| Global UI state | Zustand | `app.store.ts`; persisted via MMKV adapter — no server data |
+| Key-value (sync) | MMKV | `src/shared/services/storage/mmkv.ts` (`kvStorage`); key names in `src/config/constants.ts` |
+| Server / API data | TanStack Query | Feature `api/keys.ts`; e.g. `useMeQuery`, `useLoginMutation` |
+| Global UI state | Zustand | `src/shared/stores/app.store.ts`; `zustand-mmkv-storage.ts` — no server data |
 
 ---
 
@@ -341,10 +352,9 @@ src/features/<feature-name>/
 
 2. **Build screens** using `ScreenWrapper` as the root and theme-driven components — not raw RN views.
 
-3. **Add translations** in `src/i18n/locales/ . Run `npm run i18n:all` after.
+3. **Add translations** in `src/i18n/locales/en.json` (and `de.json`, `ru.json`). Run `npm run i18n:all` after.
 
-4. **Service layer** — API logic in `src/features/<name>/services/`; include a Zod schema, a mapper, and a service module. 
-Never call `infra` directly from screens.
+4. **Service layer** — API logic in `src/features/<name>/services/`; include a Zod schema, a mapper, and a service module. Screens use feature services only — not the shared HTTP layer directly.
 
 5. **Wire navigation** — add the route in `src/navigation/routes.ts`, `ParamList` entry, register in stack/tab.
 
@@ -456,7 +466,7 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 Separate workflows are provided for Android and iOS:
 
-- **Feature branches:** lint, test, and build check only — fast feedback, no release artifacts.
+- **Feature branches:** Biome check, tests, and build checks — fast feedback, no release artifacts.
 - **Release tags (`vX.Y.Z`) or `release/*` branches:** full release build; optional upload to Google Play Internal (Android AAB) or TestFlight (iOS IPA).
 
 ### Local Release Builds
@@ -477,8 +487,10 @@ npm run android:build:release
 
 ### Splash Screen
 
-Regenerate the splash screen after changing `assets/bootsplash-logo.svg`:
+Regenerate native splash assets after changing the **logo source** used by the script (see `bootsplash:generate` in `package.json` — currently `assets/logo.png`):
 
 ```bash
 npm run bootsplash:generate
 ```
+
+Output goes under `assets/bootsplash/` (and native projects are updated by the CLI).

@@ -4,7 +4,7 @@ Brief description of the change.
 
 ## Checklist
 
-- [ ] `npm run lint` passes
+- [ ] `npm run lint` passes (Biome — `biome check .`)
 - [ ] `npm test` passes
 - [ ] `npx tsc --noEmit` passes
 - [ ] No unrelated changes (refactors/formatting in a separate PR)

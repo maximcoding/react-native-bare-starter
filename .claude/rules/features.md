@@ -24,7 +24,7 @@ src/features/<name>/
 - Services must validate every API response with a Zod schema and map it to a domain model before returning.
 - Query keys must be defined in `api/keys.ts` using the format `[feature, entity, id?, params?]`.
 - Mutations must include `meta.tags` for targeted React Query invalidation.
-- Route constants must be added to `src/shared/navigation/routes.ts`; ParamList entries to this feature's `navigation/param-list.ts`.
+- Route constants must be added to `src/navigation/routes.ts`; ParamList entries to this feature's `navigation/param-list.ts`.
 
 ## Must not
 - **Features must never import from other features** (`src/features/auth` must not import `src/features/user`). Cross-feature data flows through shared services or React Query.

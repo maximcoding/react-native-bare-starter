@@ -1,7 +1,9 @@
 # MOBILE E2E GUIDELINES (PRODUCTION MOBILE ENGINEERING)
 
-**Scope:** React Native 0.75+, TypeScript (strict), offline-first, pure native modules, enterprise feature-first architecture.  
+**Scope:** React Native 0.82+ (align with this repo’s `package.json`), TypeScript (strict), offline-first, bare workflow, feature-first architecture.  
 **Mode:** Guidelines only — no implementations or code.
+
+**Repository alignment (this starter):** `src/navigation/`, `src/session/`, `src/config/`, and `src/i18n/` live at the `src/` root — not under `shared/`. HTTP, transport, query, network, and offline code live under `src/shared/services/api/`. Error helpers: `src/shared/utils/normalize-error.ts`. **Path aliases:** `@/*` and `@assets/*` only (`tsconfig.json`). Treat references to legacy `infra/` or `shared/navigation/` in older notes as mapped to those paths.
 
 ---
 
@@ -34,25 +36,25 @@ fastlane/          # lanes & metadata
 src/               # application code only
 ```
 
-### Deeper `src/` Layout
+### Deeper `src/` Layout (this repo)
 
 ```
 src/
-  shared/         # all cross-app code
-    navigation/
-    components/ui/
-    components/features/
-    hooks/
-    services/api/
-    services/storage/
-    stores/
-    utils/        # + platform/
-    theme/
-    session/
-    types/
+  navigation/     # stacks, tabs, routes, modals — imports features
+  session/        # bootstrap, logout, session bridge
   config/
   i18n/
-  features/
+  shared/         # cross-app code — must NOT import from features
+    components/ui/
+    hooks/
+    constants/        # shared non-config constants (not MMKV key names)
+    services/api/     # http, transport, query, network, offline
+    services/storage/
+    stores/
+    utils/            # normalize-error, toast, platform/
+    theme/
+    types/
+  features/<name>/
 ```
 
 > **Removed:** `_deprecated` folders; `assets/index.ts` does **not** exist.
@@ -80,14 +82,14 @@ src/
 - Screen-only components may live next to the screen file when not reused.
 
 ### C3) Navigation
-- React Navigation v6+: **Root** (App/Auth/Onboarding + Modals/**Half-Sheet**) → **Stack** → **Tabs**.
+- React Navigation v7 (this repo): root stack exposes **`ROOT_ONBOARDING`**, **`ROOT_AUTH`**, **`ROOT_APP`** (`src/navigation/root/root-navigator.tsx`); bootstrap in `src/session/bootstrap.ts`. Below that: stacks, tabs, modals / half-sheet as implemented.
 - **Presets:** base, header/back, full modal, half-sheet modal, tab options (**height 60px**, **no border**).
-- **Centralized routes:** `shared/navigation/routes.ts` + feature `navigation/param-list.ts`; root shell: `shared/navigation/root-param-list.ts`.
-- **Provider order:** **I18n → Theme → Query Provider → NavigationContainer** (policy).
+- **Centralized routes:** `src/navigation/routes.ts` + per-feature `src/features/<feature>/navigation/param-list.ts`; root shell: `src/navigation/root-param-list.ts`.
+- **Provider order (match `App.tsx`):** load i18n module first (side-effect import), then **`ThemeProvider` → `QueryProvider` → `NavigationContainer`**, inside **`SafeAreaProvider`** and **`GestureHandlerRootView`**.
 - Half-sheet rules: drag-to-close, velocity dismiss, backdrop tap closes, safe-area padding (guideline).
 
 ### C4) State Management (Global UI) — **Zustand**
-- **Slices only** (e.g., `auth.store.ts`, `prefs.store.ts`); **no monolithic** store.
+- Prefer **focused slices** (e.g. `auth.store.ts`, `prefs.store.ts`) when complexity grows; this starter may ship a single `app.store.ts` — split only when it helps clarity.
 - **What to store:** flags, enums, selected IDs, tiny derived booleans (e.g., `isLoggedIn`).
 - **What not to store:** server collections/entities (React Query owns server state).
 - **Actions:** atomic, predictable; **no side effects** inside store definitions.
@@ -98,7 +100,7 @@ src/
 ### C5) Server State — **React Query (Guidelines Only)**
 - **Keys format:** `[feature, entity, id?, params?]`
   - Pagination: `[feature, entity, 'infinite', params]`.
-  - Keys built via helpers (infra `query/keys` or feature `api/keys.ts`) — **never** in components.
+  - Keys built via helpers (`src/shared/services/api/query/keys/factory.ts` or feature `api/keys.ts`) — **never** in components.
 - **Freshness profiles:**
   - **realtime**: stale 0–5s; refetchOnFocus true; interval 5–15s **or** WS/Push invalidation.
   - **nearRealtime**: stale 30–120s; refetch on focus & reconnect.
@@ -135,15 +137,15 @@ src/
 - Responses validated via **Zod**.
 - **Forbid:** `fetch` and inline axios in screens/components.
 
-### C7) Transport, Offline & Network
-- **Transport layer:** `infra/transport/transport.ts` with adapters: REST/GraphQL/WebSocket/Firebase.
-- **NetInfo:** `infra/network/netinfo.ts` toggles `transport.setOfflineMode`.
-- **Offline queue:** `infra/offline/offline-queue.ts` (FIFO mutations while offline).
-- **Sync engine:** `infra/offline/sync-engine.ts` replays on reconnect; stop on first fatal error; then **invalidate by tags**.
-- **Cache engine:** `infra/storage/cache-engine.ts` — in-memory snapshots (future MMKV/SQLite).
+### C7) Transport, Offline & Network (paths in this repo)
+- **Transport layer:** `src/shared/services/api/transport/` — adapters: REST, mock, GraphQL, WebSocket, Firebase (`App.tsx` selects via `setTransport` / feature flags).
+- **NetInfo:** `src/shared/services/api/network/netinfo.ts` (bridges network mode for Query / transport as implemented).
+- **Offline queue:** `src/shared/services/api/offline/offline-queue.ts` (FIFO mutations while offline).
+- **Sync engine:** `src/shared/services/api/offline/sync-engine.ts` — replay on reconnect; stop on first fatal error; then **invalidate by tags**.
+- **Cache engine:** `src/shared/services/storage/cache-engine.ts` — snapshots for offline reads.
 
 ### C8) Error Handling
-- Single normalization point: `infra/error/normalize-error.ts`.
+- Single normalization point: `src/shared/utils/normalize-error.ts`.
 - **UI never sees raw API errors**; only normalized shape.
 - **ErrorBoundary is required** for fatal UI crashes.
 - Logging redacts sensitive info (Authorization).
@@ -179,7 +181,7 @@ src/
 - Snapshots for simple UI only; behavior tests for logic.
 
 ### C14) CI/CD & OTA
-- **CI (GitHub Actions):** lint → typecheck → test → Android AAB → iOS IPA; cache Gradle/Pods; upload artifacts.
+- **CI (GitHub Actions):** Biome (`biome check`) → typecheck → test → Android AAB → iOS IPA; cache Gradle/Pods; upload artifacts.
 - **Guards:**
   - `check:icons` — `assets/icons.ts` freshness vs `assets/svgs/**`.
   - Import path policy — **no deep relatives**, use aliases only.
@@ -190,11 +192,11 @@ src/
 - TS **strict**; named imports; default exports **only** for React components.
 - Functional components; hooks start with `use`.
 - Filenames: components **PascalCase**, hooks **camelCase**, stores/services **kebab-case**.
-- **No deep relative imports**; use absolute imports; Biome (lint + format) enforced in CI.
+- **No deep relative imports**; use absolute imports; **Biome** (`biome check`) enforced in CI when configured.
 
-### C16) Path Aliases & Types
-- `@assets/*` → `assets/*`; `@/*`, `@app/*`, `@features/*`, `@core/*`, `@infra/*`, `@types/*`.
-- `src/types/globals.d.ts` declares `*.svg` as react-native-svg components.
+### C16) Path Aliases & Types (this repo)
+- **`@/*`** → `src/*`; **`@assets/*`** → `assets/*` (see `tsconfig.json`). Do not assume `@infra/*`, `@core/*`, etc. — they are not configured here.
+- Global SVG module declarations: `src/shared/types/globals.d.ts` (and related) for `*.svg` as react-native-svg components.
 
 ### C17) Icons Generator & Tooling
 - `scripts/generate-icons.js` produces `assets/icons.ts` with `@assets/svgs/...` imports.
@@ -240,7 +242,7 @@ src/
 
 **React Query PR Checklist**
 - [ ] Keys via `api/keys.ts` (not in components).
-- [ ] Freshness profile from `policy/freshness.ts` (no magic numbers).
+- [ ] Freshness profile from `src/shared/services/api/query/policy/freshness.ts` (no magic numbers).
 - [ ] Mutations include `meta.tags`; `api/keys.ts` contains tag→keys mapping.
 - [ ] Zod validation before caching.
 - [ ] Normalized errors only.
@@ -259,7 +261,7 @@ src/
 - [ ] Routes from centralized `routes.ts`.
 - [ ] ParamLists typed; presets used (base/header/back/full/half/tab).
 - [ ] Half-sheet/modal follow gesture/backdrop/safe-area rules.
-- [ ] Provider order respected (I18n → Theme → Query → Nav).
+- [ ] Provider order matches `App.tsx` (i18n init → Theme → Query → Nav; SafeArea + gesture wrappers).
 
 **Assets & Theming PR Checklist**
 - [ ] No raw colors/spacing/fonts; tokens only.

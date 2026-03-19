@@ -1,6 +1,6 @@
 # CLAUDE.md — React Native Project
 
-**Single source of truth** for Claude Code / AI agent context in this repo.
+**Claude Code context** for this repo. **Canonical agent rules:** [AGENTS.md](../AGENTS.md) at the repo root (structure, don’ts, “when adding”). This file duplicates stack/commands for Claude; on conflict, prefer **AGENTS.md** and the codebase.
 
 ## Project Overview
 
@@ -29,6 +29,7 @@ src/
 ├── shared/                # Cross-cutting code — must NOT import from features
 │   ├── components/ui/     # Button, Text, ScreenWrapper, …
 │   ├── hooks/
+│   ├── constants/         # shared non-config constants (not storage keys)
 │   ├── services/api|storage/
 │   ├── stores/
 │   ├── theme/
@@ -58,8 +59,8 @@ npm run android
 npm test
 npm test -- --testPathPattern=<path>
 
-# Lint & type check
-npm run lint
+# Biome & type check
+npm run lint   # biome check .
 npx tsc --noEmit
 
 # i18n
@@ -124,7 +125,7 @@ npm run android:build:release   # Android
 
 - **Android:** KeyboardAvoidingView behavior; Hermes — date/i18n polyfills if needed; use `react-native-safe-area-context` for safe areas.
 - **iOS:** SafeAreaView from RN vs safe-area-context; simulator limitations for push/keys as noted in guides.
-- **General:** Provider order: I18n → Theme → Query Provider → NavigationContainer (see `docs/MOBILE_E2E_GUIDE_additions.md`).
+- **General:** Match `App.tsx`: side-effect `import '@/i18n/i18n'` before UI tree; then `ThemeProvider` → `QueryProvider` → `NavigationContainer` (wrapped by `SafeAreaProvider` and `GestureHandlerRootView`).
 
 ## Terminology
 
@@ -134,12 +135,20 @@ npm run android:build:release   # Android
 
 ## References
 
-- **Navigation:** `src/navigation/`. **Routes / theme / query:** under `src/shared/`.
-- **Services:** feature-specific in `src/features/<name>/services/`.
+- **Navigation & route constants:** `src/navigation/` (`routes.ts`, stacks, tabs).
+- **Theme & query client infra:** `src/shared/theme/`, `src/shared/services/api/query/`.
+- **Feature API logic:** `src/features/<name>/services/`.
 
 ## Docs
 
-README = human-facing project docs. CHANGELOG = version history. `docs/` = extended guides (E2E, TODO). This file = AI/agent single source.
+| Audience | Doc |
+|----------|-----|
+| Humans | [README.md](../README.md) |
+| Cursor / agents | [AGENTS.md](../AGENTS.md) |
+| Claude Code | This file |
+| Extended guidelines | [docs/MOBILE_E2E_GUIDE_additions.md](../docs/MOBILE_E2E_GUIDE_additions.md) |
+| Backlog | [docs/TODO.md](../docs/TODO.md) |
+| Versions | [CHANGELOG.md](../CHANGELOG.md) |
 
 ## MCP Servers
 

@@ -9,14 +9,14 @@
  *     Sync-engine will replay and invalidate by tags.
  */
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { z } from 'zod';
-
-import { transport } from '@/infra/transport/transport';
-import { invalidateByTags } from '@/infra/query/helpers/invalidate-by-tags';
-import { userKeys } from '@/features/user/api/keys';
-import { authKeys } from '@/features/auth/api/keys';
-import { OPS } from '@/infra/transport/operations';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { z } from 'zod'
+import { authKeys } from '@/features/auth/api/keys'
+import { userKeys } from '@/features/user/api/keys'
+import { SESSION_RELATED_QUERY_TAGS } from '@/shared/constants'
+import { invalidateByTags } from '@/shared/services/api/query/helpers/invalidate-by-tags'
+import { OPS } from '@/shared/services/api/transport/operations'
+import { transport } from '@/shared/services/api/transport/transport'
 
 const UpdateProfileInput = z
   .object({
@@ -26,32 +26,33 @@ const UpdateProfileInput = z
   })
   .refine(v => Object.keys(v).length > 0, {
     message: 'At least one field required',
-  });
+  })
 
-export type UpdateProfileInput = z.infer<typeof UpdateProfileInput>;
+export type UpdateProfileInput = z.infer<typeof UpdateProfileInput>
 
-type TransportResult = { offline?: boolean; queued?: boolean } | unknown;
-
-const TAGS = ['user:me', 'user:list', 'auth:me', 'auth:session'] as const;
+type TransportResult = { offline?: boolean; queued?: boolean } | unknown
 
 export function useUpdateProfile() {
-  const qc = useQueryClient();
+  const qc = useQueryClient()
 
   return useMutation({
     mutationKey: ['user', 'updateProfile'],
 
     mutationFn: async (payload: UpdateProfileInput) => {
-      const parsed = UpdateProfileInput.parse(payload);
+      const parsed = UpdateProfileInput.parse(payload)
 
       return transport.mutate(OPS.USER_UPDATE_PROFILE, parsed, {
-        tags: TAGS,
-      }) as Promise<TransportResult>;
+        tags: SESSION_RELATED_QUERY_TAGS,
+      }) as Promise<TransportResult>
     },
 
     onSuccess: async result => {
-      if ((result as any)?.queued) return;
+      if ((result as any)?.queued) return
 
-      await invalidateByTags(qc, TAGS, [userKeys.tagMap, authKeys.tagMap]);
+      await invalidateByTags(qc, SESSION_RELATED_QUERY_TAGS, [
+        userKeys.tagMap,
+        authKeys.tagMap,
+      ])
     },
-  });
+  })
 }

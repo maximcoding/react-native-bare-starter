@@ -3,6 +3,6 @@ module.exports = {
     './assets/fonts/',
     './assets/images',
     './assets/splash',
-    './assets/svgs'
+    './assets/svgs',
   ],
-};
+}

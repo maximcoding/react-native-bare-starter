@@ -1,0 +1,44 @@
+{
+  "app": {
+    "title": "My App"
+  },
+
+  "home": {
+    "title": "Home",
+    "subtitle": "Welcome!",
+    "go_settings": "Go to Settings",
+    "hello": "Hello!"
+  },
+
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "theme_light": "Light",
+    "theme_dark": "Dark",
+    "theme_system": "System",
+    "about": "About",
+    "version": "Version",
+    "logout": "Log out",
+    "language": {
+      "choose": "Choose a language",
+      "label": "Language",
+      "english": "English",
+      "russian": "Russian",
+      "german": "German"
+    }
+  },
+
+  "onboarding": {
+    "welcome": "Welcome!",
+    "continue": "Continue"
+  },
+
+  "auth": {
+    "title": "Authorization",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login"
+  }
+}

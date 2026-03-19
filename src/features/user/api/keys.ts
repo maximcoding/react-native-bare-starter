@@ -6,28 +6,32 @@
  *   Infinite pagination: [feature, entity, 'infinite', params]
  */
 
-import { byIdKey, infiniteKey, qk } from '@/infra/query/keys/factory';
-import type { TagMap } from '@/infra/query/tags';
+import {
+  byIdKey,
+  infiniteKey,
+  qk,
+} from '@/shared/services/api/query/keys/factory'
+import type { TagMap } from '@/shared/services/api/query/tags'
 
 // ---- key builders (NO self-reference) ----
 
-const me = () => byIdKey('user', 'profile', 'me');
+const me = () => byIdKey('user', 'profile', 'me')
 
-const byId = (id: string | number) => byIdKey('user', 'profile', id);
+const byId = (id: string | number) => byIdKey('user', 'profile', id)
 
 const infinite = (params?: Record<string, unknown>) =>
-  infiniteKey('user', 'list', params);
+  infiniteKey('user', 'list', params)
 
 const prefixes = {
   profiles: () => qk('user', 'profile'),
   listInfinite: () => qk('user', 'list', 'infinite'),
-} as const;
+} as const
 
 const tagMap = {
   'user:me': [me],
   'user:profiles': [prefixes.profiles],
   'user:list': [prefixes.listInfinite],
-} as const satisfies TagMap;
+} as const satisfies TagMap
 
 // ---- exported API ----
 
@@ -37,6 +41,6 @@ export const userKeys = {
   infinite,
   prefixes,
   tagMap,
-} as const;
+} as const
 
-export type UserTag = keyof typeof tagMap;
+export type UserTag = keyof typeof tagMap

@@ -7,20 +7,19 @@ jest.mock('react-native-config', () => ({
     API_BASE_URL: 'http://localhost',
     API_TIMEOUT_MS: '15000',
   },
-}));
-
+}))
 
 jest.mock('react-native-bootsplash', () => ({
   hide: jest.fn().mockResolvedValue(undefined),
   show: jest.fn().mockResolvedValue(undefined),
   getVisibilityStatus: jest.fn().mockResolvedValue('hidden'),
-}));
+}))
 
 jest.mock('react-native-worklets', () => {
   const mockSerializable = {
     set: jest.fn(),
     get: jest.fn(),
-  };
+  }
 
   return {
     useWorklet: jest.fn(),
@@ -36,13 +35,13 @@ jest.mock('react-native-worklets', () => {
       defaultContext: {},
     },
     __workletFactory: jest.fn(fn => fn),
-  };
-});
+  }
+})
 
 // Don't use the reanimated mock - create our own
 jest.mock('react-native-reanimated', () => {
-  const React = require('react');
-  const { View, Text, Image, ScrollView } = require('react-native');
+  const _React = require('react')
+  const { View, Text, Image, ScrollView } = require('react-native')
 
   return {
     default: {
@@ -80,12 +79,12 @@ jest.mock('react-native-reanimated', () => {
       quad: jest.fn(),
       bezier: jest.fn(),
     },
-  };
-});
+  }
+})
 
 // Mock gesture handler
 jest.mock('react-native-gesture-handler', () => {
-  const View = require('react-native').View;
+  const View = require('react-native').View
   return {
     GestureDetector: View,
     GestureHandlerRootView: View,
@@ -93,5 +92,5 @@ jest.mock('react-native-gesture-handler', () => {
       Pan: jest.fn(() => ({ enabled: jest.fn().mockReturnThis() })),
       Tap: jest.fn(() => ({ enabled: jest.fn().mockReturnThis() })),
     },
-  };
-});
+  }
+})

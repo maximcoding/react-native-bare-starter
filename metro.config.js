@@ -1,7 +1,7 @@
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
 
 module.exports = (async () => {
-  const defaultConfig = await getDefaultConfig(__dirname);
+  const defaultConfig = await getDefaultConfig(__dirname)
 
   return mergeConfig(defaultConfig, {
     transformer: {
@@ -11,5 +11,5 @@ module.exports = (async () => {
       assetExts: defaultConfig.resolver.assetExts.filter(ext => ext !== 'svg'),
       sourceExts: [...defaultConfig.resolver.sourceExts, 'svg'],
     },
-  });
-})();
+  })
+})()

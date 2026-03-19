@@ -1,23 +1,23 @@
-import { useCallback } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { normalizeError } from '@/infra/error/normalize-error';
-import { AuthService } from '@/features/auth/services/auth/auth.service.ts';
+import { useQueryClient } from '@tanstack/react-query'
+import { useCallback } from 'react'
+import { AuthService } from '@/features/auth/services/auth/auth.service'
+import { normalizeError } from '@/shared/utils/normalize-error'
 
 export function useLogout() {
-  const qc = useQueryClient();
+  const qc = useQueryClient()
 
   return useCallback(async () => {
     try {
       // AuthService.logout -> performLogout() inside
       // but we also pass qc to hard-clear in-memory cache
       // (we added performLogout(qc) support)
-      await AuthService.logout();
+      await AuthService.logout()
 
       // safety: clear in-memory queries even if service didn't pass qc
-      await qc.cancelQueries().catch(() => undefined);
-      qc.clear();
+      await qc.cancelQueries().catch(() => undefined)
+      qc.clear()
     } catch (e) {
-      throw normalizeError(e);
+      throw normalizeError(e)
     }
-  }, [qc]);
+  }, [qc])
 }

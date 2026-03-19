@@ -7,7 +7,7 @@
 
 ## A) PROJECT PRINCIPLES
 
-- Pure React Native (**no Expo**).
+- Pure React Native (bare workflow).
 - No Firebase **unless** added via RFC + security review.
 - No Tailwind/NativeWind/Styled Components — **pure RN theming** only.
 - Feature-first modular architecture under `src/features`.
@@ -38,37 +38,21 @@ src/               # application code only
 
 ```
 src/
-  app/             # presentation layer (UI kit + navigation + cross-app hooks/state)
-    components/    # stateless primitives (theme-based)
-    hooks/         # cross-app hooks
-    navigation/    # root/stacks/tabs, options/presets/tokens, modals (global/half-sheet)
-      helpers/ modals/ options/ root/ stacks/ tabs/ types/ routes.ts index.ts
-    state/         # cross-feature Zustand slices (global UI only)
-
-  features/        # feature packages (auth, user, home, settings, …)
-    <feature>/
-      screens/ components/ hooks/ services/ stores/
-      models/   # Zod schemas + mappers
-      api/      # query keys + endpoint defs
-
-  core/
-    config/       # app-config.ts, env.ts, feature-flags.ts, constants.ts
-    i18n/         # i18n.ts, parser config, typed useT, locales (en/de/ru)
-    native/       # device-info, haptics, permissions (JS wrappers)
-    theme/        # tokens, light/dark, ThemeProvider, useTheme
-    utils/        # cross-cutting utilities
-
-  infra/
-    error/        # normalize-error.ts
-    http/         # axios.instance + interceptors + thin api.ts helper
-    network/      # netinfo.ts (online/offline bridge)
-    offline/      # offline-queue.ts, sync-engine.ts (replay)
-    storage/      # mmkv.ts (KV abstraction), cache-engine.ts (snapshots)
-    transport/    # adapters(rest/graphql/websocket/firebase), transport.ts, types
-    query/        # client/provider, keys factory, policies, netmode, persistence (guidelines only)
-
-  types/
-    globals.d.ts  # svg declarations for react-native-svg components
+  shared/         # all cross-app code
+    navigation/
+    components/ui/
+    components/features/
+    hooks/
+    services/api/
+    services/storage/
+    stores/
+    utils/        # + platform/
+    theme/
+    session/
+    types/
+  config/
+  i18n/
+  features/
 ```
 
 > **Removed:** `_deprecated` folders; `assets/index.ts` does **not** exist.
@@ -87,13 +71,18 @@ src/
 ### C2) Theming & UI Kit
 - **Tokens:** spacing, radius, typography, elevation, **semantic colors** (light/dark parity).
 - **No inline** hex/spacing/fonts; use tokens everywhere.
-- **UI Kit:** `src/app/components/ui/` — stateless, theme-driven primitives; no business/API logic; static styles via `StyleSheet.create`.
+- **UI Kit:** `src/shared/components/ui/` — stateless, theme-driven primitives.
 - Every screen is **theme-aware** (light/dark).
+
+### C2.1) Feature folder layout
+- **Feature-first:** all product code under `features/<feature>/` using slices: `screens/`, `components/`, `hooks/`, `services/`, `api/`, `navigation/` (ParamLists).
+- **Do not** create global app trees at `src/` root. Cross-feature UI: `shared/components/ui/`.
+- Screen-only components may live next to the screen file when not reused.
 
 ### C3) Navigation
 - React Navigation v6+: **Root** (App/Auth/Onboarding + Modals/**Half-Sheet**) → **Stack** → **Tabs**.
 - **Presets:** base, header/back, full modal, half-sheet modal, tab options (**height 60px**, **no border**).
-- **Centralized routes:** `app/navigation/routes.ts` (as const) + typed ParamLists under `app/navigation/types`.
+- **Centralized routes:** `shared/navigation/routes.ts` + feature `navigation/param-list.ts`; root shell: `shared/navigation/root-param-list.ts`.
 - **Provider order:** **I18n → Theme → Query Provider → NavigationContainer** (policy).
 - Half-sheet rules: drag-to-close, velocity dismiss, backdrop tap closes, safe-area padding (guideline).
 
@@ -160,7 +149,7 @@ src/
 - Logging redacts sensitive info (Authorization).
 
 ### C9) Native Modules
-- Swift/Kotlin under platform projects; JS wrappers in `src/core/native`.
+- Swift/Kotlin under platform projects; JS wrappers in `src/shared/utils/platform/`.
 - Use only allow-listed native deps; permissions via `react-native-permissions`.
 
 ### C10) Performance
@@ -201,7 +190,7 @@ src/
 - TS **strict**; named imports; default exports **only** for React components.
 - Functional components; hooks start with `use`.
 - Filenames: components **PascalCase**, hooks **camelCase**, stores/services **kebab-case**.
-- **No deep relative imports**; use absolute imports; ESLint + Prettier enforced in CI.
+- **No deep relative imports**; use absolute imports; Biome (lint + format) enforced in CI.
 
 ### C16) Path Aliases & Types
 - `@assets/*` → `assets/*`; `@/*`, `@app/*`, `@features/*`, `@core/*`, `@infra/*`, `@types/*`.
@@ -222,7 +211,7 @@ src/
 
 ### C19) AI Agent Rules
 - **MUST:** follow folder structure & theme system; use UI Kit only; TS strict; typed navigation; provide full file paths when outputting code; ask for missing context.
-- **MUST NOT:** add new deps; break structure; use inline styles (except dynamic); use `fetch`; use Redux/Tailwind/NativeWind; use Expo.
+- **MUST NOT:** add new deps; break structure; use inline styles (except dynamic); use `fetch`; use Redux/Tailwind/NativeWind.
 
 ---
 

@@ -29,55 +29,56 @@
  *   - Add logout, refresh, MFA, register, etc.
  * ---------------------------------------------------------------------
  */
-import { transport } from '@/infra/transport/transport';
-import { kvStorage } from '@/infra/storage/mmkv';
+
+import { constants, flags } from '@/config/constants'
+import { performLogout } from '@/session/logout'
+import { isOffline } from '@/shared/services/api/network/netinfo'
+import { OPS } from '@/shared/services/api/transport/operations'
+import { transport } from '@/shared/services/api/transport/transport'
+import { kvStorage } from '@/shared/services/storage/mmkv'
+import { AuthMapper } from './auth.mappers'
 import {
+  type LoginRequest,
   zLoginRequest,
   zLoginResponse,
-  type LoginRequest,
-} from './auth.schemas';
-import { AuthMapper, type AuthSession } from './auth.mappers';
-import { performLogout } from '@/core/session/logout';
-import { isOffline } from '@/infra/network/netinfo';
-import { constants, flags } from '@/core/config/constants';
-
-import { OPS } from '@/infra/transport/operations';
+} from './auth.schemas'
+import type { AuthSession } from './auth.types'
 
 export const AuthService = {
   async login(payload: LoginRequest): Promise<AuthSession> {
-    const ok = zLoginRequest.safeParse(payload);
+    const ok = zLoginRequest.safeParse(payload)
     if (!ok.success) {
-      throw new Error('Invalid login payload');
+      throw new Error('Invalid login payload')
     }
 
-    // ✅ если MOCK — не трогаем сеть вообще
+    // when MOCK is on, skip network entirely
     if (!flags.USE_MOCK) {
       if (isOffline()) {
-        const err: any = new Error('Offline: login requires network');
-        err.code = 'NETWORK_OFFLINE';
-        throw err;
+        const err: any = new Error('Offline: login requires network')
+        err.code = 'NETWORK_OFFLINE'
+        throw err
       }
     }
 
-    // ✅ Используем OPS (у тебя Operation = union из OPS)
-    const raw = await transport.mutate<unknown>(OPS.AUTH_LOGIN, ok.data);
+    // use OPS (Operation = union of OPS)
+    const raw = await transport.mutate<unknown>(OPS.AUTH_LOGIN, ok.data)
 
-    const validated = zLoginResponse.parse(raw);
-    const session = AuthMapper.toAuthSession(validated);
+    const validated = zLoginResponse.parse(raw)
+    const session = AuthMapper.toAuthSession(validated)
 
     // persist tokens under canonical keys (used by auth interceptor)
-    kvStorage.setString(constants.AUTH_TOKEN, session.token);
+    kvStorage.setString(constants.AUTH_TOKEN, session.token)
 
     if (session.refreshToken) {
-      kvStorage.setString(constants.REFRESH_TOKEN, session.refreshToken);
+      kvStorage.setString(constants.REFRESH_TOKEN, session.refreshToken)
     }
 
-    return session;
+    return session
   },
 
   async logout() {
-    kvStorage.delete(constants.AUTH_TOKEN);
-    kvStorage.delete(constants.REFRESH_TOKEN);
-    await performLogout();
+    kvStorage.delete(constants.AUTH_TOKEN)
+    kvStorage.delete(constants.REFRESH_TOKEN)
+    await performLogout()
   },
-};
+}

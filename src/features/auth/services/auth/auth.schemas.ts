@@ -22,12 +22,12 @@
  *   - Add schemas for registration, reset-password, MFA, etc.
  * ---------------------------------------------------------------------
  */
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const zLoginRequest = z.object({
   email: z.string().email(),
   password: z.string(),
-});
+})
 
 export const zLoginResponse = z.object({
   accessToken: z.string(),
@@ -36,7 +36,7 @@ export const zLoginResponse = z.object({
     id: z.string(),
     email: z.string().email(),
   }),
-});
+})
 
-export type LoginRequest = z.infer<typeof zLoginRequest>;
-export type LoginResponse = z.infer<typeof zLoginResponse>;
+export type LoginRequest = z.infer<typeof zLoginRequest>
+export type LoginResponse = z.infer<typeof zLoginResponse>

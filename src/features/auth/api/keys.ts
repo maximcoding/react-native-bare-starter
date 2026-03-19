@@ -15,23 +15,23 @@
  *   - Mutations specify meta.tags (e.g., 'auth:me') and use this map.
  */
 
-import { qk } from '@/infra/query/keys/factory';
-import type { TagMap } from '@/infra/query/tags';
+import { qk } from '@/shared/services/api/query/keys/factory'
+import type { TagMap } from '@/shared/services/api/query/tags'
 
 // ---- key builders (NO self-reference) ----
 
-const me = () => qk('auth', 'me');
-const session = () => qk('auth', 'session');
+const me = () => qk('auth', 'me')
+const session = () => qk('auth', 'session')
 
 const prefixes = {
   all: () => qk('auth'),
-} as const;
+} as const
 
 const tagMap = {
   'auth:me': [me],
   'auth:session': [session],
   'auth:all': [prefixes.all],
-} as const satisfies TagMap;
+} as const satisfies TagMap
 
 // ---- exported API ----
 
@@ -40,6 +40,6 @@ export const authKeys = {
   session,
   prefixes,
   tagMap,
-} as const;
+} as const
 
-export type AuthTag = keyof typeof tagMap;
+export type AuthTag = keyof typeof tagMap

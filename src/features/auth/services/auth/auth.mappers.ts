@@ -20,14 +20,8 @@
  *   - Add mappers for registration, MFA, profile update, etc.
  * ---------------------------------------------------------------------
  */
-import type { LoginResponse } from './auth.schemas';
-
-export type AuthSession = {
-  token: string;
-  refreshToken?: string;
-  userId: string;
-  email: string;
-};
+import type { LoginResponse } from './auth.schemas'
+import type { AuthSession } from './auth.types'
 
 export const AuthMapper = {
   toAuthSession(dto: LoginResponse): AuthSession {
@@ -36,6 +30,6 @@ export const AuthMapper = {
       refreshToken: dto.refreshToken,
       userId: dto.user.id,
       email: dto.user.email,
-    };
+    }
   },
-};
+}

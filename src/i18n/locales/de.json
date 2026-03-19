@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "Meine App"
+  },
+
+  "home": {
+    "title": "Startseite",
+    "subtitle": "Willkommen!",
+    "go_settings": "Zu den Einstellungen",
+    "hello": "Hallo!"
+  },
+
+  "settings": {
+    "title": "Einstellungen",
+    "account": "Konto",
+    "appearance": "Darstellung",
+    "theme": "Design",
+    "theme_light": "Hell",
+    "theme_dark": "Dunkel",
+    "theme_system": "System",
+    "about": "Info",
+    "version": "Version",
+    "logout": "Abmelden",
+    "language": {
+      "choose": "Sprache auswählen",
+      "label": "Sprache",
+      "english": "Englisch",
+      "russian": "Russisch",
+      "german": "Deutsch"
+    }
+  },
+
+  "onboarding": {
+    "welcome": "Willkommen!",
+    "continue": "Fortfahren"
+  },
+
+  "auth": {
+    "title": "Anmeldung",
+    "login": "Einloggen"
+  }
+}

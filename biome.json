@@ -1,0 +1,167 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "ignoreUnknown": false },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "complexity": {
+        "noAdjacentSpacesInRegex": "warn",
+        "noCommaOperator": "warn",
+        "noExcessiveCognitiveComplexity": "off",
+        "noExtraBooleanCast": "warn",
+        "noUselessEscapeInRegex": "warn",
+        "noUselessLoneBlockStatements": "warn",
+        "noUselessUndefinedInitialization": "warn",
+        "noVoid": "warn",
+        "useLiteralKeys": "warn",
+        "useMaxParams": "off"
+      },
+      "correctness": {
+        "noConstAssign": "error",
+        "noConstantCondition": "off",
+        "noEmptyCharacterClassInRegex": "warn",
+        "noGlobalObjectCalls": "warn",
+        "noInnerDeclarations": "off",
+        "noInvalidUseBeforeDeclaration": "off",
+        "noUndeclaredVariables": "error",
+        "noUnreachable": "error",
+        "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "error",
+        "useHookAtTopLevel": "error",
+        "useIsNan": "warn",
+        "useParseIntRadix": "warn",
+        "useValidTypeof": "warn"
+      },
+      "security": { "noGlobalEval": "error" },
+      "style": {
+        "noImplicitBoolean": "off",
+        "noNestedTernary": "off",
+        "noUselessElse": "off",
+        "noYodaExpression": "warn",
+        "useArrayLiterals": "warn",
+        "useBlockStatements": "off",
+        "useCollapsedElseIf": "off",
+        "useConsistentBuiltinInstantiation": "warn",
+        "useDefaultSwitchClause": "off",
+        "useSingleVarDeclarator": "off"
+      },
+      "suspicious": {
+        "noAlert": "warn",
+        "noAssignInExpressions": "warn",
+        "noBitwiseOperators": "warn",
+        "noCatchAssign": "warn",
+        "noCommentText": "error",
+        "noConfusingLabels": "warn",
+        "noConsole": "off",
+        "noControlCharactersInRegex": "warn",
+        "noDebugger": "warn",
+        "noDoubleEquals": "warn",
+        "noDuplicateClassMembers": "error",
+        "noDuplicateJsxProps": "error",
+        "noDuplicateObjectKeys": "error",
+        "noEmptyBlockStatements": "off",
+        "noFallthroughSwitchClause": "warn",
+        "noFocusedTests": "warn",
+        "noFunctionAssign": "warn",
+        "noGlobalAssign": "error",
+        "noLabelVar": "warn",
+        "noOctalEscape": "warn",
+        "noRedeclare": "off",
+        "noSelfCompare": "warn",
+        "noShadowRestrictedNames": "warn",
+        "noSkippedTests": "warn",
+        "noSparseArray": "warn",
+        "noUnusedExpressions": "off",
+        "noWith": "warn",
+        "useGuardForIn": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "asNeeded",
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    },
+    "globals": [
+      "setImmediate",
+      "WebSocket",
+      "requestAnimationFrame",
+      "Blob",
+      "Set",
+      "requestIdleCallback",
+      "Map",
+      "clearImmediate",
+      "Promise",
+      "__DEV__",
+      "File",
+      "queueMicrotask",
+      "test",
+      "it",
+      "expect",
+      "describe",
+      "beforeEach",
+      "afterEach",
+      "beforeAll",
+      "afterAll",
+      "jest"
+    ]
+  },
+  "html": {
+    "formatter": {
+      "indentScriptAndStyle": false,
+      "selfCloseVoidElements": "always"
+    }
+  },
+  "overrides": [
+    { "includes": ["*.js"], "linter": { "rules": {} } },
+    { "includes": ["*.jsx"] },
+    {
+      "includes": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "linter": { "rules": {} }
+    },
+    {
+      "includes": ["*.ts", "*.tsx"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredVariables": "off",
+            "noUnusedVariables": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "*.{spec,test}.{js,ts,tsx}",
+        "**/__{mocks,tests}__/**/*.{js,ts,tsx}"
+      ],
+      "linter": { "rules": {} }
+    }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": { "source": { "organizeImports": "on" } }
+  }
+}

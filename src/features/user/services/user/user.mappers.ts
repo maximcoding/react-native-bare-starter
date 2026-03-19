@@ -6,33 +6,27 @@
  *   Transform validated DTOs into domain-friendly User model.
  *
  * RESPONSIBILITIES:
- *   - UserProfileDTO → UserModel
+ *   - UserProfileDTO → User
  *
  * DATA-FLOW:
  *   validated DTO (user.schemas)
- *      → UserMapper.toUserModel()
+ *      → UserMapper.toUser()
  *         → domain model for UI/services/stores
  *
  * EXTENSION GUIDELINES:
  *   - Add mapping for roles, preferences, settings, etc.
  * ---------------------------------------------------------------------
  */
-import type { UserProfileDTO } from './user.schemas';
-
-export type UserModel = {
-  id: string;
-  email: string;
-  name: string | null;
-  avatar: string | null;
-};
+import type { UserProfileDTO } from './user.schemas'
+import type { User } from './user.types'
 
 export const UserMapper = {
-  toUserModel(dto: UserProfileDTO): UserModel {
+  toUser(dto: UserProfileDTO): User {
     return {
       id: dto.id,
       email: dto.email,
       name: dto.name,
       avatar: dto.avatar,
-    };
+    }
   },
-};
+}

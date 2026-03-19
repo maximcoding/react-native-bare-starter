@@ -13,19 +13,19 @@
  *   UserService.getProfile()
  *      → transport.query()
  *      → zUserProfile.parse()
- *      → UserMapper.toUserModel()
+ *      → UserMapper.toUser()
  *
  * EXTENSION GUIDELINES:
  *   - Add more sections (settings, preferences, roles, etc.).
  * ---------------------------------------------------------------------
  */
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const zUserProfile = z.object({
   id: z.string(),
   email: z.string().email(),
   name: z.string().nullable(),
   avatar: z.string().url().nullable(),
-});
+})
 
-export type UserProfileDTO = z.infer<typeof zUserProfile>;
+export type UserProfileDTO = z.infer<typeof zUserProfile>

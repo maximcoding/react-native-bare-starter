@@ -14,7 +14,7 @@
  *      → UserService.getProfile(userId)
  *         → transport.query('user/profile', { userId })
  *         → zUserProfile.parse()
- *         → UserMapper.toUserModel()
+ *         → UserMapper.toUser()
  *
  * OFFLINE BEHAVIOR:
  *   - Queries fail gracefully when offline.
@@ -25,14 +25,16 @@
  *   - Add optimistic updates for profile changes.
  * ---------------------------------------------------------------------
  */
-import { transport } from '@/infra/transport/transport';
-import { zUserProfile } from './user.schemas';
-import { UserMapper, type UserModel } from './user.mappers';
+import { OPS } from '@/shared/services/api/transport/operations'
+import { transport } from '@/shared/services/api/transport/transport'
+import { UserMapper } from './user.mappers'
+import { zUserProfile } from './user.schemas'
+import type { User } from './user.types'
 
 export const UserService = {
-  async getProfile(userId: string): Promise<UserModel> {
-    const raw = await transport.query('user/profile', { userId });
-    const validated = zUserProfile.parse(raw);
-    return UserMapper.toUserModel(validated);
+  async getProfile(userId: string): Promise<User> {
+    const raw = await transport.query(OPS.USER_PROFILE, { userId })
+    const validated = zUserProfile.parse(raw)
+    return UserMapper.toUser(validated)
   },
-};
+}

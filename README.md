@@ -69,9 +69,9 @@ If you need a managed workflow or a different stack, this starter is not for you
 | Category | Library | Version | Description |
 |---|---|---|---|
 | **Framework** | react-native | 0.82.1 | Bare workflow, TypeScript, Hermes engine |
-| **Theme** | — | — | Light/dark via `ThemeProvider`; semantic tokens; `useTheme()` |
-| **Navigation** | @react-navigation | ^7.x | Native stacks, bottom tabs, modals; typed routes and preset options |
-| **i18n** | i18next + react-i18next | ^25.x / ^16.x | Per-feature namespaces, type-safe `useT()`, extraction + type-gen scripts |
+| **Theme** | — | — | Light & Dark via `ThemeProvider`; semantic tokens; `useTheme()` |
+| **Navigation** | @react-navigation | ^7.x | Native stacks, Bottom Tabs, Modals; |
+| **i18n** | i18next + react-i18next | ^25.x / ^16.x | Per-feature namespaces, type-safe `useT()` |
 | **Validation** | zod | ^4.1.13 | Schema validation on every API response; typed domain mappers |
 | **HTTP** | apisauce | ^2.1.3 | Centralized instance with auth, error, and logging interceptors |
 | **Transport** | — | — | Pluggable adapters: REST (Axios), GraphQL, WebSocket, Firebase |
@@ -80,9 +80,9 @@ If you need a managed workflow or a different stack, this starter is not for you
 | **Storage** | react-native-mmkv | ^4.1.0 | Fast, synchronous, encrypted key-value store |
 | **Lists** | @shopify/flash-list | ^2.2.0 | High-performance virtualized lists |
 | **SVG** | react-native-svg | ^15.15.1 | SVG rendering; icons auto-generated via `npm run gen:icons` |
-| **Splash Screen** | react-native-bootsplash | ^6.3.11 | Native splash for Android & iOS; generated via `npm run bootsplash:generate` |
+| **Splash Screen** | react-native-bootsplash | ^6.3.11 | `npm run bootsplash:generate` |
 | **Native Utils** | — | — | Device info, haptics, runtime permissions |
-| **Lint / Format** | Biome | ^2.4.8 | Lint and format in one tool |
+| **Lint / Format** | Biome | ^2.4.8 | High-performance Lint and format in one tool |
 | **CI/CD** | GitHub Actions | — | Separate Android and iOS workflows; lint, test, build, release |
 
 ---
@@ -280,7 +280,9 @@ Reusable hooks in `@/shared/hooks` — import and use across any feature.
 
 ### Transport & Services
 
-Transport layer (`src/shared/services/api/transport/`) abstracts the data source. Feature services use it; UI does not call `api/` from screens. Zod validates responses; mappers convert to domain models.
+Transport layer, abstracts the data source. 
+Feature services use it; 
+Zod validates responses; mappers convert to domain models.
 
 | Adapter | Use case |
 |---------|----------|
@@ -291,7 +293,7 @@ Transport layer (`src/shared/services/api/transport/`) abstracts the data source
 
 ### Offline Infrastructure
 
-Flow: offline → queue buffers mutations → online → sync replays queue → cache provides reads.
+Flow: Offline → queue buffers mutations → online → sync replays queue → cache provides reads.
 
 | File | Role |
 |------|------|
@@ -307,7 +309,7 @@ Flow: offline → queue buffers mutations → online → sync replays queue → 
 | Server state | TanStack Query v5 |
 | Keys | `src/features/<name>/api/keys.ts` — `[feature, entity, id?, params?]` |
 | Invalidation | Mutations use `meta.tags` |
-| Persistence | `@tanstack/react-query-persist-client` + MMKV |
+| Persistence | MMKV and `@tanstack/react-query-persist-client` |
 
 ### State & storage (when to use what)
 
@@ -321,7 +323,7 @@ Flow: offline → queue buffers mutations → online → sync replays queue → 
 
 ## Feature Development
 
-### Adding a New Feature
+### Guide for adding a New Feature
 
 1. **Create the directory structure:**
 
@@ -339,22 +341,16 @@ src/features/<feature-name>/
 
 2. **Build screens** using `ScreenWrapper` as the root and theme-driven components — not raw RN views.
 
-3. **Add translations** in `src/i18n/locales/en.json` (and `de.json`, `ru.json`) with keys like `"featureName.actionName"`. Run `npm run i18n:all` after.
+3. **Add translations** in `src/i18n/locales/ . Run `npm run i18n:all` after.
 
-4. **Service layer** — API logic in `src/features/<name>/services/`; include a Zod schema, a mapper, and a service module. Never call `infra` directly from screens.
+4. **Service layer** — API logic in `src/features/<name>/services/`; include a Zod schema, a mapper, and a service module. 
+Never call `infra` directly from screens.
 
 5. **Wire navigation** — add the route in `src/navigation/routes.ts`, `ParamList` entry, register in stack/tab.
 
 ---
 
-## Theme
-
-Light/dark via `ThemeProvider`. Semantic tokens for colors, spacing, typography, elevation. Access via `useTheme()` — no raw hex or magic numbers in components.
-
----
-
 ## SVG Icons
-
 The project uses a code-generation workflow to keep SVG assets in sync with a type-safe icon registry.
 
 ### How it works
@@ -435,8 +431,8 @@ npm run i18n:all
 ---
 
 ## Permissions
-
-This project uses **bare React Native**. See [`docs/permissions-bare-rn.md`](docs/permissions-bare-rn.md) for the full catalog.
+Only declare permissions your app actually uses.
+See full catalog [`docs/permissions-bare-rn.md`](docs/permissions-bare-rn.md) .
 
 | Category | Android | iOS |
 |---|---|---|
@@ -449,11 +445,6 @@ This project uses **bare React Native**. See [`docs/permissions-bare-rn.md`](doc
 | Biometrics | `USE_BIOMETRIC` | `NSFaceIDUsageDescription` |
 | Bluetooth | `BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT` | `NSBluetoothAlwaysUsageDescription` |
 
-**Android:** Declare in `android/app/src/main/AndroidManifest.xml`. Request dangerous permissions at runtime via `PermissionsAndroid`.
-
-**iOS:** Add usage description keys to `ios/ReactNativeStarter/Info.plist`. The system shows the string when prompting the user.
-
-Only declare permissions your app actually uses.
 
 ---
 
@@ -491,21 +482,3 @@ Regenerate the splash screen after changing `assets/bootsplash-logo.svg`:
 ```bash
 npm run bootsplash:generate
 ```
-
----
-
-## Conventions
-
-| Item | Convention |
-|---|---|
-| Components | `PascalCase.tsx` |
-| Hooks | `useSomething.ts` |
-| Services / mappers / schemas | `kebab-case.ts` |
-| Imports | Path alias `@/` → `src/`, `@assets/` |
-| Styles | `StyleSheet.create()`; inline only for dynamic values |
-| Colors/spacing | Theme tokens |
-| Strings | `useT()` with per-feature namespace |
-| API calls | Feature services via `services/api/` transport |
-| Server state | TanStack React Query |
-
----

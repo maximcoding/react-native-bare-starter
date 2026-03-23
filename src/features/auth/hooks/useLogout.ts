@@ -8,12 +8,7 @@ export function useLogout() {
 
   return useCallback(async () => {
     try {
-      // AuthService.logout -> performLogout() inside
-      // but we also pass qc to hard-clear in-memory cache
-      // (we added performLogout(qc) support)
       await AuthService.logout()
-
-      // safety: clear in-memory queries even if service didn't pass qc
       await qc.cancelQueries().catch(() => undefined)
       qc.clear()
     } catch (e) {

@@ -20,8 +20,9 @@
  *   - Add mappers for registration, MFA, profile update, etc.
  * ---------------------------------------------------------------------
  */
+
+import type { AuthSession } from '@/features/auth/types'
 import type { LoginResponse } from './auth.schemas'
-import type { AuthSession } from './auth.types'
 
 export const AuthMapper = {
   toAuthSession(dto: LoginResponse): AuthSession {

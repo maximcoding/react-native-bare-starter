@@ -46,6 +46,12 @@ export const ROUTES = {
   SETTINGS_ROOT: 'SETTINGS_ROOT',
   SETTINGS_LANGUAGE: 'SETTINGS_LANGUAGE',
   SETTINGS_THEME: 'SETTINGS_THEME',
+
+  //
+  // GLOBAL MODALS (bottom sheets, accessible from any screen)
+  //
+  MODAL_THEME_PICKER: 'MODAL_THEME_PICKER',
+  MODAL_LANGUAGE_PICKER: 'MODAL_LANGUAGE_PICKER',
 } as const
 
 // Derived type for autocompletion everywhere:

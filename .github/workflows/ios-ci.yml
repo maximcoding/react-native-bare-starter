@@ -1,5 +1,6 @@
 name: iOS CI Build
 
+# Manual simulator build (no signing). PR quality checks live in ci.yml.
 on:
   workflow_dispatch:
 
@@ -14,26 +15,29 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
+          cache: npm
 
-      - name: Install npm packages
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
       - name: Install Pods
         run: cd ios && pod install
 
-      - name: Build iOS Release
+      - name: Build iOS (Simulator)
         run: |
           cd ios
           xcodebuild \
-            -workspace YourApp.xcworkspace \
-            -scheme YourApp \
-            -sdk iphoneos \
-            -configuration Release \
-            archive -archivePath build/YourApp.xcarchive
+            -workspace ReactNativeStarter.xcworkspace \
+            -scheme ReactNativeStarter \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            build
 
-      - name: Upload IPA Artifact
+      - name: Upload Simulator app
         uses: actions/upload-artifact@v4
         with:
-          name: ios-release-ipa
-          path: ios/build/**/*.xcarchive
+          name: ios-simulator-app
+          path: ios/build/Build/Products/Debug-iphonesimulator/ReactNativeStarter.app

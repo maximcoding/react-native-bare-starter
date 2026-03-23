@@ -39,3 +39,5 @@ Use a short, descriptive branch name, e.g. `fix/auth-redirect`, `feat/settings-t
 ## Reporting issues
 
 Use the [bug report](.github/ISSUE_TEMPLATE/bug_report.md) or [feature request](.github/ISSUE_TEMPLATE/feature_request.md) templates when opening an issue. Include environment details (React Native version, Node version, OS) for bugs.
+
+For **security** concerns, do not file a public issue. Use **GitHub → Security → Report a vulnerability** if enabled for this repository, or contact the maintainers privately.

@@ -3,7 +3,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StatusBar,
   StyleSheet,
   View,
 } from 'react-native'
@@ -12,6 +11,8 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context'
+import { FocusAwareStatusBar } from '@/shared/components/ui/FocusAwareStatusBar'
+import type { ThemedStatusBarProps } from '@/shared/components/ui/ThemedStatusBar'
 import { useTheme } from '@/shared/theme'
 
 interface Props {
@@ -21,6 +22,8 @@ interface Props {
   footer?: React.ReactNode
   disableTopInset?: boolean
   disableBottomInset?: boolean
+  /** Merged over theme defaults (e.g. `translucent` + transparent `backgroundColor`). */
+  statusBarProps?: Partial<ThemedStatusBarProps>
 }
 
 export default function ScreenWrapper({
@@ -30,14 +33,17 @@ export default function ScreenWrapper({
   footer,
   disableTopInset = false,
   disableBottomInset = false,
+  statusBarProps,
 }: Props) {
-  const { theme, mode } = useTheme()
+  const { theme } = useTheme()
   const insets: EdgeInsets = useSafeAreaInsets()
 
   const bg = theme.colors.background
-  const barStyle = mode === 'dark' ? 'light-content' : 'dark-content'
 
-  const paddingTop = disableTopInset ? 0 : insets.top
+  // Top inset: applied once via SafeAreaView edges (not duplicated on Content).
+  const safeEdges = disableTopInset
+    ? (['left', 'right'] as const)
+    : (['top', 'left', 'right'] as const)
   const paddingBottom = disableBottomInset ? 0 : insets.bottom
 
   const Content = scroll ? ScrollView : View
@@ -45,9 +51,9 @@ export default function ScreenWrapper({
   return (
     <SafeAreaView
       style={[styles.safeArea, { backgroundColor: bg }]}
-      edges={['top', 'left', 'right']}
+      edges={safeEdges}
     >
-      <StatusBar barStyle={barStyle} backgroundColor={bg} />
+      <FocusAwareStatusBar backgroundColor={bg} {...statusBarProps} />
 
       {header ? <View style={styles.header}>{header}</View> : null}
 
@@ -60,7 +66,6 @@ export default function ScreenWrapper({
             styles.container,
             {
               backgroundColor: bg,
-              paddingTop,
               paddingBottom,
             },
           ]}

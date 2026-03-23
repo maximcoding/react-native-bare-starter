@@ -1,7 +1,8 @@
 module.exports = {
   locales: ['en', 'ru', 'de'],
-  output: 'src/i18n/locales/$LOCALE/$NAMESPACE.json',
-  defaultNamespace: 'common',
+  /** One JSON per language — matches `i18n.ts` imports and `generate-i18n-types.cjs`. */
+  output: 'src/i18n/locales/$LOCALE.json',
+  defaultNamespace: 'translation',
   namespaceSeparator: ':',
   keySeparator: '.',
   keepRemoved: false,

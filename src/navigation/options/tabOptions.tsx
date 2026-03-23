@@ -2,6 +2,7 @@
 
 import { IconName } from '@assets/icons' // ← no .ts extension
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
+import type { TFunction } from 'i18next'
 import React from 'react'
 import { ROUTES } from '@/navigation/routes'
 import { IconSvg } from '@/shared/components/ui/IconSvg'
@@ -34,7 +35,10 @@ export const BottomTabIcon = (
 //
 // TITLE LOGIC
 //
-export const TabTitle = (route: { name: string }, t: (k: string) => string) => {
+export const TabTitle = (
+  route: { name: string },
+  t: TFunction<'translation'>,
+) => {
   switch (route.name) {
     case ROUTES.TAB_HOME:
       return t('home.title')
@@ -54,7 +58,7 @@ export const TabBarStyle = (theme: any) => {
     backgroundColor: theme.colors.surface ?? theme.colors.background,
     borderTopWidth: 0.5,
     borderColor: theme.colors.border ?? theme.colors.surface,
-    paddingBottom: 4,
+    paddingBottom: theme.spacing.xxs,
   }
 }
 
@@ -62,7 +66,10 @@ export const TabBarStyle = (theme: any) => {
 // MAIN SCREEN OPTIONS (pure helper for screenOptions)
 // Call inside your Tabs component where you already have `theme` and `t`.
 //
-export const makeTabScreenOptions = (theme: any, t: (k: string) => string) => {
+export const makeTabScreenOptions = (
+  theme: any,
+  t: TFunction<'translation'>,
+) => {
   return ({
     route,
   }: {

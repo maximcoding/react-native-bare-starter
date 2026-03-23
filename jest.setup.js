@@ -1,11 +1,19 @@
 // Mock worklets completely FIRST
 
+jest.mock('@sentry/react-native', () => ({
+  init: jest.fn(),
+  captureException: jest.fn(),
+}))
+
 jest.mock('react-native-config', () => ({
   __esModule: true,
   default: {
     USE_MOCK_API: 'true',
     API_BASE_URL: 'http://localhost',
     API_TIMEOUT_MS: '15000',
+    SENTRY_DSN: '',
+    SENTRY_ENABLE_IN_DEV: '0',
+    SENTRY_TRACES_SAMPLE_RATE: '0',
   },
 }))
 
@@ -83,6 +91,25 @@ jest.mock('react-native-reanimated', () => {
 })
 
 // Mock gesture handler
+jest.mock('react-native-mmkv', () => {
+  const stores = new Map()
+  const createMMKV = ({ id = 'default' } = {}) => {
+    if (!stores.has(id)) stores.set(id, new Map())
+    const store = stores.get(id)
+    return {
+      set: (key, value) => store.set(key, value),
+      getString: key => store.get(key),
+      getBoolean: key => store.get(key),
+      getNumber: key => store.get(key),
+      remove: key => store.delete(key),
+      clearAll: () => store.clear(),
+      contains: key => store.has(key),
+      getAllKeys: () => [...store.keys()],
+    }
+  }
+  return { createMMKV }
+})
+
 jest.mock('react-native-gesture-handler', () => {
   const View = require('react-native').View
   return {

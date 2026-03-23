@@ -2,6 +2,8 @@
 globs: src/features/**
 ---
 
+Global rules: [AGENTS.md](../../AGENTS.md). Claude stack summary: [CLAUDE.md](../CLAUDE.md).
+
 # Rules — features
 
 Each feature (`auth`, `home`, `settings`, `user`, …) is a self-contained vertical slice.
@@ -12,6 +14,8 @@ src/features/<name>/
   screens/              # Screen components (route leaf nodes)
   components/           # Feature-private UI
   hooks/                # Feature-private React hooks (useLoginMutation, useMeQuery, …)
+  types/                # Interfaces and type aliases (domain models; re-export schema types if useful)
+    index.ts            # Barrel — import from @/features/<name>/types
   services/             # API schemas (Zod) + mappers + service functions
   api/
     keys.ts             # React Query key factory

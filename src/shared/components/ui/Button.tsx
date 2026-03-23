@@ -77,8 +77,12 @@ interface ButtonProps {
   loading?: boolean
   disabled?: boolean
   onPress?: () => void
+  /** Forwarded to `Pressable` (e.g. Reanimated scale on the wrapping `Animated.View`). */
+  onPressIn?: () => void
+  onPressOut?: () => void
   style?: ViewStyle
   textStyle?: TextStyle
+  testID?: string
 }
 
 export function Button({
@@ -88,8 +92,11 @@ export function Button({
   loading = false,
   disabled = false,
   onPress,
+  onPressIn,
+  onPressOut,
   style,
   textStyle,
+  testID,
 }: ButtonProps) {
   const { theme } = useTheme()
 
@@ -145,9 +152,14 @@ export function Button({
     ...style,
   }
 
+  const isInactive = disabled || loading
+
   return (
     <Pressable
-      onPress={disabled || loading ? undefined : onPress}
+      testID={testID}
+      onPress={isInactive ? undefined : onPress}
+      onPressIn={isInactive ? undefined : onPressIn}
+      onPressOut={isInactive ? undefined : onPressOut}
       style={({ pressed }) => [
         containerStyle,
         pressed && { opacity: disabled ? 0.55 : 0.85 },

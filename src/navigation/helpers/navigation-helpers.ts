@@ -7,6 +7,7 @@ import {
   createNavigationContainerRef,
   NavigationState,
 } from '@react-navigation/native'
+import type { ParseKeys } from 'i18next'
 import type { RootStackParamList } from '@/navigation/root-param-list'
 import type { RouteName } from '@/navigation/routes'
 
@@ -14,7 +15,7 @@ import type { RouteName } from '@/navigation/routes'
  * Minimal meta type used ONLY to satisfy presets.
  */
 export interface NavMeta {
-  label: string
+  label: ParseKeys<'translation'>
 }
 
 /**

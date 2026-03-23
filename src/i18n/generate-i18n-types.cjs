@@ -2,20 +2,22 @@ const fs = require('fs')
 const path = require('path')
 
 const localesDir = path.join(__dirname, 'locales')
-const namespaces = {}
-const languages = fs.readdirSync(localesDir)
+const languages = ['en', 'ru', 'de']
 
+/** Flat locale files: `locales/en.json` (matches i18n.ts imports). */
+let template = null
 for (const lang of languages) {
-  const nsPath = path.join(localesDir, lang)
-  const files = fs.readdirSync(nsPath)
-
-  for (const file of files) {
-    const ns = file.replace('.json', '')
-    const json = require(path.join(nsPath, file))
-
-    namespaces[ns] = namespaces[ns] || {}
-    namespaces[ns] = { ...namespaces[ns], ...json }
+  const p = path.join(localesDir, `${lang}.json`)
+  if (fs.existsSync(p)) {
+    template = JSON.parse(fs.readFileSync(p, 'utf8'))
+    break
   }
+}
+
+if (!template) {
+  throw new Error(
+    `No locale JSON found in ${localesDir} (expected ${languages.join(', ')}.json)`,
+  )
 }
 
 function toTS(obj, indent = 2) {
@@ -29,19 +31,17 @@ function toTS(obj, indent = 2) {
     .join('\n')
 }
 
-let dts = `// AUTO-GENERATED — DO NOT EDIT
+const dts = `// AUTO-GENERATED — DO NOT EDIT
+
+import 'i18next'
 
 declare module 'i18next' {
   interface CustomTypeOptions {
-    defaultNS: 'common';
+    defaultNS: 'translation';
     resources: {
-`
-
-for (const [ns, obj] of Object.entries(namespaces)) {
-  dts += `      '${ns}': {\n${toTS(obj, 8)}\n      };\n`
-}
-
-dts += `
+      translation: {
+${toTS(template, 8)}
+      };
     };
   }
 }

@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
    * Persisting user choice:
    *   kvStorage.getString('themeMode') || 'system'
    */
-  const [mode, setMode] = useState<ThemeMode>('system')
+  const [mode, setMode] = useState<ThemeMode>('dark')
 
   /**
    * Read initial system theme.

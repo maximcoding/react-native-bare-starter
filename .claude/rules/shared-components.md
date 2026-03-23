@@ -2,6 +2,8 @@
 globs: src/shared/components/**
 ---
 
+Global rules: [AGENTS.md](../../AGENTS.md). Claude stack summary: [CLAUDE.md](../CLAUDE.md).
+
 # Rules — shared/components
 
 Components here are **stateless, themed primitives**. They form the UI kit used across all features.

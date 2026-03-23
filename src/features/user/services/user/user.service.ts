@@ -25,11 +25,12 @@
  *   - Add optimistic updates for profile changes.
  * ---------------------------------------------------------------------
  */
+
+import type { User } from '@/features/user/types'
 import { OPS } from '@/shared/services/api/transport/operations'
 import { transport } from '@/shared/services/api/transport/transport'
 import { UserMapper } from './user.mappers'
 import { zUserProfile } from './user.schemas'
-import type { User } from './user.types'
 
 export const UserService = {
   async getProfile(userId: string): Promise<User> {

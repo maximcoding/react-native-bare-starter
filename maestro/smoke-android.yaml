@@ -1,0 +1,7 @@
+appId: com.reactnativestarter
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      text: 'Home'
+    timeout: 60000

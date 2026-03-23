@@ -26,8 +26,9 @@ export const IconSvg = ({ name, size = 24, color, style }: Props) => {
       <IconComponent
         width={size}
         height={size}
+        color={iconColor}
         stroke={iconColor}
-        fill={iconColor}
+        fill="none"
         strokeWidth={2}
       />
     </View>

@@ -1,4 +1,5 @@
 import Config from 'react-native-config'
+import { parseEnvBool } from '@/config/env'
 
 // --- APPEND (do not remove anything) ---
 export const constants = {
@@ -16,8 +17,12 @@ export const constants = {
   CONFIRMATION_KEY: 'user.confirmation',
   ACCOUNTS_KEY: 'user.accounts',
   CONTACTS_KEY: 'user.contacts',
+
+  /** MMKV key (`navigationStorage`) for persisted React Navigation root state. */
+  NAVIGATION_STATE_V1: 'navigation.state.v1',
 }
 
 export const flags = {
-  USE_MOCK: __DEV__ && (Config.USE_MOCK_API ?? '0') === '1',
+  /** Dev-only mock transport; enable with `USE_MOCK_API=true` or `=1` in `.env`. */
+  USE_MOCK: __DEV__ && parseEnvBool(Config.USE_MOCK_API),
 }

@@ -1,3 +1,4 @@
+import type { ParseKeys } from 'i18next'
 import { useT } from '@/i18n/useT'
 import { useTheme } from '@/shared/theme/useTheme'
 
@@ -55,7 +56,7 @@ export function useNavigationTokens() {
 
   return {
     // Titles
-    headerTitle: (key: string) => t(key),
+    headerTitle: (key: ParseKeys<'translation'>) => t(key),
 
     // Header
     headerStyle: {

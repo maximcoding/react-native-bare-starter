@@ -1,13 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { type BootstrapRoute, getBootstrapRoute } from '@/session/bootstrap'
 
-export function useBootstrapRoute() {
-  const [route, setRoute] = useState<BootstrapRoute | null>(null)
-
-  useEffect(() => {
-    // sync read, but keep async-like shape for future expansion
-    setRoute(getBootstrapRoute())
-  }, [])
-
+/** Sync read on first paint — avoids an empty root navigator frame before hydration. */
+export function useBootstrapRoute(): BootstrapRoute {
+  const [route] = useState<BootstrapRoute>(() => getBootstrapRoute())
   return route
 }

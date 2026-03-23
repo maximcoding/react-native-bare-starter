@@ -8,7 +8,7 @@ React Native 0.82 app, TypeScript strict, bare workflow. Top-level under `src/`:
 
 ## Build and run
 
-- Start Metro: `npm run start`
+- Start Metro: `npm start`
 - iOS: `npm run ios`
 - Android: `npm run android`
 - First-time iOS: after `npm install`, run `npm run pod-install` (or `npx pod-install ios`)
@@ -32,15 +32,16 @@ When changing SVGs, run `npm run gen:icons`. When changing i18n keys, run `npm r
 - **src/shared/hooks/** — Shared hooks.
 - **src/shared/constants/** — Shared non-config constants (e.g. query invalidation tag lists). Storage key names and env-backed flags stay in **`src/config/`**.
 - **src/shared/services/api/** — HTTP, transport, query client, network, offline.
+- **src/shared/services/monitoring/** — Optional crash reporting (e.g. Sentry init); see `docs/OPERATIONS.md#sentry`.
 - **src/shared/services/storage/** — MMKV, cache, Zustand persistence adapter.
 - **src/shared/utils/platform/** — device-info, haptics, permissions.
 - **src/shared/utils/** — Other shared utilities (normalize-error, toast).
 - **src/shared/stores/** — Zustand global UI state only (e.g. last tab, onboarding flag). No domain data; no auth tokens; no user profile — those belong in a feature or `src/session/`.
 - **src/shared/theme/** — Tokens, ThemeProvider, useTheme.
 - **src/shared/types/** — Global types (e.g. SVG).
-- **src/features/<feature>/** — Screens, components, hooks, domain `services/`, `api/keys.ts`, `navigation/param-list.ts`.
+- **src/features/<feature>/** — Screens, components, hooks, `types/` (interfaces + type aliases), domain `services/`, `api/keys.ts`, `navigation/param-list.ts`.
 
-Inside a feature use: `screens/`, `components/`, `hooks/`, `services/`, `api/keys.ts`, `navigation/param-list.ts`, and optionally `models/`. Do **not** add type-based folders at **`src/` root** for app-only code. Reusable cross-feature UI: `src/shared/components/ui/`.
+Inside a feature use: `screens/`, `components/`, `hooks/`, **`types/`** (domain types; Zod-inferred DTOs may be re-exported from here), `services/` (schemas, mappers, service modules), `api/keys.ts`, `navigation/param-list.ts`, and optionally `models/`. Do **not** add type-based folders at **`src/` root** for app-only code. Reusable cross-feature UI: `src/shared/components/ui/`.
 
 Use path alias `@/` only (e.g. `@/navigation/`, `@/session/`, `@/config/`, `@/i18n/`, `@/shared/...`, `@/features/...`). No deep relative imports.
 
@@ -64,6 +65,7 @@ Use path alias `@/` only (e.g. `@/navigation/`, `@/session/`, `@/config/`, `@/i1
 ## Don'ts
 
 - Do not add new dependencies without an agreed process.
+- **Never change package versions in `package.json` or `package-lock.json`.** Do not upgrade, downgrade, or replace any dependency. If a version mismatch is causing a bug, fix the consuming code to match the installed version — do not touch the package files.
 - No Tailwind, NativeWind, or Styled Components.
 - No `fetch`; use project HTTP/transport layer only.
 - No raw colors or spacing in UI; use theme tokens.
@@ -74,15 +76,23 @@ Use path alias `@/` only (e.g. `@/navigation/`, `@/session/`, `@/config/`, `@/i1
 ## When adding
 
 - **New screen:** `src/features/<feature>/screens/`, register in `src/navigation/routes.ts`, extend that feature’s `navigation/param-list.ts`.
-- **New API/query:** feature `services/` + `api/keys.ts`; use transport from `src/shared/services/api/`; validate with Zod.
+- **New API/query:** feature `services/` + `api/keys.ts`; use transport from `src/shared/services/api/`; validate with Zod; expose domain types from `features/<name>/types/`.
 - **New shared UI:** `src/shared/components/ui/`; feature-specific UI in the feature’s `components/`.
 
-## Documentation map (single source of truth by audience)
+## Documentation map
+
+**Canonical topic-to-doc matrix:** this table. The root [README.md](README.md) is the landing page (quick start, setup, env); keep it to short links—do not duplicate this full inventory there.
 
 | Doc | Role |
 |-----|------|
-| [README.md](README.md) | Human onboarding, commands, structure, architecture summary |
+| [README.md](README.md) | Landing: quick start, setup, env, links only |
 | **AGENTS.md** (this file) | Cursor / generic agents — follow first for edits |
 | [.claude/CLAUDE.md](.claude/CLAUDE.md) | Claude Code — same rules; stack reference |
-| [docs/MOBILE_E2E_GUIDE_additions.md](docs/MOBILE_E2E_GUIDE_additions.md) | Extended policies, checklists, patterns (aligned to this repo’s paths) |
+| [docs/development.md](docs/development.md) | Developer reference: hooks, architecture, icons, i18n, npm scripts |
+| [docs/production-guidelines.md](docs/production-guidelines.md) | Production mobile policies, checklists, patterns (aligned to this repo’s paths) |
+| [docs/OPERATIONS.md](docs/OPERATIONS.md) | Sentry, Maestro, GitHub Actions, OTA policy, publishing checklist |
+| [docs/OFFLINE.md](docs/OFFLINE.md) | Offline stack (NetInfo, transport, mutation queue, Query + MMKV persistence) |
+| [docs/permissions-bare-rn.md](docs/permissions-bare-rn.md) | Android / iOS permission catalog |
 | [docs/TODO.md](docs/TODO.md) | Roadmap and backlog (not normative for architecture) |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Pull requests, changelog entries, quality checks, security reporting |
+| [CHANGELOG.md](CHANGELOG.md) | Version history |

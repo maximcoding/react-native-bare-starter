@@ -1,4 +1,5 @@
-// src/app/navigation/helpers/use-back-handler.ts
+// src/navigation/helpers/use-back-handler.ts
+import type { NavigationState, PartialState } from '@react-navigation/native'
 import { useEffect, useRef } from 'react'
 import { BackHandler, Platform } from 'react-native'
 import { navigationRef } from '@/navigation/helpers/navigation-helpers'
@@ -53,11 +54,15 @@ export function useBackButtonHandler(
   }, [])
 }
 
-// Safe active-route resolver (supports nested navigators)
-function getActiveRouteNameSafe(state: any): string | undefined {
-  if (!state || !state.routes || typeof state.index !== 'number')
-    return undefined
+function getActiveRouteNameSafe(
+  state: NavigationState | PartialState<NavigationState> | undefined,
+): string | undefined {
+  if (!state?.routes || state.index === undefined) return undefined
   const route = state.routes[state.index]
-  if (route?.state) return getActiveRouteNameSafe(route.state)
-  return route?.name
+  if (!route) return undefined
+  if (route.state)
+    return getActiveRouteNameSafe(
+      route.state as NavigationState | PartialState<NavigationState>,
+    )
+  return typeof route.name === 'string' ? route.name : undefined
 }

@@ -26,7 +26,6 @@ const waitQueue: Array<{
   config: RequestConfig
   resolve: () => void
 }> = []
-let logoutPromise: Promise<void> | null = null
 
 function enqueue(item: {
   response: ApiResponse
@@ -43,16 +42,6 @@ function copyResponse(target: ApiResponse, source: ApiResponse): void {
   target.data = source.data
   target.originalError = source.originalError
   target.headers = source.headers
-}
-
-async function logoutOnce(): Promise<void> {
-  if (!logoutPromise) {
-    const qc = getSessionQueryClient() ?? undefined
-    logoutPromise = performLogout(qc).finally(() => {
-      logoutPromise = null
-    })
-  }
-  await logoutPromise
 }
 
 function shouldSkipRefresh(config?: RequestConfig): boolean {
@@ -125,7 +114,7 @@ export function attachRefreshOn401(api: ReturnType<typeof create>): void {
     })
 
     if (!newToken) {
-      await logoutOnce()
+      await performLogout(getSessionQueryClient() ?? undefined)
       await resolveQueue(api, null)
       return
     }

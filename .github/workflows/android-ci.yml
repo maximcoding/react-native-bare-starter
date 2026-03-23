@@ -1,5 +1,6 @@
 name: Android CI Build
 
+# Manual native release build (template). PR quality checks live in ci.yml.
 on:
   workflow_dispatch:
 
@@ -14,10 +15,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
+          cache: npm
 
-      - name: Install packages
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
       - name: Install JDK
         uses: actions/setup-java@v4

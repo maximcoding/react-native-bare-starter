@@ -2,6 +2,8 @@
 globs: src/shared/services/**
 ---
 
+Global rules: [AGENTS.md](../../AGENTS.md). Claude stack summary: [CLAUDE.md](../CLAUDE.md).
+
 # Rules — shared/services
 
 Infrastructure-level data layer. Split into two sub-trees:
@@ -28,5 +30,5 @@ shared/services/
 
 ## Must not
 - Do not import from `src/features/**` — this layer is feature-agnostic.
-- Do not put business logic or domain models here. Domain logic belongs in `src/features/<name>/services/`.
+- Do not put business logic or domain models here. Domain logic belongs in `src/features/<name>/services/`; domain **interfaces and type aliases** belong in `src/features/<name>/types/`.
 - Do not use Zustand stores inside this layer — pass data up via return values or callbacks.

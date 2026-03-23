@@ -17,8 +17,9 @@
  *   - Add mapping for roles, preferences, settings, etc.
  * ---------------------------------------------------------------------
  */
+
+import type { User } from '@/features/user/types'
 import type { UserProfileDTO } from './user.schemas'
-import type { User } from './user.types'
 
 export const UserMapper = {
   toUser(dto: UserProfileDTO): User {

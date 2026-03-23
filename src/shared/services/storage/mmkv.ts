@@ -103,10 +103,25 @@ let _navigationStorage: MMKVLike
 let _kvStorage: KeyValueStorage
 
 try {
-  const { MMKV } = require('react-native-mmkv')
+  // react-native-mmkv v4 (Nitro): factory function, no class constructor.
+  // v4 also uses remove() instead of delete().
+  const { createMMKV } = require('react-native-mmkv')
 
-  _mmkvStorage = new MMKV({ id: 'mmkv-storage' }) as MMKVLike
-  _navigationStorage = new MMKV({ id: 'navigation-storage' }) as MMKVLike
+  const _mmkvRaw = createMMKV({ id: 'mmkv-storage' })
+  const _navRaw = createMMKV({ id: 'navigation-storage' })
+
+  _mmkvStorage = createMMKVLike(
+    key => { const v = _mmkvRaw.getString(key); return v !== undefined ? v : null },
+    (key, value) => _mmkvRaw.set(key, value),
+    key => _mmkvRaw.remove(key),
+    () => _mmkvRaw.clearAll(),
+  )
+  _navigationStorage = createMMKVLike(
+    key => { const v = _navRaw.getString(key); return v !== undefined ? v : null },
+    (key, value) => _navRaw.set(key, value),
+    key => _navRaw.remove(key),
+    () => _navRaw.clearAll(),
+  )
   _kvStorage = createKeyValueStorage(
     key => _mmkvStorage.getString(key),
     (key, value) => _mmkvStorage.set(key, value),

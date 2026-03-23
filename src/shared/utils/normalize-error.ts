@@ -33,6 +33,8 @@
  * ---------------------------------------------------------------------
  */
 
+import { ZodError, type ZodIssue } from 'zod'
+
 export type NormalizedError = {
   code: string | null // machine code (e.g. "AUTH_INVALID", "NETWORK_OFFLINE")
   message: string // human-readable message
@@ -57,6 +59,18 @@ function isNormalizedError(x: any): x is NormalizedError {
 /**
  * Extract human-readable message from different possible shapes.
  */
+function formatZodIssues(issues: ZodIssue[]): string {
+  if (issues.length === 0) {
+    return 'Validation failed'
+  }
+  return issues
+    .map(i => {
+      const path = i.path.length > 0 ? `${i.path.map(String).join('.')}: ` : ''
+      return `${path}${i.message}`
+    })
+    .join('; ')
+}
+
 function extractMessage(e: any): string {
   // GraphQL
   if (Array.isArray(e?.graphQLErrors) && e.graphQLErrors.length > 0) {
@@ -74,16 +88,37 @@ function extractMessage(e: any): string {
     if (typeof d?.error === 'string') return d.error
   }
 
-  // Zod
+  // Zod v3/v4 — prefer `issues` (default `.message` is a raw JSON-ish string)
+  if (e instanceof ZodError) {
+    return formatZodIssues(e.issues)
+  }
+  if (Array.isArray(e?.issues) && e.issues.length > 0) {
+    return formatZodIssues(e.issues as ZodIssue[])
+  }
+
+  // Legacy Zod-style `errors` array
   if (e?.errors && Array.isArray(e.errors)) {
     return e.errors.map((z: any) => z.message).join(', ')
   }
 
+  // API body: array of { message } (common validation responses)
+  if (Array.isArray(e?.response?.data) && e.response.data.length > 0) {
+    const first = e.response.data[0] as Record<string, unknown>
+    if (typeof first?.message === 'string') return first.message
+  }
+
   // Firebase / JS Error
-  if (e?.message && typeof e.message === 'string') return e.message
+  if (e?.message && typeof e.message === 'string') {
+    const m = e.message
+    // Zod sometimes surfaces only via .message — avoid dumping JSON-like blobs in UI
+    if (m.trimStart().startsWith('[') && m.includes('expected')) {
+      return 'Invalid response from server. Try again or use mock API in development.'
+    }
+    return m
+  }
 
   // Fallback
-  return e?.message ?? 'Unknown error'
+  return typeof e?.message === 'string' ? e.message : 'Unknown error'
 }
 
 /**
@@ -135,6 +170,14 @@ function isOfflineErrorLike(e: any): boolean {
 export function normalizeError(error: unknown): NormalizedError {
   // ✅ Idempotent: if already normalized, keep as-is
   if (isNormalizedError(error)) return error
+
+  if (error instanceof ZodError) {
+    return {
+      code: 'VALIDATION_ERROR',
+      message: formatZodIssues(error.issues),
+      raw: error,
+    }
+  }
 
   // string thrown
   if (typeof error === 'string') {

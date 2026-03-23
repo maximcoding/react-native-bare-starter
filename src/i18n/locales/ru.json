@@ -1,43 +1,82 @@
 {
   "app": {
-    "title": "Моё приложение",
-    "welcome": "Добро пожаловать!"
+    "title": "Моё приложение"
   },
-
+  "auth": {
+    "title": "Авторизация",
+    "welcome": "С возвращением",
+    "subtitle": "Войдите, чтобы продолжить",
+    "mock_demo_hint": "Демо: поля заполнены — нажмите «Войти» (mock API).",
+    "email": "Email",
+    "email_placeholder": "you@example.com",
+    "password": "Пароль",
+    "password_placeholder": "••••••••",
+    "forgot_password": "Забыли?",
+    "login": "Войти",
+    "sign_in": "Войти",
+    "signing_in": "Входим…",
+    "no_account": "Нет аккаунта?",
+    "sign_up": "Зарегистрироваться",
+    "or": "ИЛИ",
+    "terms_prefix": "Продолжая, вы принимаете наши",
+    "terms_of_service": "Условия использования",
+    "and": "и",
+    "privacy_policy": "Политику конфиденциальности",
+    "logout": "Выйти",
+    "a11y_toggle_theme": "Переключить тему оформления"
+  },
+  "common": {
+    "loading": "Загрузка…",
+    "error": "Ошибка",
+    "no_data": "Нет данных",
+    "error_title": "Что-то пошло не так",
+    "error_hint": "Попробуйте снова. Если ошибка повторится, перезапустите приложение.",
+    "retry": "Повторить"
+  },
   "home": {
     "title": "Главная",
     "subtitle": "Добро пожаловать!",
     "go_settings": "Перейти в настройки",
-    "hello": "Привет!"
+    "greeting_morning": "Доброе утро",
+    "greeting_afternoon": "Добрый день",
+    "greeting_evening": "Добрый вечер",
+    "overview": "Обзор",
+    "recent_activity": "Недавняя активность",
+    "quick_actions": "Быстрые действия",
+    "featured_title": "Дневная цель",
+    "featured_subtitle": "Отличная работа — не останавливайтесь на достигнутом.",
+    "stat_done": "Готово",
+    "stat_active": "Активно",
+    "stat_streak": "Серия"
   },
-
+  "onboarding": {
+    "welcome": "Добро пожаловать!",
+    "continue": "Продолжить",
+    "headline": "Всё необходимое\nв одном месте.",
+    "tagline": "Быстро, надёжно и красиво оформлено.",
+    "get_started": "Начать",
+    "feature_1_title": "Работает офлайн",
+    "feature_1_body": "Работает без подключения к интернету",
+    "feature_2_title": "Защита по умолчанию",
+    "feature_2_body": "Данные зашифрованы от начала до конца",
+    "feature_3_title": "Молниеносная скорость",
+    "feature_3_body": "Мгновенная синхронизация на всех устройствах"
+  },
   "settings": {
     "title": "Настройки",
-    "account": "Аккаунт",
     "appearance": "Оформление",
     "theme": "Тема",
-    "theme_light": "Светлая",
-    "theme_dark": "Тёмная",
-    "theme_system": "Системная",
-    "about": "О приложении",
-    "version": "Версия",
-    "logout": "Выйти",
     "language": {
-      "choose": "Выберите язык",
       "label": "Язык",
       "english": "Английский",
       "russian": "Русский",
       "german": "Немецкий"
-    }
-  },
-
-  "onboarding": {
-    "welcome": "Добро пожаловать!",
-    "continue": "Продолжить"
-  },
-
-  "auth": {
-    "title": "Авторизация",
-    "login": "Войти"
+    },
+    "about": "О приложении",
+    "version": "Версия",
+    "logout": "Выйти",
+    "theme_light": "Светлая",
+    "theme_dark": "Тёмная",
+    "theme_system": "Системная"
   }
 }

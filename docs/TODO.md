@@ -1,52 +1,43 @@
-**Not architecture SSOT.** Product backlog and publishing checklist only. For structure and rules see [AGENTS.md](../AGENTS.md), [README.md](../README.md), and [MOBILE_E2E_GUIDE_additions.md](MOBILE_E2E_GUIDE_additions.md).
+**Not architecture SSOT.** Product backlog, publishing checklist, and “what’s left for open source.” For structure and rules see [AGENTS.md](../AGENTS.md), [README.md](../README.md), and [production-guidelines.md](production-guidelines.md).
 
 ---
 
-## Roadmap
+## Shipped in this template
 
-- [x] Zustand stores in `src/shared/stores/`
-- [ ] Extend shared components: Inputs, Cards, Lists, Toasts
-- [ ] Sentry / Crashlytics integration
-- [ ] CodePush / OTA update support
-- [ ] Clean up GitHub workflow files (keep only android/ios/release)
-- [ ] End-to-end tests (Detox or Maestro)
+These are **already in the repo** (no action required to “add” them):
+
+- [x] Zustand global UI store — `src/shared/stores/`
+- [x] Sentry — `@sentry/react-native`, `src/shared/services/monitoring/sentry.ts`, `ErrorBoundary` → `captureBoundaryError`; [OPERATIONS.md § Sentry](OPERATIONS.md#sentry)
+- [x] OTA policy — env placeholders only; no default vendor SDK; [OPERATIONS.md § Over-the-air updates](OPERATIONS.md#over-the-air-updates)
+- [x] CI on push/PR — Biome, `tsc`, Jest, `check:icons`, `check:imports` — `.github/workflows/ci.yml`
+- [x] Manual Android / iOS workflows — Node 20, `npm ci`; [OPERATIONS.md § GitHub Actions](OPERATIONS.md#github-actions)
+- [x] Maestro smoke starters — `maestro/smoke-*.yaml`; [OPERATIONS.md § Maestro](OPERATIONS.md#maestro)
+- [x] Community files — [LICENSE](../LICENSE), [CONTRIBUTING.md](../CONTRIBUTING.md), [CHANGELOG.md](../CHANGELOG.md), [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/), [.github/PULL_REQUEST_TEMPLATE.md](../.github/PULL_REQUEST_TEMPLATE.md), [.github/CODE_OF_CONDUCT.md](../.github/CODE_OF_CONDUCT.md)
+- [x] Single root README + doc matrix in [AGENTS.md](../AGENTS.md) (`#documentation-map`)
 
 ---
 
-New react components
- 1. <Activity> - wrapper which show / hide elements but remains the state
- 2. <Suspense> - loading until promise is resolved ( TanQuery )
- 3. <ErrorBoundary> - catch errors in child components and show fallback UI
- 4. <Portal> - render children into a DOM node that exists outside the DOM hierarchy of the parent component
- 5. <LazyLoad> - load components only when they are visible in viewport
+## Before / when you go public (maintainer)
 
-## Making the repo public and discoverable
+**Copy-paste text and templates:** [OPERATIONS.md § Publishing & discoverability](OPERATIONS.md#publishing--discoverability).
 
-In-repo work (LICENSE, CONTRIBUTING, CHANGELOG, issue/PR templates, README updates) is done. Remaining items (repo: `https://github.com/maximcoding/react-native-starter`):
+These steps happen **outside** git (GitHub UI, design assets, community). Leave them unchecked until you actually do them:
 
-### GitHub repo (manual in UI)
+- [ ] Set repository visibility to **Public** (GitHub → Settings → Danger zone).
+- [ ] Set **description** and **topics** on the repo (suggested strings in [OPERATIONS.md § GitHub repository settings](OPERATIONS.md#github-repository-settings)).
+- [ ] Add or refresh **README / marketing visuals** — screenshots or short GIF (guidance: [OPERATIONS.md § Screenshots](OPERATIONS.md#screenshots)); use stable paths (e.g. under `docs/images/`) if you commit images.
+- [ ] Publish a **GitHub Release** for your first tag (process: [OPERATIONS.md § GitHub Releases](OPERATIONS.md#github-releases)).
+- [ ] Submit a PR to **[awesome-react-native](https://github.com/jondot/awesome-react-native)** (Starter Kits / Templates) using the one-liner template in OPERATIONS.
+- [ ] Post a **short launch** note (e.g. r/reactnative, React Native Discord, X) — bullet template in OPERATIONS.
+- [ ] **Optional:** enable **GitHub Pages** or a small landing page — [OPERATIONS.md § Optional: GitHub Pages](OPERATIONS.md#optional-github-pages).
 
-- [ ] Set repo description (e.g. "Production-ready React Native (bare) starter: TypeScript, feature-first, theme, i18n, offline, React Query.")
-- [ ] Add topics: `react-native`, `typescript`, `starter`, `boilerplate`, `bare-workflow`, `react-query`, `mmkv`, `i18n`, `offline-first`, `template`
-- [ ] Optionally set Website if you add a docs/landing page
+---
 
-### Screenshots / media
+## After launch (ongoing)
 
-- [ ] Add 1–2 app screenshots or a short GIF (e.g. light/dark theme, main screens)
-- [ ] Store in `docs/images/` and reference in README "Screenshots" section (placeholder comment is already there)
+Habits that help the repo stay trustworthy and discoverable (not one-and-done checkboxes):
 
-### Releases
-
-- [ ] When tagging versions (`npm run release:patch` etc.), create a **GitHub Release** for the tag and paste the relevant CHANGELOG section into the release notes
-
-### Discoverability
-
-- [ ] Submit a PR to [awesome-react-native](https://github.com/jondot/awesome-react-native) (Starter Kits / Templates) with repo URL and one-line description
-- [ ] One launch post: r/reactnative, React Native Discord, or Twitter/X with repo link and 2–3 bullet points (what's included, why bare)
-
-### Optional
-
-- [ ] Add `.github/CODE_OF_CONDUCT.md` (e.g. Contributor Covenant)
-- [ ] Add `SECURITY.md` with how to report vulnerabilities
-- [ ] GitHub Pages or short blog post for extra SEO
-
+- [ ] **Triage** issues and PRs within a few days early on.
+- [ ] Keep **`main` CI green** (same checks as `.github/workflows/ci.yml`).
+- [ ] Label **`good first issue`** where appropriate; pin a short roadmap or welcome issue if useful.
+- [ ] **Tag releases** and paste CHANGELOG excerpts into GitHub Releases when you ship meaningful changes.

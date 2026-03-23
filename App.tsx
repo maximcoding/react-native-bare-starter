@@ -1,7 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React, { useEffect } from 'react'
-import { StatusBar, StyleSheet } from 'react-native'
-import BootSplash from 'react-native-bootsplash'
+import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -11,41 +9,53 @@ import '@/i18n/i18n'
 import { flags } from '@/config/constants'
 import { authKeys } from '@/features/auth/api/keys'
 import { userKeys } from '@/features/user/api/keys'
-import AppLayout from '@/navigation/AppLayout'
-import { navigationRef } from '@/navigation/helpers/navigation-helpers'
 import { useBackButtonHandler } from '@/navigation/helpers/use-back-handler'
+import { NavigationRoot } from '@/navigation/NavigationRoot'
+import { clearNavigationPersistence } from '@/navigation/persistence/navigation-persistence'
 import { ROUTES } from '@/navigation/routes'
+import { ErrorBoundary } from '@/shared/components/ui/ErrorBoundary'
 import { OfflineBanner } from '@/shared/components/ui/OfflineBanner'
 import { QueryProvider } from '@/shared/services/api/query/client/provider'
 import { mockAdapter } from '@/shared/services/api/transport/adapters/mock.adapter'
 import { restAdapter } from '@/shared/services/api/transport/adapters/rest.adapter'
 import { setTransport } from '@/shared/services/api/transport/transport'
+import {
+  captureBoundaryError,
+  initSentry,
+} from '@/shared/services/monitoring/sentry'
+
+initSentry()
 
 export default function App() {
   useEffect(() => {
     setTransport(flags.USE_MOCK ? mockAdapter : restAdapter)
   }, [])
 
+  // Android: exit app from root-level leaves (main tabs, login, onboarding).
   useBackButtonHandler(
     routeName =>
-      routeName === ROUTES.HOME_TABS || routeName === ROUTES.TAB_HOME,
+      routeName === ROUTES.HOME_TABS ||
+      routeName === ROUTES.TAB_HOME ||
+      routeName === ROUTES.TAB_SETTINGS ||
+      routeName === ROUTES.AUTH_LOGIN ||
+      routeName === ROUTES.ONBOARDING_MAIN,
   )
 
   return (
     <GestureHandlerRootView style={styles.flex}>
       <SafeAreaProvider>
-        <StatusBar barStyle="dark-content" />
         <ThemeProvider>
-          <QueryProvider tagMaps={[authKeys.tagMap, userKeys.tagMap]}>
-            <OfflineBanner />
-
-            <NavigationContainer
-              ref={navigationRef}
-              onReady={() => BootSplash.hide({ fade: true })}
-            >
-              <AppLayout />
-            </NavigationContainer>
-          </QueryProvider>
+          <ErrorBoundary
+            onError={(error, errorInfo) => {
+              captureBoundaryError(error, errorInfo)
+              clearNavigationPersistence()
+            }}
+          >
+            <QueryProvider tagMaps={[authKeys.tagMap, userKeys.tagMap]}>
+              <OfflineBanner />
+              <NavigationRoot />
+            </QueryProvider>
+          </ErrorBoundary>
         </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

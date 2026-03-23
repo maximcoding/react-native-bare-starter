@@ -1,6 +1,6 @@
-# CLAUDE.md — React Native Project
+# CLAUDE.md — React Native Starter
 
-**Claude Code context** for this repo. **Canonical agent rules:** [AGENTS.md](../AGENTS.md) at the repo root (structure, don’ts, “when adding”). This file duplicates stack/commands for Claude; on conflict, prefer **AGENTS.md** and the codebase.
+**Claude Code context** for this repo. **Canonical agent rules:** [AGENTS.md](../AGENTS.md) (structure, don’ts, “when adding”, documentation map). This file adds stack/commands for Claude; on conflict, prefer **AGENTS.md** and the codebase. **Path-scoped rules:** [.claude/rules/](rules/) (`config`, `features`, `shared-components`, `shared-services`).
 
 ## Project Overview
 
@@ -16,7 +16,7 @@ Production-oriented React Native starter for mobile apps: feature-first architec
 - **Backend/API:** `src/shared/services/api/`
 - **Auth:** interceptors in shared API; session in `src/session/`
 - **Testing:** Jest (react-native preset), react-test-renderer; `jest.config.js`, `jest.setup.js`
-- **CI/CD:** GitHub Actions — `.github/workflows/android-ci.yml`, `.github/workflows/ios-ci.yml`; Fastlane mentioned in docs for Play/TestFlight
+- **CI/CD:** GitHub Actions — `.github/workflows/ci.yml` (PR checks), `.github/workflows/android-ci.yml`, `.github/workflows/ios-ci.yml` (manual); Fastlane optional — not in this template (add under `fastlane/` for store releases; see [docs/OPERATIONS.md](../docs/OPERATIONS.md#github-actions))
 
 ## Project Structure
 
@@ -35,12 +35,13 @@ src/
 │   ├── theme/
 │   ├── utils/
 │   └── types/
-├── features/<feature>/
+├── features/<feature>/    # per slice: types/, screens/, components/, hooks/, services/, api/, navigation/
 assets/
 scripts/
+ios/, android/     # native projects (Fastlane optional — add fastlane/ when needed)
 ```
 
-Feature services live under `src/features/<feature>/services/`; features own their screens, components, hooks, models (Zod + mappers), and api (query keys).
+Feature code lives under `src/features/<feature>/`: `screens/`, `components/`, `hooks/`, **`types/`** (interfaces + type aliases), `services/` (Zod + mappers + service modules), `api/keys.ts`, `navigation/param-list.ts`.
 
 ## Key Commands
 
@@ -49,7 +50,7 @@ Feature services live under `src/features/<feature>/services/`; features own the
 npm install
 
 # Metro
-npm run start
+npm start
 
 # Run
 npm run ios
@@ -86,7 +87,7 @@ npm run android:build:release   # Android
 - **Component pattern:** Functional components only; no class components.
 - **File naming:** PascalCase for components (e.g. `ScreenWrapper.tsx`); camelCase or kebab for utils/services (e.g. `navigation-helpers.ts`, `auth.service.ts`).
 - **Exports:** Named exports for components/hooks; screens follow existing files.
-- **API layer:** `src/shared/services/api/`; feature services in `features/<name>/services/`; Zod validation.
+- **API layer:** `src/shared/services/api/`; feature services in `features/<name>/services/`; domain types in `features/<name>/types/`; Zod validation.
 - **Error handling:** `src/shared/utils/normalize-error.ts`, `toast.ts`.
 - **Navigation typing:** `src/navigation/routes.ts`.
 
@@ -137,18 +138,25 @@ npm run android:build:release   # Android
 
 - **Navigation & route constants:** `src/navigation/` (`routes.ts`, stacks, tabs).
 - **Theme & query client infra:** `src/shared/theme/`, `src/shared/services/api/query/`.
-- **Feature API logic:** `src/features/<name>/services/`.
+- **Feature API logic:** `src/features/<name>/services/`; **feature types:** `src/features/<name>/types/`.
 
 ## Docs
 
-| Audience | Doc |
-|----------|-----|
-| Humans | [README.md](../README.md) |
-| Cursor / agents | [AGENTS.md](../AGENTS.md) |
-| Claude Code | This file |
-| Extended guidelines | [docs/MOBILE_E2E_GUIDE_additions.md](../docs/MOBILE_E2E_GUIDE_additions.md) |
-| Backlog | [docs/TODO.md](../docs/TODO.md) |
-| Versions | [CHANGELOG.md](../CHANGELOG.md) |
+Same **topic-to-doc** matrix as [AGENTS.md#documentation-map](../AGENTS.md#documentation-map) (canonical). Root [README.md](../README.md) is the only project README; do not duplicate the full table there.
+
+| Doc | Role |
+|-----|------|
+| [README.md](../README.md) | Landing: quick start, setup, env, links |
+| [AGENTS.md](../AGENTS.md) | Agents/humans: rules, where code lives, doc map |
+| This file | Claude Code stack reference + commands |
+| [docs/development.md](../docs/development.md) | Hooks, architecture, icons, i18n, npm scripts |
+| [docs/production-guidelines.md](../docs/production-guidelines.md) | Production patterns and checklists |
+| [docs/OPERATIONS.md](../docs/OPERATIONS.md) | Sentry, Maestro, CI, OTA, publishing |
+| [docs/OFFLINE.md](../docs/OFFLINE.md) | Offline stack |
+| [docs/permissions-bare-rn.md](../docs/permissions-bare-rn.md) | Permission catalog |
+| [docs/TODO.md](../docs/TODO.md) | Roadmap / backlog |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | PRs, changelog, quality checks, security reporting |
+| [CHANGELOG.md](../CHANGELOG.md) | Version history |
 
 ## MCP Servers
 
@@ -157,6 +165,7 @@ Figma MCP is configured for design-to-code (get_design_context, etc.). Use for F
 ## Common Pitfalls — Do NOT
 
 - Do NOT add new npm packages without asking/RFC.
+- Do NOT change any package version in `package.json` or `package-lock.json`. Fix consuming code to match the installed version instead.
 - Do NOT use `fetch`; use project HTTP/transport only.
 - Do NOT put feature logic in `src/shared/components/ui/` or `src/shared/stores/`.
 - Do NOT use raw colors/spacing/fonts in UI; use theme tokens.

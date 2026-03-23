@@ -1,5 +1,6 @@
 // src/app/navigation/options/createHomeScreenOptions.ts
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
+import type { TFunction } from 'i18next'
 import { makeTabScreenOptions } from '@/navigation/options/tabOptions'
 import { ROUTES } from '@/navigation/routes'
 
@@ -7,7 +8,7 @@ type ThemeLike = {
   colors: Record<string, any>
 }
 
-type TFunc = (k: string) => string
+type TFunc = TFunction<'translation'>
 
 /**
  * Factory that composes/extends base tab options.
@@ -27,14 +28,6 @@ export function createHomeScreenOptions(theme: ThemeLike, t: TFunc) {
 
     // Add/override per-route tweaks (examples below)
     const perRouteOverrides: Partial<BottomTabNavigationOptions> = {}
-
-    if (route.name === ROUTES.TAB_HOME) {
-      // Example: slightly taller bar on Home
-      perRouteOverrides.tabBarStyle = {
-        ...(base.tabBarStyle || {}),
-        height: 68,
-      }
-    }
 
     if (route.name === ROUTES.TAB_SETTINGS) {
       // Example: custom label for Settings

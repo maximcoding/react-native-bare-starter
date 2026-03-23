@@ -2,6 +2,8 @@
 globs: src/config/**
 ---
 
+Global rules: [AGENTS.md](../../AGENTS.md). Claude stack summary: [CLAUDE.md](../CLAUDE.md).
+
 # Rules — config
 
 `src/config/` is the **environment boundary**: everything that varies between dev / staging / prod lives here and nowhere else.

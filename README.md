@@ -1,4 +1,4 @@
-# React Native Mobile Starter
+# React Native Bare Starter
 
 [![Use this template](https://img.shields.io/badge/Use%20this%20template-2ea44f?logo=github&logoColor=white)](https://github.com/maximcoding/react-native-starter/generate)
 ![CI](https://github.com/maximcoding/react-native-starter/actions/workflows/ci.yml/badge.svg)
@@ -9,13 +9,26 @@
 ![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen?logo=node.js)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
-Bare-workflow React Native starter with **TypeScript** (strict), **feature-first** layout under `src/features`, shared code in `src/shared`, **theme tokens**, **i18n**, and [offline behavior](docs/OFFLINE.md) (NetInfo, transport queue/replay, React Query + MMKV). Optional **Sentry**, shared **ErrorBoundary** / **Suspense** / **Activity**, Maestro smoke flows, and [operations docs](docs/OPERATIONS.md) for CI, OTA policy, and publishing.
+A bare-workflow React Native starter for apps that need more than a demo.
 
-**Highlights:** typed navigation; pluggable transport (REST / GraphQL / WebSocket / Firebase); TanStack Query with persistence; **Biome** + Jest + GitHub Actions quality gate.
+Built for developers who want a clean foundation from day one: **strict TypeScript**, **feature-first structure**, **theme tokens**, **i18n**, **offline-ready behavior**, solid quality gates, and room to grow without rebuilding the same setup again.
 
-### Quick start
+Instead of starting from a blank app and wiring everything together again, this starter gives you the pieces most real apps end up needing anyway.
 
-First-time setup (once per clone):
+### ✨ Why this starter
+
+- ⚡ **Bare React Native** for full native control and long-term flexibility
+- 🧱 **Feature-first structure** under `src/features` with shared code in `src/shared`
+- 🌐 **Offline-ready foundation** with NetInfo, queue/replay, React Query persistence, and MMKV
+- 🎨 **Theme tokens + i18n** ready for real product work
+- 🛠️ **Modern dev workflow** with Biome, Jest, GitHub Actions, and Maestro smoke flows
+- 🔌 **Pluggable transport layer** for REST, GraphQL, WebSocket, or Firebase
+- 🧯 **Optional Sentry** plus shared ErrorBoundary / Suspense / Activity primitives
+- 📚 **Ops docs included** for CI, OTA policy, publishing, and release flow
+
+### 🚀 Quick start
+
+First-time setup:
 
 ```bash
 git clone https://github.com/maximcoding/react-native-starter.git
@@ -23,77 +36,92 @@ cd react-native-starter
 npm install
 npx pod-install ios
 cp .env.example .env
-```
+````
 
-Edit `.env` as needed (`API_URL`, `USE_MOCK_API`, optional Sentry / OTA keys) — see [Environment variables](#environment-variables).
+Then edit `.env` as needed (`API_URL`, `USE_MOCK_API`, optional Sentry / OTA keys).
 
-**Next:** [Running the app](#running-the-app).
+Next step: [Running the app](#running-the-app)
 
-Prerequisites: [Getting Started](#getting-started).
-
----
-
-## Table of Contents
-
-- [Features](#features)
-- [Project structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Environment variables](#environment-variables)
-- [Key commands](#key-commands)
-- [Documentation](#documentation)
-- [Permissions](#permissions)
-- [Contributing](#contributing)
-- [CI/CD & Release](#cicd--release)
+Prerequisites: [Getting Started](#getting-started)
 
 ---
 
-## Features
+## 📚 Table of Contents
 
-Pinned versions live in [`package.json`](package.json); this table is an **at-a-glance** stack summary.
-
-| Category | Library | Description |
-|---|---|---|
-| **Framework** | react-native | Bare workflow, TypeScript, Hermes engine |
-| **Theme** | — | Light & Dark via `ThemeProvider`; semantic tokens; `useTheme()` |
-| **Navigation** | @react-navigation | Native stacks, Bottom Tabs, Modals |
-| **i18n** | i18next + react-i18next | Flat JSON per locale, feature-keyed sections, type-safe `useT()` |
-| **Validation** | zod | Schema validation on API responses; typed domain mappers |
-| **HTTP** | apisauce | Centralized instance with auth, error, and logging interceptors |
-| **Transport** | — | Pluggable adapters: REST (Axios), GraphQL, WebSocket, Firebase |
-| **Server State** | @tanstack/react-query | Query/mutation management with persistence and tag-based invalidation |
-| **Offline** | — | NetInfo → transport offline mode; mutation queue + replay; Query cache + MMKV — [OFFLINE.md](docs/OFFLINE.md) |
-| **Storage** | react-native-mmkv + react-native-nitro-modules | Fast key-value; **keep versions paired** — [development.md § MMKV / Nitro](docs/development.md#react-native-mmkv-and-react-native-nitro-modules) |
-| **Lists** | @shopify/flash-list | High-performance virtualized lists |
-| **SVG** | react-native-svg | Icons via `npm run gen:icons` |
-| **Splash Screen** | react-native-bootsplash | `npm run bootsplash:generate` — [development.md](docs/development.md#key-commands) |
-| **Native Utils** | — | Device info, haptics, runtime permissions |
-| **Biome** | @biomejs/biome | Format, lint, import organization (`biome check`) |
-| **Monitoring** | @sentry/react-native | Optional when `SENTRY_DSN` is set — [OPERATIONS.md#sentry](docs/OPERATIONS.md#sentry) |
-| **CI/CD** | GitHub Actions | Quality + manual native builds — [OPERATIONS.md#github-actions](docs/OPERATIONS.md#github-actions) |
+* [Features](#features)
+* [Project structure](#project-structure)
+* [Getting Started](#getting-started)
+* [Environment variables](#environment-variables)
+* [Key commands](#key-commands)
+* [Documentation](#documentation)
+* [Permissions](#permissions)
+* [Contributing](#contributing)
+* [CI/CD & Release](#cicd--release)
 
 ---
 
-## Project structure
+## ✨ Features
 
-Repository tree (folders and comments): **[docs/development.md#repository-layout](docs/development.md#repository-layout)**. Import rules and “where code lives”: **[AGENTS.md](AGENTS.md)**.
+Pinned versions live in [`package.json`](package.json). This is the at-a-glance stack summary.
+
+| Category          | Library                                        | Description                                                                                                                                              |
+| ----------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Framework**     | react-native                                   | Bare workflow, TypeScript, Hermes engine                                                                                                                 |
+| **Theme**         | —                                              | Light & Dark via `ThemeProvider`; semantic tokens; `useTheme()`                                                                                          |
+| **Navigation**    | @react-navigation                              | Native stacks, Bottom Tabs, Modals                                                                                                                       |
+| **i18n**          | i18next + react-i18next                        | Flat JSON per locale, feature-keyed sections, type-safe `useT()`                                                                                         |
+| **Validation**    | zod                                            | Schema validation on API responses; typed domain mappers                                                                                                 |
+| **HTTP**          | apisauce                                       | Centralized instance with auth, error, and logging interceptors                                                                                          |
+| **Transport**     | —                                              | Pluggable adapters: REST (Axios), GraphQL, WebSocket, Firebase                                                                                           |
+| **Server State**  | @tanstack/react-query                          | Query/mutation management with persistence and tag-based invalidation                                                                                    |
+| **Offline**       | —                                              | NetInfo → transport offline mode; mutation queue + replay; Query cache + MMKV — [OFFLINE.md](docs/OFFLINE.md)                                            |
+| **Storage**       | react-native-mmkv + react-native-nitro-modules | Fast key-value storage; **keep versions paired** — [development.md § MMKV / Nitro](docs/development.md#react-native-mmkv-and-react-native-nitro-modules) |
+| **Lists**         | @shopify/flash-list                            | High-performance virtualized lists                                                                                                                       |
+| **SVG**           | react-native-svg                               | Icons via `npm run gen:icons`                                                                                                                            |
+| **Splash Screen** | react-native-bootsplash                        | `npm run bootsplash:generate` — [development.md](docs/development.md#key-commands)                                                                       |
+| **Native Utils**  | —                                              | Device info, haptics, runtime permissions                                                                                                                |
+| **Biome**         | @biomejs/biome                                 | Format, lint, import organization (`biome check`)                                                                                                        |
+| **Monitoring**    | @sentry/react-native                           | Optional when `SENTRY_DSN` is set — [OPERATIONS.md#sentry](docs/OPERATIONS.md#sentry)                                                                    |
+| **CI/CD**         | GitHub Actions                                 | Quality checks + manual native builds — [OPERATIONS.md#github-actions](docs/OPERATIONS.md#github-actions)                                                |
 
 ---
 
-## Getting Started
+## 🧭 Project structure
+
+Repository tree, folder layout, and comments:
+**[docs/development.md#repository-layout](docs/development.md#repository-layout)**
+
+Import rules and “where code lives”:
+**[AGENTS.md](AGENTS.md)**
+
+This starter is organized to scale past the first few screens without turning into a dump of shared files and ad-hoc folders.
+
+---
+
+## 🛠️ Getting Started
 
 ### Prerequisites
 
-Same toolchain as a typical bare React Native app: Node.js ≥ 20, Xcode (iOS), Android Studio + SDK (Android), CocoaPods for iOS.
+Use the standard bare React Native toolchain:
+
+* Node.js ≥ 20
+* Xcode for iOS
+* Android Studio + SDK for Android
+* CocoaPods for iOS
 
 ### Installation
 
-Run the steps in [Quick start](#quick-start) above (clone through `cp .env.example .env`).
+Run the setup steps in [Quick start](#quick-start).
 
-If `npm install` fails on peer dependency conflicts, use `npm install --legacy-peer-deps`.
+If `npm install` fails because of peer dependency conflicts, try:
 
-### Running the App
+```bash
+npm install --legacy-peer-deps
+```
 
-Use this **every time** you develop: keep Metro running in one terminal, then build and launch the app from another.
+### Running the app
+
+During development, keep Metro running in one terminal and launch the native app from another:
 
 ```bash
 npm start
@@ -101,81 +129,110 @@ npm run ios
 npm run android
 ```
 
-`npm run ios` and `npm run android` run **`env:ensure`** first (creates `.env` from [`.env.example`](.env.example) if missing).
+`npm run ios` and `npm run android` run **`env:ensure`** first, which creates `.env` from [`.env.example`](.env.example) if needed.
 
 <details>
 <summary>Android build troubleshooting</summary>
 
-- **”No connected devices”** — start an emulator or connect a device with USB debugging, then run `npm run android:devices`.
-- **CMake errors about missing `codegen/jni`** (common with New Architecture) — do not repeat `./gradlew clean` until a successful native build regenerates those folders. Run `npm run android:clean` (removes `android/app/.cxx` and build outputs only), then `npm run android`.
-- **Still failing** — try `rm -rf node_modules/*/android/build`, reinstall deps, and rebuild.
-- **Gradle clean that skips broken native tasks** — use `npm run android:clean:gradle`.
+* **No connected devices** — start an emulator or connect a device with USB debugging, then run `npm run android:devices`
+* **CMake errors about missing `codegen/jni`** — common with New Architecture. Do not keep repeating `./gradlew clean` until a successful native build regenerates those folders. Run `npm run android:clean`, then `npm run android`
+* **Still failing** — try `rm -rf node_modules/*/android/build`, reinstall dependencies, and rebuild
+* **Need a Gradle clean that skips broken native tasks** — use `npm run android:clean:gradle`
 
-Full detail: [docs/development.md#android-build](docs/development.md#android-build).
+Full detail: [docs/development.md#android-build](docs/development.md#android-build)
+
 </details>
 
 ### Environment variables
 
-Values are read at build time via **`react-native-config`** (see [`.env.example`](.env.example)). Rebuild the app after changing `.env`.
+Values are read at build time via **`react-native-config`**. See [`.env.example`](.env.example).
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `API_URL` | For real API | Backend base URL |
-| `USE_MOCK_API` | No | `true` / `1` uses the mock transport in **dev**; login screen pre-fills **`demo@example.com` / `password`** (any valid email + non-empty password also works) |
-| `WS_URL` | No | WebSocket base URL for the WebSocket transport adapter |
-| `ENV` | No | Runtime environment label (`development` / `staging` / `production`); defaults to `development` in `__DEV__`, `production` otherwise |
-| `SENTRY_DSN` | No | Enables Sentry when non-empty; debug builds stay quiet unless `SENTRY_ENABLE_IN_DEV=1` |
-| `SENTRY_ENABLE_IN_DEV` | No | `1` = send Sentry events from `__DEV__` |
-| `SENTRY_TRACES_SAMPLE_RATE` | No | `0`–`1` performance sampling (`0` = off) |
-| `CODEPUSH_KEY_IOS` / `CODEPUSH_KEY_ANDROID` | No | Reserved for OTA; no CodePush SDK ships by default — see [docs/OPERATIONS.md#over-the-air-updates](docs/OPERATIONS.md#over-the-air-updates) |
+After changing `.env`, rebuild the app.
 
-**Docs:** [Sentry setup](docs/OPERATIONS.md#sentry) · [OTA / updates policy](docs/OPERATIONS.md#over-the-air-updates) · [Going public / GitHub / releases](docs/OPERATIONS.md#publishing--discoverability)
+| Variable                                    | Required     | Purpose                                                                                                                                                       |
+| ------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `API_URL`                                   | For real API | Backend base URL                                                                                                                                              |
+| `USE_MOCK_API`                              | No           | `true` / `1` uses the mock transport in **dev**; login screen pre-fills **`demo@example.com` / `password`** (any valid email + non-empty password also works) |
+| `WS_URL`                                    | No           | WebSocket base URL for the WebSocket transport adapter                                                                                                        |
+| `ENV`                                       | No           | Runtime environment label (`development` / `staging` / `production`); defaults to `development` in `__DEV__`, `production` otherwise                          |
+| `SENTRY_DSN`                                | No           | Enables Sentry when non-empty; debug builds stay quiet unless `SENTRY_ENABLE_IN_DEV=1`                                                                        |
+| `SENTRY_ENABLE_IN_DEV`                      | No           | `1` = send Sentry events from `__DEV__`                                                                                                                       |
+| `SENTRY_TRACES_SAMPLE_RATE`                 | No           | `0`–`1` performance sampling (`0` = off)                                                                                                                      |
+| `CODEPUSH_KEY_IOS` / `CODEPUSH_KEY_ANDROID` | No           | Reserved for OTA; no CodePush SDK ships by default — see [docs/OPERATIONS.md#over-the-air-updates](docs/OPERATIONS.md#over-the-air-updates)                   |
 
----
+Useful docs:
 
-## Key commands
-
-| Command | Description |
-|---------|-------------|
-| `npm start` | Metro bundler (cache reset) |
-| `npm run ios` / `npm run android` | Run on simulator or device (ensures `.env` exists) |
-| `npm run env:ensure` | Create `.env` from `.env.example` if missing |
-| `npm run android:clean` | Remove Android native/build dirs (`.cxx`, `android/app/build`, `android/build`) — no `./gradlew clean` |
-| `npm run android:devices` | `adb devices` |
-| `npm run lint` | Biome check (no writes) |
-| `npm run format` | Biome apply format + safe fixes (writes files) |
-| `npm test` | Jest |
-| `npx tsc --noEmit` | Typecheck |
-| `npm run i18n:all` | i18n extract + types |
-| `npm run gen:icons` / `npm run check:icons` | Icon registry |
-| `npm run check:imports` | Path-alias guard |
-
-**All npm scripts** (Android builds, release bumps, splash, etc.): [docs/development.md#key-commands](docs/development.md#key-commands).
+* [Sentry setup](docs/OPERATIONS.md#sentry)
+* [OTA / updates policy](docs/OPERATIONS.md#over-the-air-updates)
+* [Going public / GitHub / releases](docs/OPERATIONS.md#publishing--discoverability)
 
 ---
 
-## Documentation
+## ⌨️ Key commands
 
-This file is the only **README** in the repo. **Which doc for what:** see the matrix in **[AGENTS.md#documentation-map](AGENTS.md#documentation-map)**.
+| Command                                     | Description                                                                                                |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `npm start`                                 | Start Metro bundler (cache reset)                                                                          |
+| `npm run ios` / `npm run android`           | Run on simulator or device (ensures `.env` exists)                                                         |
+| `npm run env:ensure`                        | Create `.env` from `.env.example` if missing                                                               |
+| `npm run android:clean`                     | Remove Android native/build dirs (`.cxx`, `android/app/build`, `android/build`) — avoids `./gradlew clean` |
+| `npm run android:devices`                   | Run `adb devices`                                                                                          |
+| `npm run lint`                              | Run Biome check (no writes)                                                                                |
+| `npm run format`                            | Apply Biome formatting + safe fixes                                                                        |
+| `npm test`                                  | Run Jest                                                                                                   |
+| `npx tsc --noEmit`                          | Run typecheck                                                                                              |
+| `npm run i18n:all`                          | Extract i18n keys + generate types                                                                         |
+| `npm run gen:icons` / `npm run check:icons` | Manage icon registry                                                                                       |
+| `npm run check:imports`                     | Run path-alias guard                                                                                       |
 
-Coding rules and structure: **[AGENTS.md](AGENTS.md)**. Deep developer reference (hooks, architecture, icons, i18n): **[docs/development.md](docs/development.md)**. Roadmap and backlog: **[docs/TODO.md](docs/TODO.md)**.
+More scripts, including Android builds, release bumps, and splash generation:
+[docs/development.md#key-commands](docs/development.md#key-commands)
+
+---
+
+## 📖 Documentation
+
+This is the main README. For everything else:
+
+* **Rules, structure, and contribution flow** → [AGENTS.md](AGENTS.md)
+* **Deep developer reference** → [docs/development.md](docs/development.md)
+* **Offline behavior** → [docs/OFFLINE.md](docs/OFFLINE.md)
+* **Operations, CI, releases, OTA, Sentry** → [docs/OPERATIONS.md](docs/OPERATIONS.md)
+* **Roadmap / backlog** → [docs/TODO.md](docs/TODO.md)
+
+If you want the doc matrix, see:
+**[AGENTS.md#documentation-map](AGENTS.md#documentation-map)**
 
 ---
 
-## Permissions
+## 🔐 Permissions
 
-Declare only what you use. Full catalog: **[docs/permissions-bare-rn.md](docs/permissions-bare-rn.md)**.
+Declare only what you actually use.
 
----
-
-## Contributing
-
-Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for fork/branch/PR guidelines, quality checks, and PR checklists.
+Full catalog:
+**[docs/permissions-bare-rn.md](docs/permissions-bare-rn.md)**
 
 ---
 
-## CI/CD & Release
+## 🤝 Contributing
 
-**Canonical detail:** [docs/OPERATIONS.md](docs/OPERATIONS.md) (GitHub Actions, local release builds, optional store secrets, Sentry, Maestro, OTA, publishing). **Version history:** [CHANGELOG.md](CHANGELOG.md).
+Contributions are welcome.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+
+* fork / branch / PR rules
+* quality checks
+* PR checklist
+* contribution workflow
 
 ---
+
+## 🚢 CI/CD & Release
+
+Canonical operational detail:
+**[docs/OPERATIONS.md](docs/OPERATIONS.md)**
+
+Version history:
+**[CHANGELOG.md](CHANGELOG.md)**
+
+This includes GitHub Actions, local release builds, optional store secrets, Sentry, Maestro, OTA policy, and publishing notes.

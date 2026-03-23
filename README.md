@@ -1,14 +1,25 @@
 # React Native Mobile Starter
 
+[![Use this template](https://img.shields.io/badge/Use%20this%20template-2ea44f?logo=github&logoColor=white)](https://github.com/maximcoding/react-native-starter/generate)
+![CI](https://github.com/maximcoding/react-native-starter/actions/workflows/ci.yml/badge.svg)
 ![React Native](https://img.shields.io/badge/React%20Native-0.82.1-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.1.1-61DAFB?logo=react&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen?logo=node.js)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
 Bare-workflow React Native starter with **TypeScript** (strict), **feature-first** layout under `src/features`, shared code in `src/shared`, **theme tokens**, **i18n**, and [offline behavior](docs/OFFLINE.md) (NetInfo, transport queue/replay, React Query + MMKV). Optional **Sentry**, shared **ErrorBoundary** / **Suspense** / **Activity**, Maestro smoke flows, and [operations docs](docs/OPERATIONS.md) for CI, OTA policy, and publishing.
 
 **Highlights:** typed navigation; pluggable transport (REST / GraphQL / WebSocket / Firebase); TanStack Query with persistence; **Biome** + Jest + GitHub Actions quality gate.
+
+---
+
+> **Screenshots** — add a GIF or PNG montage here once you run the app.
+> Suggested: `docs/images/demo.gif` showing onboarding → login → home → settings in light and dark mode.
+> See [docs/OPERATIONS.md#screenshots](docs/OPERATIONS.md#screenshots) for guidance.
+
+---
 
 ### Quick start
 
@@ -54,7 +65,7 @@ Pinned versions live in [`package.json`](package.json); this table is an **at-a-
 | **Framework** | react-native | Bare workflow, TypeScript, Hermes engine |
 | **Theme** | — | Light & Dark via `ThemeProvider`; semantic tokens; `useTheme()` |
 | **Navigation** | @react-navigation | Native stacks, Bottom Tabs, Modals |
-| **i18n** | i18next + react-i18next | Per-feature namespaces, type-safe `useT()` |
+| **i18n** | i18next + react-i18next | Flat JSON per locale, feature-keyed sections, type-safe `useT()` |
 | **Validation** | zod | Schema validation on API responses; typed domain mappers |
 | **HTTP** | apisauce | Centralized instance with auth, error, and logging interceptors |
 | **Transport** | — | Pluggable adapters: REST (Axios), GraphQL, WebSocket, Firebase |

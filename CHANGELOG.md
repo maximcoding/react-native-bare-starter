@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## Unreleased
+## [1.0.0] - 2026-03-23
 
 - Align **react-native-nitro-modules** with **react-native-mmkv** (pin mmkv 4.3.0 + nitro 0.35.0) to fix Android Kotlin compile (`CxxPart` / Nitrogen skew); **`package.json` `overrides`** pins nitro 0.35.0; refresh [`ios/Podfile.lock`](ios/Podfile.lock) (MMKVCore 2.4.0). Doc: [docs/development.md#react-native-mmkv-and-react-native-nitro-modules](docs/development.md#react-native-mmkv-and-react-native-nitro-modules).
 - [docs/TODO.md](docs/TODO.md): rewrite — shipped vs maintainer vs ongoing sections; links to [OPERATIONS.md § Publishing & discoverability](docs/OPERATIONS.md#publishing--discoverability).

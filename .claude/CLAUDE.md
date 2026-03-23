@@ -74,7 +74,6 @@ npm run gen:icons
 npm run check:icons
 
 # Guards
-npm run check:icons
 npm run check:imports
 
 # Build
@@ -93,7 +92,7 @@ npm run android:build:release   # Android
 
 ## Coding Rules
 
-- Use path alias `@/` only (e.g. `@/navigation/`, `@/shared/components/ui/`, `@/shared/services/api/http/`); no deep relative imports; `npm run check:imports`.
+- Use path aliases `@/` (maps to `src/`) and `@assets/` (maps to `assets/`) only (e.g. `@/navigation/`, `@/shared/components/ui/`, `@assets/icons/logo.svg`); no deep relative imports; `npm run check:imports`.
 - Prefer `StyleSheet.create()` over inline styles; inline only for dynamic values; no raw colors/spacing/fonts — theme tokens only.
 - No `any`; use `unknown` and type guards when uncertain.
 - Async: handle loading, success, and error; React Query for server state; mutations with `meta.tags` and targeted invalidation.
@@ -126,7 +125,7 @@ npm run android:build:release   # Android
 
 - **Android:** KeyboardAvoidingView behavior; Hermes — date/i18n polyfills if needed; use `react-native-safe-area-context` for safe areas.
 - **iOS:** SafeAreaView from RN vs safe-area-context; simulator limitations for push/keys as noted in guides.
-- **General:** Match `App.tsx`: side-effect `import '@/i18n/i18n'` before UI tree; then `ThemeProvider` → `QueryProvider` → `NavigationContainer` (wrapped by `SafeAreaProvider` and `GestureHandlerRootView`).
+- **General:** Match `App.tsx` provider order exactly: `GestureHandlerRootView` → `SafeAreaProvider` → `ThemeProvider` → `ErrorBoundary` → `QueryProvider` → (`OfflineBanner` + `NavigationRoot`). The i18n side-effect import (`import '@/i18n/i18n'`) is a module-level import above the component.
 
 ## Terminology
 
@@ -150,7 +149,7 @@ Same **topic-to-doc** matrix as [AGENTS.md#documentation-map](../AGENTS.md#docum
 | [AGENTS.md](../AGENTS.md) | Agents/humans: rules, where code lives, doc map |
 | This file | Claude Code stack reference + commands |
 | [docs/development.md](../docs/development.md) | Hooks, architecture, icons, i18n, npm scripts |
-| [docs/production-guidelines.md](../docs/production-guidelines.md) | Production patterns and checklists |
+| [.claude/rules/](rules/) | Scoped agent rules: assets, navigation, state, react-query, performance, security, i18n, testing, features, shared-components, shared-services, config |
 | [docs/OPERATIONS.md](../docs/OPERATIONS.md) | Sentry, Maestro, CI, OTA, publishing |
 | [docs/OFFLINE.md](../docs/OFFLINE.md) | Offline stack |
 | [docs/permissions-bare-rn.md](../docs/permissions-bare-rn.md) | Permission catalog |

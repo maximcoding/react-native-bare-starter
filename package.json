@@ -1,6 +1,30 @@
 {
-  "name": "ReactNativeStarter",
-  "version": "0.0.1",
+  "name": "react-native-starter",
+  "version": "1.0.0",
+  "description": "Production-ready React Native starter — TypeScript (strict), feature-first architecture, theme tokens, i18n (EN/DE/RU), offline-first, pluggable transport, Biome, Jest, GitHub Actions.",
+  "keywords": [
+    "react-native",
+    "typescript",
+    "starter",
+    "template",
+    "boilerplate",
+    "feature-first",
+    "offline-first",
+    "react-navigation",
+    "tanstack-query",
+    "zustand",
+    "mmkv",
+    "i18n",
+    "biome",
+    "sentry"
+  ],
+  "homepage": "https://github.com/maximcoding/react-native-starter#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maximcoding/react-native-starter.git"
+  },
+  "author": "Maxim Livshitz",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "react-native start --reset-cache",
@@ -44,7 +68,7 @@
     "debug:key": "cd android && ./gradlew signingReport && cd ..",
     "reactotron:android": "adb reverse tcp:9090 tcp:9090",
     "link": "npx react-native-asset",
-    "i18n:extract": "i18next 'src/**/*.{ts,tsx}' --config src/i18n/i18next-parser.config.cjs",
+    "i18n:extract": "i18next 'App.tsx' 'src/**/*.{ts,tsx}' --config src/i18n/i18next-parser.config.cjs",
     "i18n:types": "node src/i18n/generate-i18n-types.cjs",
     "i18n:all": "npm run i18n:extract && npm run i18n:types",
     "prepare": "husky",

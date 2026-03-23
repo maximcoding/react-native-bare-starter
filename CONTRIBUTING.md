@@ -41,3 +41,43 @@ Use a short, descriptive branch name, e.g. `fix/auth-redirect`, `feat/settings-t
 Use the [bug report](.github/ISSUE_TEMPLATE/bug_report.md) or [feature request](.github/ISSUE_TEMPLATE/feature_request.md) templates when opening an issue. Include environment details (React Native version, Node version, OS) for bugs.
 
 For **security** concerns, do not file a public issue. Use **GitHub → Security → Report a vulnerability** if enabled for this repository, or contact the maintainers privately.
+
+## PR checklists
+
+Use the relevant checklist(s) when reviewing or submitting a PR.
+
+### React Query
+- [ ] Keys defined in `api/keys.ts` — not inline in components.
+- [ ] Freshness profile from `src/shared/services/api/query/policy/freshness.ts` — no magic numbers.
+- [ ] Mutations include `meta.tags`; `api/keys.ts` has the tag → keys mapping.
+- [ ] API response validated with Zod before caching.
+- [ ] Normalized errors only (`normalize-error.ts`).
+- [ ] Pagination uses infinite queries; resets on params change.
+- [ ] Offline behavior and post-replay invalidations defined.
+
+### State & stores
+- [ ] One responsibility per slice; no monolithic store.
+- [ ] Actions atomic; no side effects inside store definitions.
+- [ ] Narrow selectors; components subscribe to specific fields.
+- [ ] Only safe bits persisted (theme/locale); no secrets in Zustand.
+- [ ] No server data duplicated from React Query.
+- [ ] Logout resets all slices and clears sensitive storage.
+
+### Navigation
+- [ ] Route constants from `src/navigation/routes.ts` — no inline strings.
+- [ ] ParamList entries added to the feature's `navigation/param-list.ts`.
+- [ ] Provider order matches `App.tsx` (i18n → GestureHandler → SafeArea → Theme → ErrorBoundary → Query → Nav).
+- [ ] Half-sheet / modal screens use `HALF_SHEET_OPTIONS` preset.
+
+### Assets & theming
+- [ ] No raw colors, spacing, or font values — theme tokens only.
+- [ ] SVGs under `assets/svgs/`; `icons.ts` regenerated (`npm run gen:icons`).
+- [ ] `npm run check:icons` passes.
+- [ ] Light and dark mode both reviewed for contrast.
+
+### Security & NFRs
+- [ ] No sensitive data in logs or analytics.
+- [ ] Secrets and tokens in Keychain / Keystore — not in Zustand or plain storage.
+- [ ] Accessibility roles, labels, and hit targets on all interactive elements.
+- [ ] Offline UX acceptable (cached data shown; pull-to-refresh available).
+- [ ] i18n keys present in all locales (`en`, `de`, `ru`).

@@ -4,13 +4,15 @@ This document is a **filtered subset** of the full mobile permissions catalog. I
 
 Use it to map a capability to the exact OS permission, Info.plist key, or platform config key when building with bare React Native.
 
+> **Installation note:** `PluginKind: rn-core` entries (`PermissionsAndroid`) are part of React Native core — no extra package needed. `PluginKind: rn-library` entries require installing the named package (e.g. `react-native-permissions`, `react-native-vision-camera`) separately; none are installed by default in this starter.
+
 ## How to read a row
 
 Each row is one permission "unit" **as declared by a provider** (RN library or RN core). The *same underlying OS permission* may appear multiple times under different providers — that is expected.
 
 ## Columns
 
-* `id` – stable row id (from source catalog; do not renumber)
+* `id` – stable row id (from source catalog; do not renumber — gaps are filtered-out managed/other entries)
 * `full permission constant` – the constant you reference in JS, or the native key
 * `AppPlatform` – `bare` (all rows in this doc)
 * `PluginKind` – `rn-library` | `rn-core`
@@ -23,7 +25,7 @@ Each row is one permission "unit" **as declared by a provider** (RN library or R
 * `runtimePermission` — requested at runtime (Android/iOS)
 * `manifestPermission` — Android manifest `<uses-permission ...>`
 * `infoPlistKey` — iOS `Info.plist` usage description key (`NS*UsageDescription`)
-* `configKey` — platform config key (e.g. `UIBackgroundModes.location`)
+* `configKey` — platform config key (e.g. `UIBackgroundModes.location`) — not present in this filtered subset
 
 ---
 

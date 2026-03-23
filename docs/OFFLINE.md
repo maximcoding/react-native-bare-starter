@@ -4,11 +4,12 @@ This starter wires **network state**, the shared **transport**, a **mutation que
 
 ## How it fits together
 
-1. **NetInfo** ([`src/shared/services/api/network/netinfo.ts`](../src/shared/services/api/network/netinfo.ts)) — If `@react-native-community/netinfo` is installed, the app subscribes to connectivity, sets transport offline mode, and mirrors state into React Query’s `onlineManager`. When the device goes from offline → online, [`syncEngine.onConnected()`](../src/shared/services/api/offline/sync-engine.ts) runs.
+1. **NetInfo** ([`src/shared/services/api/network/netinfo.ts`](../src/shared/services/api/network/netinfo.ts)) — If `@react-native-community/netinfo` is installed, the app subscribes to connectivity and sets transport offline mode via `setOfflineMode()`. When the device goes from offline → online, [`syncEngine.onConnected()`](../src/shared/services/api/offline/sync-engine.ts) runs to replay queued mutations.
 
 2. **Transport** ([`src/shared/services/api/transport/transport.ts`](../src/shared/services/api/transport/transport.ts)) — While offline:
    - **Queries** throw an error with code `NETWORK_OFFLINE` (no live fetch through the adapter).
    - **Mutations and uploads** are pushed to the offline queue and resolve with a queued result instead of calling the adapter.
+   - **Subscriptions** silently return a no-op unsubscribe — not queued, no error thrown.
 
 3. **Offline queue** ([`src/shared/services/api/offline/offline-queue.ts`](../src/shared/services/api/offline/offline-queue.ts)) — FIFO, **in-memory only**. Queued work is **lost if the process is killed** while offline. For production durability, replace or back this with MMKV/SQLite (see comments in that file).
 
@@ -20,7 +21,7 @@ This starter wires **network state**, the shared **transport**, a **mutation que
 
 ## Query client behavior
 
-[`createQueryClient`](../src/shared/services/api/query/client/query-client.ts) avoids retries and error toasts when the normalized error code is `NETWORK_OFFLINE`, and enables `refetchOnReconnect`.
+[`createQueryClient`](../src/shared/services/api/query/client/query-client.ts) suppresses retries and error toasts for both query and mutation errors when the normalized error code is `NETWORK_OFFLINE`, and enables `refetchOnReconnect`.
 
 ## Optional module
 

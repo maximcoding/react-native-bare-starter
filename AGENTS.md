@@ -90,7 +90,7 @@ Use path alias `@/` only (e.g. `@/navigation/`, `@/session/`, `@/config/`, `@/i1
 | **AGENTS.md** (this file) | Cursor / generic agents — follow first for edits |
 | [.claude/CLAUDE.md](.claude/CLAUDE.md) | Claude Code — same rules; stack reference |
 | [docs/development.md](docs/development.md) | Developer reference: hooks, architecture, icons, i18n, npm scripts |
-| [docs/production-guidelines.md](docs/production-guidelines.md) | Production mobile policies, checklists, patterns (aligned to this repo’s paths) |
+| [.claude/rules/](../.claude/rules/) | Scoped agent rules: assets, navigation, state, react-query, performance, security, i18n, testing, features, shared-components, shared-services, config |
 | [docs/OPERATIONS.md](docs/OPERATIONS.md) | Sentry, Maestro, GitHub Actions, OTA policy, publishing checklist |
 | [docs/OFFLINE.md](docs/OFFLINE.md) | Offline stack (NetInfo, transport, mutation queue, Query + MMKV persistence) |
 | [docs/permissions-bare-rn.md](docs/permissions-bare-rn.md) | Android / iOS permission catalog |

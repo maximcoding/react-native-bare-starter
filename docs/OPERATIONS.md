@@ -28,7 +28,7 @@ The app includes `@sentry/react-native` and initializes it when `SENTRY_DSN` is 
    npx @sentry/wizard@latest -s -i reactNative
    ```
 
-`ErrorBoundary` reports to Sentry via `captureBoundaryError` (component stack only; avoid attaching user PII).
+`App.tsx` wires `captureBoundaryError` into `ErrorBoundary`'s `onError` prop — component stack only, no user PII. Like `initSentry`, `captureBoundaryError` is a no-op in `__DEV__` unless `SENTRY_ENABLE_IN_DEV=1`.
 
 ### Firebase Crashlytics
 
@@ -88,7 +88,7 @@ You can delete `android-ci.yml` / `ios-ci.yml` if you only want PR checks (`ci.y
 
 ## Android: native clean and CMake (`codegen/jni`)
 
-If **`./gradlew clean`** or **Android Studio → Clean Project** fails with CMake errors about missing directories under `node_modules/.../codegen/jni`, see [docs/development.md#cmake--missing-codegenjni-after-clean](docs/development.md#cmake--missing-codegenjni-after-clean). Use **`npm run android:clean`** and rebuild (`:app:assembleDebug` or **`npm run android`**); avoid plain **`./gradlew clean`** / IDE clean until codegen outputs exist again.
+If **`./gradlew clean`** or **Android Studio → Clean Project** fails with CMake errors about missing directories under `node_modules/.../codegen/jni`, see [development.md#cmake--missing-codegenjni-after-clean](development.md#cmake--missing-codegenjni-after-clean). Use **`npm run android:clean`** and rebuild (`:app:assembleDebug` or **`npm run android`**); avoid plain **`./gradlew clean`** / IDE clean until codegen outputs exist again.
 
 ## Local release builds
 

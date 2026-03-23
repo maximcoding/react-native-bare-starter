@@ -39,7 +39,8 @@ src/
 assets/
 ├── svgs/                       # Source SVGs — run gen:icons after changes
 ├── bootsplash/                 # Generated splash screen assets
-├── bootsplash-logo.svg         # Splash screen source logo
+├── bootsplash-logo.svg         # Splash screen source logo (reference)
+├── logo.png                    # Source image for bootsplash:generate
 └── icons.ts                    # Auto-generated icon registry (never edit manually)
 ```
 
@@ -169,7 +170,7 @@ src/features/<feature-name>/
 
 3. **Add translations** in `src/i18n/locales/en.json` (and `de.json`, `ru.json`). Run `npm run i18n:all` after.
 
-4. **Types & service layer** — Domain types in `src/features/<name>/types/`; API logic in `src/features/<name>/services/` (Zod schema, mapper, service module). Screens use feature services only — not the shared HTTP layer directly.
+4. **Types & service layer** — Domain types in `src/features/<name>/types/` with a barrel `index.ts` (import via `@/features/<name>/types`); API logic in `src/features/<name>/services/` (Zod schema, mapper, service module). Screens use feature services only — not the shared HTTP layer directly.
 
 5. **Wire navigation** — add the route in `src/navigation/routes.ts`, `ParamList` entry, register in stack/tab.
 
@@ -227,11 +228,13 @@ Run: npm run gen:icons
 
 SVG filenames are converted automatically:
 
-| File | `IconName` enum key | Component name |
+| File | `IconName` enum key | Component variable |
 |---|---|---|
-| `arrow-right.svg` | `ARROW_RIGHT` | `Arrow-right` |
 | `home.svg` | `HOME` | `Home` |
-| `user_profile.svg` | `USER_PROFILE` | `User_profile` |
+| `settings.svg` | `SETTINGS` | `Settings` |
+| `user.svg` | `USER` | `User` |
+
+> **Note:** The generator only capitalises the first letter and preserves all other characters. Hyphens and underscores are kept as-is, so `arrow-right.svg` would produce the invalid JS identifier `Arrow-right`. Use single-word, lowercase SVG filenames.
 
 ---
 
@@ -240,8 +243,8 @@ SVG filenames are converted automatically:
 1. Use keys in code:
 
 ```tsx
-const { t } = useT('auth'); // namespace
-return <Text>{t('login.title')}</Text>;
+const t = useT();
+return <Text>{t('auth.login.title')}</Text>;
 ```
 
 2. Run extraction to update JSON files:

@@ -1,4 +1,4 @@
-**Not architecture SSOT.** Product backlog, publishing checklist, and “what’s left for open source.” For structure and rules see [AGENTS.md](../AGENTS.md), [README.md](../README.md), and [production-guidelines.md](production-guidelines.md).
+**Not architecture SSOT.** Product backlog, publishing checklist, and “what’s left for open source.” For structure and rules see [AGENTS.md](../AGENTS.md), [README.md](../README.md), and [.claude/rules/](../.claude/rules/).
 
 ---
 

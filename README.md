@@ -12,6 +12,35 @@ Skip the weeks of boilerplate. Start with strict TypeScript, real navigation, of
 
 ---
 
+## ✨ Features Included
+- **🧱 Bare React Native** — full native control, no Expo lock-in
+- **🧭 Navigation & State** — React Navigation (stacks, tabs, modals), Zustand for global state, TanStack Query for server state with caching, retries, and persistence.
+- **📦 TanStack Query** — caching, persistence, retries, and invalidation
+- **🪶 Zustand** — lightweight global state without Redux overhead
+- **⚡ MMKV Storage** — `react-native-mmkv` via Nitro Modules — up to 30× faster than AsyncStorage.
+- **📡 Offline-Ready** — Query persistence, queue/replay, cache restore, and transport-level offline mode for a solid experience on flaky networks.
+- **🔌 Pluggable Transport** — Adapters for REST, GraphQL, WebSocket, and Firebase. Swap your backend strategy without rewiring the app.
+- **🎨 Theming & i18n** — Light/dark mode with semantic tokens. `i18next` with typed `useT()` hook, ready from day one.
+- **🌍 Localization** — typed i18n support from day one
+- **🖼️ SVG via script** — easier icon generation and maintenance
+- **🚀 BootSplash included** — native splash screen setup already in place
+- **🧪 Developer Experience** — Biome linting, Jest tests, GitHub Actions CI, Maestro E2E, SVG icon generation, and native splash screen via BootSplash.
+
+- 
+---
+
+## 🛠️ Getting started
+
+### Prerequisites
+
+Standard bare React Native toolchain:
+
+-   Node.js ≥ 20    
+-   Xcode for iOS
+-   Android Studio + SDK for Android
+-   CocoaPods for iOS
+---
+
 ## 🚀 Quick Start
 
 ```bash
@@ -28,28 +57,6 @@ Edit `.env` as needed, then:
 npm start       # Metro bundler
 npm run ios     # or: npm run android
 ```
-
-> **Prerequisites:** Node ≥ 20 · Xcode (iOS) · Android Studio + SDK (Android) · CocoaPods (iOS)
->
-> If `npm install` fails on peer deps, try `npm install --legacy-peer-deps`.
-
----
-
-## ✨ Features Included
-- **🧱 Bare React Native** — full native control, no Expo lock-in
-- **🧭 Navigation & State** — React Navigation (stacks, tabs, modals), Zustand for global state, TanStack Query for server state with caching, retries, and persistence.
-- **📦 TanStack Query** — caching, persistence, retries, and invalidation
-- **🪶 Zustand** — lightweight global state without Redux overhead
-- **⚡ MMKV Storage** — `react-native-mmkv` via Nitro Modules — up to 30× faster than AsyncStorage.
-- **📡 Offline-Ready** — Query persistence, queue/replay, cache restore, and transport-level offline mode for a solid experience on flaky networks.
-- **🔌 Pluggable Transport** — Adapters for REST, GraphQL, WebSocket, and Firebase. Swap your backend strategy without rewiring the app.
-- **🎨 Theming & i18n** — Light/dark mode with semantic tokens. `i18next` with typed `useT()` hook, ready from day one.
-- **🌍 Localization** — typed i18n support from day one
-- **🖼️ SVG via script** — easier icon generation and maintenance
-- **🚀 BootSplash included** — native splash screen setup already in place
-- **🧪 Developer Experience** — Biome linting, Jest tests, GitHub Actions CI, Maestro E2E, SVG icon generation, and native splash screen via BootSplash.
-
-- 
 ---
 
 ## 🧭 Project Structure

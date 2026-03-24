@@ -6,9 +6,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-A bare-workflow React Native starter for apps that need more than a demo.
-
-Skip the weeks of boilerplate. Start with strict TypeScript, real navigation, offline-ready data flow, theming, i18n, and quality gates already wired — so you can ship features instead of rebuilding infrastructure.
+A bare-workflow React Native starter for apps ( no Expo).
 
 ---
 

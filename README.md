@@ -37,7 +37,7 @@ Standard bare React Native toolchain:
 -   Android Studio + SDK for Android
 -   CocoaPods for iOS
 
-----------
+-----
 
 ## 🚀 Quick Start
 
@@ -55,7 +55,7 @@ Edit `.env` as needed, then:
 npm start       # Metro bundler
 npm run ios     # or: npm run android
 ```
-----------
+-----
 
 ## 🧭 Project structure 
 
@@ -84,7 +84,7 @@ assets/
 - **Repository layout** → [docs/development.md#repository-layout](docs/development.md#repository-layout)
 - **Code rules & ownership** → [AGENTS.md](AGENTS.md)
 
-----------
+-----
 
 ## 🔐 Environment variables
 Values are read at build time via react-native-config.
@@ -107,7 +107,7 @@ Sentry setup
 OTA / updates policy
 Publishing / discoverability
 
-----------
+-----
 
 ## ⌨️ Key Commands
 
@@ -125,7 +125,7 @@ Publishing / discoverability
 
 Full command reference: [docs/development.md#key-commands](docs/development.md#key-commands)
 
----
+-----
 
 ## 🛠️ Android Troubleshooting
 
@@ -136,13 +136,13 @@ Full command reference: [docs/development.md#key-commands](docs/development.md#k
 
 Full detail: [docs/development.md#android-build](docs/development.md#android-build)
 
----
+-----
 
 ## 🔐 Permissions
 
 Declare only what you actually use. Full catalog: [docs/permissions-bare-rn.md](docs/permissions-bare-rn.md)
 
----
+----------
 
 ## 📚 Documentation
 
@@ -156,13 +156,13 @@ Declare only what you actually use. Full catalog: [docs/permissions-bare-rn.md](
 | Roadmap | [docs/TODO.md](docs/TODO.md) |
 | Changelog | [CHANGELOG.md](CHANGELOG.md) |
 
----
+----------
 
 ## 🤝 Contributing
 
 Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for branch/PR rules, quality checks, and PR checklist.
 
----
+----------
 
 ## 🚢 CI/CD & Release
 
@@ -170,4 +170,4 @@ GitHub Actions, local release builds, store secrets, Sentry, Maestro, OTA policy
 
 Version history: [CHANGELOG.md](CHANGELOG.md)
 
----
+-----

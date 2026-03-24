@@ -250,7 +250,7 @@ const FacebookIcon = () => (
 )
 
 const AppleIcon = ({ color }: { color: string }) => (
-  <Svg width={22} height={22} viewBox="0 0 24 24" fill={color}>
+  <Svg width={22} height={22} viewBox="2.5 3 15 18" fill={color}>
     <Path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
   </Svg>
 )
@@ -555,13 +555,15 @@ export default function AuthScreen() {
           <Text
             style={[
               ty.bodyMedium,
-              { color: c.textTertiary, marginTop: sp.xs, textAlign: 'center' },
+              { color: c.textTertiary, marginTop: sp.xs, textAlign: 'center', alignSelf: 'stretch' },
             ]}
           >
             {t('auth.subtitle')}
           </Text>
           {flags.USE_MOCK ? (
             <Text
+              adjustsFontSizeToFit
+              numberOfLines={1}
               style={[
                 ty.bodySmall,
                 {
@@ -569,6 +571,7 @@ export default function AuthScreen() {
                   marginTop: sp.sm,
                   textAlign: 'center',
                   opacity: 0.85,
+                  alignSelf: 'stretch',
                 },
               ]}
             >
@@ -589,18 +592,10 @@ export default function AuthScreen() {
           ]}
         >
           {[
-            { key: 'google' as const, Icon: <GoogleIcon />, press: social0 },
-            {
-              key: 'facebook' as const,
-              Icon: <FacebookIcon />,
-              press: social1,
-            },
-            {
-              key: 'apple' as const,
-              Icon: <AppleIcon color={c.textPrimary} />,
-              press: social2,
-            },
-          ].map(({ key, Icon, press }) => (
+            { key: 'google' as const, Icon: <GoogleIcon />, label: 'Google', press: social0 },
+            { key: 'facebook' as const, Icon: <FacebookIcon />, label: 'Facebook', press: social1 },
+            { key: 'apple' as const, Icon: <AppleIcon color={c.textPrimary} />, label: 'Apple', press: social2 },
+          ].map(({ key, Icon, label, press }) => (
             <TouchableOpacity
               key={key}
               onPressIn={press.onPressIn}
@@ -615,11 +610,13 @@ export default function AuthScreen() {
                     backgroundColor: c.surface,
                     borderColor: c.border,
                     borderRadius: r.xxl,
+                    gap: sp.xxs,
                   },
                   press.animatedStyle,
                 ]}
               >
                 {Icon}
+                <Text style={[ty.labelSmall, { color: c.textSecondary }]}>{label}</Text>
               </Animated.View>
             </TouchableOpacity>
           ))}
@@ -795,7 +792,7 @@ export default function AuthScreen() {
 
         {/* Terms */}
         <View
-          style={[styles.terms, { paddingTop: sp.xxxl, paddingBottom: sp.xs }]}
+          style={[styles.terms, { paddingTop: sp.md, paddingBottom: sp.xs }]}
         >
           <Text
             style={[ty.labelSmall, styles.termsText, { color: c.textTertiary }]}
@@ -861,7 +858,7 @@ const styles = StyleSheet.create({
   socialRow: { flexDirection: 'row' },
   socialTouchable: { flex: 1 },
   socialCard: {
-    height: 56,
+    height: 72,
     borderWidth: 1.5,
     alignItems: 'center',
     justifyContent: 'center',

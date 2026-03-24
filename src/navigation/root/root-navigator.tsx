@@ -5,6 +5,7 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
+import StoryScreen from '@/features/home/screens/StoryScreen'
 import LanguagePickerModal from '@/features/settings/screens/LanguagePickerModal'
 import ThemePickerModal from '@/features/settings/screens/ThemePickerModal'
 import { RootStackParamList } from '@/navigation'
@@ -34,6 +35,11 @@ export default function RootNavigator() {
       <Stack.Screen name={ROUTES.ROOT_ONBOARDING} component={OnboardingStack} />
       <Stack.Screen name={ROUTES.ROOT_AUTH} component={AuthStack} />
       <Stack.Screen name={ROUTES.ROOT_APP} component={HomeTabs} />
+      <Stack.Screen
+        name={ROUTES.HOME_STORY}
+        component={StoryScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name={ROUTES.MODAL_THEME_PICKER}
         component={ThemePickerModal}

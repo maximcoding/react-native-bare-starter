@@ -1,5 +1,7 @@
 import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
+import { IconName } from '@assets/icons'
+import { IconSvg } from '@/shared/components/ui/IconSvg'
 import { Text } from '@/shared/components/ui/Text'
 import { useTheme } from '@/shared/theme/useTheme'
 
@@ -8,6 +10,9 @@ interface SettingsRowProps {
   value?: string
   onPress?: () => void
   danger?: boolean
+  icon?: IconName
+  iconBg?: string
+  iconColor?: string
 }
 
 export function SettingsRow({
@@ -15,11 +20,15 @@ export function SettingsRow({
   value,
   onPress,
   danger,
+  icon,
+  iconBg,
+  iconColor,
 }: SettingsRowProps) {
   const { theme } = useTheme()
 
   const labelColor = danger ? theme.colors.danger : theme.colors.textPrimary
   const chevronColor = theme.colors.textTertiary
+  const resolvedIconColor = iconColor ?? (danger ? theme.colors.danger : theme.colors.textPrimary)
 
   return (
     <Pressable
@@ -28,13 +37,30 @@ export function SettingsRow({
       style={({ pressed }) => [
         styles.row,
         {
-          paddingVertical: theme.spacing.sm,
+          paddingVertical: theme.spacing.md,
           paddingHorizontal: theme.spacing.md,
         },
         pressed && { backgroundColor: theme.colors.overlayLight },
       ]}
     >
-      <Text style={[theme.typography.bodyMedium, { color: labelColor }]}>
+      {icon != null ? (
+        <View
+          style={[
+            styles.iconBadge,
+            {
+              width: theme.spacing.xl,
+              height: theme.spacing.xl,
+              borderRadius: theme.radius.md,
+              backgroundColor: iconBg ?? theme.colors.surfaceSecondary,
+              marginRight: theme.spacing.sm,
+            },
+          ]}
+        >
+          <IconSvg name={icon} size={16} color={resolvedIconColor} />
+        </View>
+      ) : null}
+
+      <Text style={[theme.typography.bodyMedium, { color: labelColor, flex: 1 }]}>
         {label}
       </Text>
 
@@ -74,10 +100,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minHeight: 44,
+    minHeight: 56,
   },
   trailing: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  iconBadge: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })

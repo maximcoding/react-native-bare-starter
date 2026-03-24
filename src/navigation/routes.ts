@@ -39,6 +39,7 @@ export const ROUTES = {
   //
   TAB_HOME: 'TAB_HOME',
   TAB_SETTINGS: 'TAB_SETTINGS',
+  TAB_COMPONENTS: 'TAB_COMPONENTS',
 
   //
   // SETTINGS STACK
@@ -46,6 +47,11 @@ export const ROUTES = {
   SETTINGS_ROOT: 'SETTINGS_ROOT',
   SETTINGS_LANGUAGE: 'SETTINGS_LANGUAGE',
   SETTINGS_THEME: 'SETTINGS_THEME',
+
+  //
+  // HOME SCREENS (pushed over tabs)
+  //
+  HOME_STORY: 'HOME_STORY',
 
   //
   // GLOBAL MODALS (bottom sheets, accessible from any screen)

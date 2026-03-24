@@ -2,10 +2,11 @@
 
 import React, { useCallback } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import Svg, { Polyline } from 'react-native-svg'
 import { useT } from '@/i18n/useT'
 import { goBack } from '@/navigation/helpers/navigation-helpers'
 import HalfSheet from '@/navigation/modals/half-sheet'
+import { IconName } from '@assets/icons'
+import { IconSvg } from '@/shared/components/ui/IconSvg'
 import { Text } from '@/shared/components/ui/Text'
 import type { ThemeMode } from '@/shared/theme/ThemeContext'
 import { useTheme } from '@/shared/theme/useTheme'
@@ -16,11 +17,11 @@ const THEME_OPTIONS: {
     | 'settings.theme_light'
     | 'settings.theme_dark'
     | 'settings.theme_system'
-  emoji: string
+  icon: IconName
 }[] = [
-  { mode: 'light', labelKey: 'settings.theme_light', emoji: '☀️' },
-  { mode: 'dark', labelKey: 'settings.theme_dark', emoji: '🌙' },
-  { mode: 'system', labelKey: 'settings.theme_system', emoji: '⚙️' },
+  { mode: 'light', labelKey: 'settings.theme_light', icon: IconName.SUN },
+  { mode: 'dark', labelKey: 'settings.theme_dark', icon: IconName.MOON },
+  { mode: 'system', labelKey: 'settings.theme_system', icon: IconName.SETTINGS },
 ]
 
 export default function ThemePickerModal() {
@@ -73,7 +74,12 @@ export default function ThemePickerModal() {
                 },
               ]}
             >
-              <Text style={[ty.bodyLarge]}>{opt.emoji}</Text>
+              <IconSvg
+                name={opt.icon}
+                size={20}
+                color={selected ? c.primary : c.textSecondary}
+                style={{ width: 20, height: 20 }}
+              />
               <Text
                 style={[
                   ty.bodyMedium,
@@ -87,18 +93,7 @@ export default function ThemePickerModal() {
                 {t(opt.labelKey)}
               </Text>
               {selected ? (
-                <Svg
-                  width={18}
-                  height={18}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={c.primary}
-                  strokeWidth={2.5}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <Polyline points="20 6 9 17 4 12" />
-                </Svg>
+                <IconSvg name={IconName.CHECK} size={18} color={c.primary} style={{ width: 18, height: 18 }} />
               ) : null}
             </Pressable>
           )

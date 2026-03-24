@@ -8,6 +8,8 @@
 
 A bare React Native starter for serious apps — no Expo, fast storage, modern state management, and a production-minded foundation from day one.
 
+----------
+
 ## ✨ Features Included
 - **🧱 Bare React Native 0.82.1** — full native control, no Expo lock-in
 - **🧭 React Navigation 7.x** — stacks, tabs, and modals already wired
@@ -22,7 +24,7 @@ A bare React Native starter for serious apps — no Expo, fast storage, modern s
 - **🚀 BootSplash 6.x** — native splash screen setup already in place
 - **🧪 Developer experience** — Biome 2.x, Jest 29.x, GitHub Actions CI, and Maestro E2E
 
----
+-----
 
 ## 🛠️ Getting started
 
@@ -34,7 +36,8 @@ Standard bare React Native toolchain:
 -   Xcode for iOS
 -   Android Studio + SDK for Android
 -   CocoaPods for iOS
----
+
+----------
 
 ## 🚀 Quick Start
 
@@ -52,7 +55,7 @@ Edit `.env` as needed, then:
 npm start       # Metro bundler
 npm run ios     # or: npm run android
 ```
----
+----------
 
 ## 🧭 Project structure 
 

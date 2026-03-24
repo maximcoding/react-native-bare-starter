@@ -60,31 +60,33 @@ Prerequisites: [Getting Started](#getting-started)
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
-Pinned versions live in [`package.json`](package.json). This is the at-a-glance stack summary.
+| Capability | Included | Why it matters |
+|---|---|---|
+| **Bare React Native** | Full native control and long-term flexibility |
+| **React Navigation** | Real app navigation with stacks, tabs, and modals already wired |
+| **Server state** | `@tanstack/react-query` with persistence and tag-based invalidation | Clean API data flow, cache control, retries, and better async handling |
+| **Global state** | `zustand` | Lightweight shared state without Redux boilerplate |
+| **Fast local storage** | `react-native-mmkv` + `react-native-nitro-modules` | Blazing-fast persisted storage; positioned as up to **30× faster than AsyncStorage** |
+| **Offline-ready flow** | Queue, replay, and cache persistence for unstable networks |
+| **Transport layer** | Pluggable adapters for REST, GraphQL, WebSocket, Firebase | Swap backend strategy without rewriting the whole app foundation |
+| **Theme system** | Light/Dark mode with semantic tokens and `useTheme()` | Consistent styling without magic values spread everywhere |
+| **Localization** | `i18next` + `react-i18next` + typed `useT()` | Real i18n support from day one, not bolted on later |
+| **SVG icon script** | Easier icon pipeline with `npm run gen:icons` |
+| **BootSplash included** | Native splash setup is already there |
+- **Modern quality gates** with Biome, Jest, GitHub Actions, and Maestro smoke flows
 
-| Category          | Library                                        | Description                                                                                                                                              |
-| ----------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Framework**     | react-native                                   | Bare workflow, TypeScript, Hermes engine                                                                                                                 |
-| **Theme**         | —                                              | Light & Dark via `ThemeProvider`; semantic tokens; `useTheme()`                                                                                          |
-| **Navigation**    | @react-navigation                              | Native stacks, Bottom Tabs, Modals                                                                                                                       |
-| **i18n**          | i18next + react-i18next                        | Flat JSON per locale, feature-keyed sections, type-safe `useT()`                                                                                         |
-| **Validation**    | zod                                            | Schema validation on API responses; typed domain mappers                                                                                                 |
-| **HTTP**          | apisauce                                       | Centralized instance with auth, error, and logging interceptors                                                                                          |
-| **Transport**     | —                                              | Pluggable adapters: REST (Axios), GraphQL, WebSocket, Firebase                                                                                           |
-| **Server State**  | @tanstack/react-query                          | Query/mutation management with persistence and tag-based invalidation                                                                                    |
-| **Offline**       | —                                              | NetInfo → transport offline mode; mutation queue + replay; Query cache + MMKV — [OFFLINE.md](docs/OFFLINE.md)                                            |
-| **Storage**       | react-native-mmkv + react-native-nitro-modules | Fast key-value storage; **keep versions paired** — [development.md § MMKV / Nitro](docs/development.md#react-native-mmkv-and-react-native-nitro-modules) |
-| **Lists**         | @shopify/flash-list                            | High-performance virtualized lists                                                                                                                       |
-| **SVG**           | react-native-svg                               | Icons via `npm run gen:icons`                                                                                                                            |
-| **Splash Screen** | react-native-bootsplash                        | `npm run bootsplash:generate` — [development.md](docs/development.md#key-commands)                                                                       |
-| **Native Utils**  | —                                              | Device info, haptics, runtime permissions                                                                                                                |
-| **Biome**         | @biomejs/biome                                 | Format, lint, import organization (`biome check`)                                                                                                        |
-| **Monitoring**    | @sentry/react-native                           | Optional when `SENTRY_DSN` is set — [OPERATIONS.md#sentry](docs/OPERATIONS.md#sentry)                                                                    |
-| **CI/CD**         | GitHub Actions                                 | Quality checks + manual native builds — [OPERATIONS.md#github-actions](docs/OPERATIONS.md#github-actions)                                                |
 
----
+### 📦 Stack summary
+
+Pinned versions live in [`package.json`](package.json).
+
+For deeper implementation details, see:
+
+- [docs/development.md](docs/development.md)
+- [docs/OFFLINE.md](docs/OFFLINE.md)
+- [docs/OPERATIONS.md](docs/OPERATIONS.md)
 
 ## 🧭 Project structure
 

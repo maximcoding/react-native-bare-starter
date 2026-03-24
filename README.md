@@ -9,19 +9,18 @@
 A bare React Native starter for serious apps — no Expo, fast storage, modern state management, and a production-minded foundation from day one.
 
 ## ✨ Features Included
-
-- **🧱 Bare React Native** — full native control, no Expo lock-in
-- **🧭 Navigation** — React Navigation with stacks, tabs, and modals already wired
-- **📦 TanStack Query** — server-state, caching, retries, invalidation, and persistence
-- **🪶 Zustand** — lightweight global state without Redux overhead
-- **⚡ MMKV Storage** — `react-native-mmkv` via Nitro Modules, commonly described as up to **30× faster than AsyncStorage**
+- **🧱 Bare React Native 0.82.1** — full native control, no Expo lock-in
+- **🧭 React Navigation 7.x** — stacks, tabs, and modals already wired
+- **📦 TanStack Query 5.x** — server-state, caching, retries, invalidation, and persistence
+- **🪶 Zustand 5.x** — lightweight global state without Redux overhead
+- **⚡ MMKV Storage 4.3** — `react-native-mmkv` via Nitro Modules, commonly described as up to **30× faster than AsyncStorage**
 - **📡 Offline-ready** — query persistence, queue/replay, cache restore, and transport-level offline mode for a solid experience on flaky networks
 - **🔌 Pluggable transport** — adapters for REST, GraphQL, WebSocket, and Firebase, so you can change backend strategy without rewiring the app
 - **🎨 Theming** — light/dark mode with semantic tokens
-- **🌍 Localization** — `i18next` with typed translations and a typed `useT()` hook
-- **🖼️ SVG via script** — easier icon generation and maintenance
-- **🚀 BootSplash included** — native splash screen setup already in place
-- **🧪 Developer experience** — Biome, Jest, GitHub Actions CI, and Maestro E2E
+- **🌍 i18next 25.x** — typed translations with a typed `useT()` hook
+- **🖼️ SVG via script** — `react-native-svg 15.x` with scripted icon generation
+- **🚀 BootSplash 6.x** — native splash screen setup already in place
+- **🧪 Developer experience** — Biome 2.x, Jest 29.x, GitHub Actions CI, and Maestro E2E
 
 ---
 

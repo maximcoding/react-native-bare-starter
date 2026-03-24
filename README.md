@@ -24,7 +24,6 @@ A bare-workflow React Native starter for apps ( no Expo).
 - **🚀 BootSplash included** — native splash screen setup already in place
 - **🧪 Developer Experience** — Biome linting, Jest tests, GitHub Actions CI, Maestro E2E, SVG icon generation, and native splash screen via BootSplash.
 
-- 
 ---
 
 ## 🛠️ Getting started

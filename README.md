@@ -1,4 +1,3 @@
-````md
 # React Native Bare Starter
 
 [![Use this template](https://img.shields.io/badge/Use%20this%20template-2ea44f?logo=github&logoColor=white)](https://github.com/maximcoding/react-native-starter/generate)
@@ -176,4 +175,3 @@ GitHub Actions, local release builds, store secrets, Sentry, Maestro, OTA policy
 
 Version history: [CHANGELOG.md](CHANGELOG.md)
 
-```

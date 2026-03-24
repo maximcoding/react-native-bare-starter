@@ -1,7 +1,8 @@
 ```md
-# React Native Bare Starter
 
-## 🚀 Quick start
+---
+
+## Quick Start
 
 ```bash
 git clone https://github.com/maximcoding/react-native-starter.git
@@ -9,16 +10,20 @@ cd react-native-starter
 npm install
 npx pod-install ios
 cp .env.example .env
-npm start
-npm run ios
-npm run android
-
 ```
 
-Edit `.env` as needed for your setup.  
-Main values: `API_URL`, `USE_MOCK_API`, optional Sentry keys, optional OTA keys.
+Edit `.env` as needed, then:
 
-> `npm run ios` and `npm run android` run `env:ensure` first, so `.env` is created from `.env.example` if missing.
+```bash
+npm start       # Metro bundler
+npm run ios     # or: npm run android
+```
+
+> Requires Node ≥ 20, Xcode (iOS), Android Studio + SDK (Android), CocoaPods (iOS).
+> If `npm install` fails on peer deps, try `npm install --legacy-peer-deps`.
+
+---
+
 --------
 ## ✨ Features Included
 - **🧱 Bare React Native** — full native control, no Expo lock-in
@@ -136,44 +141,6 @@ Clean foundation from day one: strict TypeScript, feature-first structure, theme
 
 ---
 
-## Quick Start
-
-```bash
-git clone https://github.com/maximcoding/react-native-starter.git
-cd react-native-starter
-npm install
-npx pod-install ios
-cp .env.example .env
-```
-
-Edit `.env` as needed, then:
-
-```bash
-npm start       # Metro bundler
-npm run ios     # or: npm run android
-```
-
-> Requires Node ≥ 20, Xcode (iOS), Android Studio + SDK (Android), CocoaPods (iOS).
-> If `npm install` fails on peer deps, try `npm install --legacy-peer-deps`.
-
----
-
-## What's Included
-
-**Navigation & State** — React Navigation (stacks, tabs, modals), Zustand for global state, TanStack Query for server state with caching, retries, and persistence.
-
-**Offline-Ready** — Query persistence, queue/replay, cache restore, and transport-level offline mode for a solid experience on flaky networks.
-
-**Pluggable Transport** — Adapters for REST, GraphQL, WebSocket, and Firebase. Swap your backend strategy without rewiring the app.
-
-**Theming & i18n** — Light/dark mode with semantic tokens. `i18next` with typed `useT()` hook, ready from day one.
-
-**Fast Storage** — `react-native-mmkv` via Nitro Modules — up to 30× faster than AsyncStorage.
-
-**Developer Experience** — Biome linting, Jest tests, GitHub Actions CI, Maestro E2E, SVG icon generation, and native splash screen via BootSplash.
-
----
-
 ## Environment Variables
 
 Values are read at build time via `react-native-config`. See `.env.example` for the full list.
@@ -207,7 +174,7 @@ After changing `.env`, rebuild the app.
 
 ---
 
-## Documentation
+## 📚 Documentation
 
 | Topic | Location |
 |---|---|
@@ -220,25 +187,6 @@ After changing `.env`, rebuild the app.
 | Changelog | [CHANGELOG.md](CHANGELOG.md) |
 
 ---
-
-
-----------
-
-## 📚 Documentation
-
-This README stays intentionally short.  
-Use the rest of the docs when you need deeper detail.
-
--   **Rules, structure, contribution flow** → [AGENTS.md](https://chatgpt.com/c/AGENTS.md)
-    
--   **Developer reference** → [docs/development.md](https://chatgpt.com/c/docs/development.md)
-    
--   **Offline behavior** → [docs/OFFLINE.md](https://chatgpt.com/c/docs/OFFLINE.md)
-    
--   **Operations, CI, releases, OTA, Sentry** → [docs/OPERATIONS.md](https://chatgpt.com/c/docs/OPERATIONS.md)
-    
--   **Roadmap / backlog** → [docs/TODO.md](https://chatgpt.com/c/docs/TODO.md)
-    
 
 ----------
 

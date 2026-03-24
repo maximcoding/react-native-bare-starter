@@ -6,21 +6,22 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-A production-minded bare React Native starter (no Expo).
+A bare React Native starter for serious apps — no Expo, fast storage, modern state management, and a production-minded foundation from day one.
 
 ## ✨ Features Included
+
 - **🧱 Bare React Native** — full native control, no Expo lock-in
-- **🧭 Navigation & State** — React Navigation (stacks, tabs, modals), Zustand for global state, TanStack Query for server state with caching, retries, and persistence.
-- **📦 TanStack Query** — caching, persistence, retries, and invalidation
+- **🧭 Navigation** — React Navigation with stacks, tabs, and modals already wired
+- **📦 TanStack Query** — server-state, caching, retries, invalidation, and persistence
 - **🪶 Zustand** — lightweight global state without Redux overhead
-- **⚡ MMKV Storage** — `react-native-mmkv` via Nitro Modules — up to 30× faster than AsyncStorage.
-- **📡 Offline-Ready** — Query persistence, queue/replay, cache restore, and transport-level offline mode for a solid experience on flaky networks.
-- **🔌 Pluggable Transport** — Adapters for REST, GraphQL, WebSocket, and Firebase. Swap your backend strategy without rewiring the app.
-- **🎨 Theming & i18n** — Light/dark mode with semantic tokens. `i18next` with typed `useT()` hook, ready from day one.
-- **🌍 Localization** — typed i18n support from day one
+- **⚡ MMKV Storage** — `react-native-mmkv` via Nitro Modules, commonly described as up to **30× faster than AsyncStorage**
+- **📡 Offline-ready** — query persistence, queue/replay, cache restore, and transport-level offline mode for a solid experience on flaky networks
+- **🔌 Pluggable transport** — adapters for REST, GraphQL, WebSocket, and Firebase, so you can change backend strategy without rewiring the app
+- **🎨 Theming** — light/dark mode with semantic tokens
+- **🌍 Localization** — `i18next` with typed translations and a typed `useT()` hook
 - **🖼️ SVG via script** — easier icon generation and maintenance
 - **🚀 BootSplash included** — native splash screen setup already in place
-- **🧪 Developer Experience** — Biome linting, Jest tests, GitHub Actions CI, Maestro E2E, SVG icon generation, and native splash screen via BootSplash.
+- **🧪 Developer experience** — Biome, Jest, GitHub Actions CI, and Maestro E2E
 
 ---
 

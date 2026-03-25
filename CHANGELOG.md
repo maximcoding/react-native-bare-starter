@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **iOS CI (`ios-ci.yml`):** add `v*` tag trigger alongside `workflow_dispatch`; add CocoaPods specs cache (`~/.cocoapods`); seed `.env` from `.env.example` before build; add commented stub for Sentry source map upload.
 - **`docs/OPERATIONS.md`:** update GitHub Actions table and notes to reflect parallel jobs, caching, tag triggers, and Sentry upload stubs.
 
+## [1.0.1] - 2026-03-25
+
+### Changed
+
+- Navigation: migrate root stack and home tabs to React Navigation 7 **static configuration** (`createStaticNavigation`, `screens` maps). [`NavigationRoot`](src/navigation/NavigationRoot.tsx) renders the static root component with the same theme, persistence, and `onReady` (BootSplash) behavior. Param lists in [`root-param-list.ts`](src/navigation/root-param-list.ts) stay explicit and mirror the static `screens` map to avoid a circular import with stack screens.
+
 ## [1.0.0] - 2026-03-23
 
 - Align **react-native-nitro-modules** with **react-native-mmkv** (pin mmkv 4.3.0 + nitro 0.35.0) to fix Android Kotlin compile (`CxxPart` / Nitrogen skew); **`package.json` `overrides`** pins nitro 0.35.0; refresh [`ios/Podfile.lock`](ios/Podfile.lock) (MMKVCore 2.4.0). Doc: [docs/development.md#react-native-mmkv-and-react-native-nitro-modules](docs/development.md#react-native-mmkv-and-react-native-nitro-modules).

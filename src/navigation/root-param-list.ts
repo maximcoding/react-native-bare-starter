@@ -1,3 +1,8 @@
+/**
+ * Param lists mirror the static `screens` map in `root/root-navigator.tsx`.
+ * Kept here (not `StaticParamList<typeof RootStack>`) to avoid a circular import:
+ * navigator → screens → e.g. StoryScreen → this module.
+ */
 import { ROUTES } from '@/navigation/routes'
 
 export type StoryScreenParams = {

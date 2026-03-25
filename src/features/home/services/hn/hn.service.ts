@@ -1,5 +1,6 @@
 import { create } from 'apisauce'
 import type { FeedItem } from '@/features/home/types'
+import { attachLogging } from '@/shared/services/api/http/interceptors/logging.interceptor'
 import { normalizeError } from '@/shared/utils/normalize-error'
 import { mapHnHitToFeedItem } from './hn.mappers'
 import { HnSearchResponseSchema } from './hn.schemas'
@@ -9,6 +10,8 @@ const hnClient = create({
   timeout: 10_000,
   headers: { Accept: 'application/json' },
 })
+
+attachLogging(hnClient)
 
 export async function fetchHnFeed(): Promise<FeedItem[]> {
   const res = await hnClient.get<unknown>('/search', { tags: 'front_page' })

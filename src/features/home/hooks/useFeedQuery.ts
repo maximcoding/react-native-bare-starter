@@ -1,18 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import { homeKeys } from '@/features/home/api/keys'
 import { fetchHnFeed } from '@/features/home/services/hn/hn.service'
 import type { FeedItem } from '@/features/home/types'
 import { Freshness } from '@/shared/services/api/query/policy/freshness'
-
-function formatSyncedAt(ts: number): string {
-  if (!ts) return ''
-  const diffMs = Date.now() - ts
-  const m = Math.floor(diffMs / 60_000)
-  if (m < 1) return 'just now'
-  if (m < 60) return `${m}m ago`
-  const h = Math.floor(m / 60)
-  return `${h}h ago`
-}
+import { formatRelativeTime } from '@/shared/utils/format-relative-time'
 
 export function useFeedQuery() {
   const query = useQuery<FeedItem[]>({
@@ -20,14 +12,14 @@ export function useFeedQuery() {
     queryFn: fetchHnFeed,
     staleTime: Freshness.nearRealtime.staleTime,
     gcTime: Freshness.nearRealtime.gcTime,
-    meta: {
-      persistence: 'nearRealtime',
-    },
+    meta: { persistence: 'nearRealtime' },
     placeholderData: prev => prev,
   })
 
-  const syncedAt = query.dataUpdatedAt ?? 0
-  const syncedAtLabel = syncedAt ? formatSyncedAt(syncedAt) : null
+  const syncedAtLabel = useMemo(() => {
+    const ts = query.dataUpdatedAt
+    return ts ? formatRelativeTime(ts) : null
+  }, [query.dataUpdatedAt])
 
   return {
     feed: query.data ?? [],

@@ -24,8 +24,6 @@ function iconForRoute(routeName: string): IconName {
       return IconName.HOME
     case ROUTES.TAB_SETTINGS:
       return IconName.SETTINGS
-    case ROUTES.TAB_COMPONENTS:
-      return IconName.LAYERS
     default:
       return IconName.USER
   }

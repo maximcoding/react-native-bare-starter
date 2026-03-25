@@ -2,11 +2,12 @@
  * Home feature — shared interfaces and type aliases.
  */
 
-export type ActivityType = 'task' | 'message' | 'alert' | 'success'
+/** Visual accent variant — drives dot colour in the feed card. Purely cosmetic; not a domain concept. */
+export type AccentVariant = 'success' | 'primary' | 'info' | 'warning'
 
 export type FeedItem = {
   id: string
-  type: ActivityType
+  type: AccentVariant
   title: string
   subtitle: string
   time: string

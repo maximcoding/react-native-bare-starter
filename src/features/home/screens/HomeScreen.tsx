@@ -123,15 +123,16 @@ function useGreetingKey():
   return 'home.greeting_evening'
 }
 
-function dotColor(
+/** Maps AccentVariant → theme colour token for the feed card dot. */
+function accentColor(
   type: FeedItem['type'],
   c: ReturnType<typeof useTheme>['theme']['colors'],
 ): string {
   switch (type) {
     case 'success': return c.success
-    case 'task':    return c.primary
-    case 'message': return c.info
-    case 'alert':   return c.warning
+    case 'primary': return c.primary
+    case 'info':    return c.info
+    case 'warning': return c.warning
   }
 }
 
@@ -222,7 +223,7 @@ const StoryCard = memo(function StoryCard({ item }: { item: FeedItem }) {
   const sp = theme.spacing
   const r = theme.radius
   const ty = theme.typography
-  const accent = dotColor(item.type, c)
+  const accent = accentColor(item.type, c)
   const navigation = useNavigation<HomeNavProp>()
 
   const onPress = useCallback(() => {
@@ -234,7 +235,7 @@ const StoryCard = memo(function StoryCard({ item }: { item: FeedItem }) {
       author: item.author,
       numComments: item.numComments,
       time: item.time,
-      domain: item.subtitle ?? undefined,
+      domain: item.subtitle,
     })
   }, [navigation, item])
 

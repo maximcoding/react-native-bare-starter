@@ -10,6 +10,7 @@ import type { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import React, { useEffect, useRef } from 'react'
 import { Animated, Platform, Pressable, StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useT } from '@/i18n/useT'
 import { ROUTES } from '@/navigation/routes'
 import { IconSvg } from '@/shared/components/ui/IconSvg'
 import { Text } from '@/shared/components/ui/Text'
@@ -29,12 +30,21 @@ function iconForRoute(routeName: string): IconName {
   }
 }
 
+function labelForRoute(routeName: string, t: ReturnType<typeof useT>): string {
+  switch (routeName) {
+    case ROUTES.TAB_HOME: return t('home.title')
+    case ROUTES.TAB_SETTINGS: return t('settings.title')
+    default: return routeName
+  }
+}
+
 export function AnimatedTabBar({
   state,
   descriptors,
   navigation,
 }: BottomTabBarProps) {
   const { theme } = useTheme()
+  const t = useT()
   const insets = useSafeAreaInsets()
   const c = theme.colors
   const sp = theme.spacing
@@ -99,7 +109,7 @@ export function AnimatedTabBar({
               ? options.tabBarLabel
               : typeof options.title === 'string'
                 ? options.title
-                : route.name
+                : labelForRoute(route.name, t)
 
           const isFocused = state.index === index
           const p = progress[index]

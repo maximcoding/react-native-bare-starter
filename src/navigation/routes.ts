@@ -29,23 +29,10 @@ export const ROUTES = {
   AUTH_LOGIN: 'AUTH_LOGIN',
 
   //
-  // HOME FLOW
-  //
-  HOME_STACK: 'HOME_STACK', // parent stack
-  HOME_TABS: 'HOME_TABS', // bottom tabs container
-
-  //
   // HOME → TABS
   //
   TAB_HOME: 'TAB_HOME',
   TAB_SETTINGS: 'TAB_SETTINGS',
-
-  //
-  // SETTINGS STACK
-  //
-  SETTINGS_ROOT: 'SETTINGS_ROOT',
-  SETTINGS_LANGUAGE: 'SETTINGS_LANGUAGE',
-  SETTINGS_THEME: 'SETTINGS_THEME',
 
   //
   // HOME SCREENS (pushed over tabs)

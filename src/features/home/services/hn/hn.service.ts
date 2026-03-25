@@ -16,7 +16,9 @@ attachLogging(hnClient)
 export async function fetchHnFeed(): Promise<FeedItem[]> {
   const res = await hnClient.get<unknown>('/search', { tags: 'front_page' })
   if (!res.ok) {
-    throw normalizeError(res.originalError ?? new Error('HN API request failed'))
+    throw normalizeError(
+      res.originalError ?? new Error('HN API request failed'),
+    )
   }
   const parsed = HnSearchResponseSchema.parse(res.data)
   return parsed.hits.map(mapHnHitToFeedItem)

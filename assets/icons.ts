@@ -1,18 +1,16 @@
-
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
 // Run: npm run gen:icons
 
-import Check from '@assets/svgs/check.svg';
-import Globe from '@assets/svgs/globe.svg';
-import Home from '@assets/svgs/home.svg';
-import Info from '@assets/svgs/info.svg';
-import Layers from '@assets/svgs/layers.svg';
-import Logout from '@assets/svgs/logout.svg';
-import Moon from '@assets/svgs/moon.svg';
-import Settings from '@assets/svgs/settings.svg';
-import Sun from '@assets/svgs/sun.svg';
-import User from '@assets/svgs/user.svg';
-
+import Check from '@assets/svgs/check.svg'
+import Globe from '@assets/svgs/globe.svg'
+import Home from '@assets/svgs/home.svg'
+import Info from '@assets/svgs/info.svg'
+import Layers from '@assets/svgs/layers.svg'
+import Logout from '@assets/svgs/logout.svg'
+import Moon from '@assets/svgs/moon.svg'
+import Settings from '@assets/svgs/settings.svg'
+import Sun from '@assets/svgs/sun.svg'
+import User from '@assets/svgs/user.svg'
 
 export enum IconName {
   CHECK = 'CHECK',
@@ -25,7 +23,6 @@ export enum IconName {
   SETTINGS = 'SETTINGS',
   SUN = 'SUN',
   USER = 'USER',
-
 }
 
 export const AppIcon = {
@@ -39,7 +36,6 @@ export const AppIcon = {
   [IconName.SETTINGS]: Settings,
   [IconName.SUN]: Sun,
   [IconName.USER]: User,
+} as const
 
-} as const;
-
-export type IconNameType = keyof typeof AppIcon;
+export type IconNameType = keyof typeof AppIcon

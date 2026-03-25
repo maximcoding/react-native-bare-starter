@@ -9,11 +9,11 @@ import { Linking, Platform, useColorScheme } from 'react-native'
 import BootSplash from 'react-native-bootsplash'
 
 import { navigationRef } from '@/navigation/helpers/navigation-helpers'
-import { RootStack } from '@/navigation/root/root-navigator'
 import {
   loadPersistedNavigationState,
   persistNavigationState,
 } from '@/navigation/persistence/navigation-persistence'
+import { RootStack } from '@/navigation/root/root-navigator'
 import { ThemedStatusBar } from '@/shared/components/ui/ThemedStatusBar'
 import { useTheme } from '@/shared/theme'
 

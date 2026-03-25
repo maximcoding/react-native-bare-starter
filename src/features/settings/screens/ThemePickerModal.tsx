@@ -1,11 +1,11 @@
 // src/features/settings/screens/ThemePickerModal.tsx
 
+import { IconName } from '@assets/icons'
 import React, { useCallback } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { useT } from '@/i18n/useT'
 import { goBack } from '@/navigation/helpers/navigation-helpers'
 import HalfSheet from '@/navigation/modals/half-sheet'
-import { IconName } from '@assets/icons'
 import { IconSvg } from '@/shared/components/ui/IconSvg'
 import { Text } from '@/shared/components/ui/Text'
 import type { ThemeMode } from '@/shared/theme/ThemeContext'
@@ -21,7 +21,11 @@ const THEME_OPTIONS: {
 }[] = [
   { mode: 'light', labelKey: 'settings.theme_light', icon: IconName.SUN },
   { mode: 'dark', labelKey: 'settings.theme_dark', icon: IconName.MOON },
-  { mode: 'system', labelKey: 'settings.theme_system', icon: IconName.SETTINGS },
+  {
+    mode: 'system',
+    labelKey: 'settings.theme_system',
+    icon: IconName.SETTINGS,
+  },
 ]
 
 export default function ThemePickerModal() {
@@ -93,7 +97,12 @@ export default function ThemePickerModal() {
                 {t(opt.labelKey)}
               </Text>
               {selected ? (
-                <IconSvg name={IconName.CHECK} size={18} color={c.primary} style={{ width: 18, height: 18 }} />
+                <IconSvg
+                  name={IconName.CHECK}
+                  size={18}
+                  color={c.primary}
+                  style={{ width: 18, height: 18 }}
+                />
               ) : null}
             </Pressable>
           )

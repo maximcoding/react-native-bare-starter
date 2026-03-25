@@ -1,12 +1,12 @@
 // src/features/settings/screens/LanguagePickerModal.tsx
 
+import { IconName } from '@assets/icons'
 import React, { useCallback } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import i18n from '@/i18n/i18n'
 import { useT } from '@/i18n/useT'
 import { goBack } from '@/navigation/helpers/navigation-helpers'
 import HalfSheet from '@/navigation/modals/half-sheet'
-import { IconName } from '@assets/icons'
 import { IconSvg } from '@/shared/components/ui/IconSvg'
 import { Text } from '@/shared/components/ui/Text'
 import { useTheme } from '@/shared/theme/useTheme'
@@ -101,7 +101,12 @@ export default function LanguagePickerModal() {
                 {t(opt.labelKey)}
               </Text>
               {selected ? (
-                <IconSvg name={IconName.CHECK} size={18} color={c.primary} style={{ width: 18, height: 18 }} />
+                <IconSvg
+                  name={IconName.CHECK}
+                  size={18}
+                  color={c.primary}
+                  style={{ width: 18, height: 18 }}
+                />
               ) : null}
             </Pressable>
           )

@@ -555,7 +555,12 @@ export default function AuthScreen() {
           <Text
             style={[
               ty.bodyMedium,
-              { color: c.textTertiary, marginTop: sp.xs, textAlign: 'center', alignSelf: 'stretch' },
+              {
+                color: c.textTertiary,
+                marginTop: sp.xs,
+                textAlign: 'center',
+                alignSelf: 'stretch',
+              },
             ]}
           >
             {t('auth.subtitle')}
@@ -592,9 +597,24 @@ export default function AuthScreen() {
           ]}
         >
           {[
-            { key: 'google' as const, Icon: <GoogleIcon />, label: 'Google', press: social0 },
-            { key: 'facebook' as const, Icon: <FacebookIcon />, label: 'Facebook', press: social1 },
-            { key: 'apple' as const, Icon: <AppleIcon color={c.textPrimary} />, label: 'Apple', press: social2 },
+            {
+              key: 'google' as const,
+              Icon: <GoogleIcon />,
+              label: 'Google',
+              press: social0,
+            },
+            {
+              key: 'facebook' as const,
+              Icon: <FacebookIcon />,
+              label: 'Facebook',
+              press: social1,
+            },
+            {
+              key: 'apple' as const,
+              Icon: <AppleIcon color={c.textPrimary} />,
+              label: 'Apple',
+              press: social2,
+            },
           ].map(({ key, Icon, label, press }) => (
             <TouchableOpacity
               key={key}
@@ -616,7 +636,9 @@ export default function AuthScreen() {
                 ]}
               >
                 {Icon}
-                <Text style={[ty.labelSmall, { color: c.textSecondary }]}>{label}</Text>
+                <Text style={[ty.labelSmall, { color: c.textSecondary }]}>
+                  {label}
+                </Text>
               </Animated.View>
             </TouchableOpacity>
           ))}

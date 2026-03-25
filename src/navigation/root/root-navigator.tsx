@@ -21,7 +21,7 @@ const HALF_SHEET_OPTIONS = {
 } as const
 
 const HomeTabs = createBottomTabNavigator({
-  tabBar: (props) => <AnimatedTabBar {...props} />,
+  tabBar: props => <AnimatedTabBar {...props} />,
   screenOptions: { headerShown: false },
   screens: {
     [ROUTES.TAB_HOME]: HomeScreen,

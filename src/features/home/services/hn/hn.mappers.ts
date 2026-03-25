@@ -2,11 +2,19 @@ import type { FeedItem } from '@/features/home/types'
 import { formatRelativeTime } from '@/shared/utils/format-relative-time'
 import type { HnHit } from './hn.schemas'
 
-const ACCENT_VARIANTS: FeedItem['type'][] = ['success', 'primary', 'info', 'warning']
+const ACCENT_VARIANTS: FeedItem['type'][] = [
+  'success',
+  'primary',
+  'info',
+  'warning',
+]
 
 /** Deterministic accent colour from objectID — gives visual variety without random flicker. */
 function mapAccent(objectID: string): FeedItem['type'] {
-  return ACCENT_VARIANTS[parseInt(objectID, 10) % ACCENT_VARIANTS.length] ?? 'primary'
+  return (
+    ACCENT_VARIANTS[parseInt(objectID, 10) % ACCENT_VARIANTS.length] ??
+    'primary'
+  )
 }
 
 export function parseDomain(url: string | null | undefined): string | null {

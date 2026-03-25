@@ -1,3 +1,4 @@
+import { IconName } from '@assets/icons'
 import React, { useCallback, useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { SettingsRow } from '@/features/settings/components/SettingsRow'
@@ -8,7 +9,6 @@ import { useT } from '@/i18n/useT'
 import { navigate } from '@/navigation/helpers/navigation-helpers'
 import { ROUTES } from '@/navigation/routes'
 import { performLogout } from '@/session/logout'
-import { IconName } from '@assets/icons'
 import { ScreenHeader } from '@/shared/components/ui/ScreenHeader'
 import { ScreenWrapper } from '@/shared/components/ui/ScreenWrapper'
 import { Text } from '@/shared/components/ui/Text'
@@ -39,8 +39,14 @@ export default function SettingsScreen() {
   const currentLang = i18n.language
   const languageLabel = LANGUAGE_LABELS[currentLang] ?? currentLang
 
-  const openThemePicker = useCallback(() => navigate(ROUTES.MODAL_THEME_PICKER), [])
-  const openLanguagePicker = useCallback(() => navigate(ROUTES.MODAL_LANGUAGE_PICKER), [])
+  const openThemePicker = useCallback(
+    () => navigate(ROUTES.MODAL_THEME_PICKER),
+    [],
+  )
+  const openLanguagePicker = useCallback(
+    () => navigate(ROUTES.MODAL_LANGUAGE_PICKER),
+    [],
+  )
   const handleLogout = useCallback(() => performLogout(), [])
 
   const userName = me.data?.name ?? '—'
@@ -60,7 +66,6 @@ export default function SettingsScreen() {
   return (
     <ScreenWrapper scroll header={<ScreenHeader title={t('settings.title')} />}>
       <View style={{ padding: sp.lg, gap: sp.lg }}>
-
         {/* Profile card */}
         <View
           style={[
@@ -113,7 +118,12 @@ export default function SettingsScreen() {
                 {userName}
               </Text>
               {userEmail != null ? (
-                <Text style={[ty.bodySmall, { color: c.textSecondary, marginTop: sp.xxs }]}>
+                <Text
+                  style={[
+                    ty.bodySmall,
+                    { color: c.textSecondary, marginTop: sp.xxs },
+                  ]}
+                >
                   {userEmail}
                 </Text>
               ) : null}

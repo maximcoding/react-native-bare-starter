@@ -1,6 +1,6 @@
+import { IconName } from '@assets/icons'
 import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import { IconName } from '@assets/icons'
 import { IconSvg } from '@/shared/components/ui/IconSvg'
 import { Text } from '@/shared/components/ui/Text'
 import { useTheme } from '@/shared/theme/useTheme'
@@ -28,7 +28,8 @@ export function SettingsRow({
 
   const labelColor = danger ? theme.colors.danger : theme.colors.textPrimary
   const chevronColor = theme.colors.textTertiary
-  const resolvedIconColor = iconColor ?? (danger ? theme.colors.danger : theme.colors.textPrimary)
+  const resolvedIconColor =
+    iconColor ?? (danger ? theme.colors.danger : theme.colors.textPrimary)
 
   return (
     <Pressable
@@ -60,7 +61,9 @@ export function SettingsRow({
         </View>
       ) : null}
 
-      <Text style={[theme.typography.bodyMedium, { color: labelColor, flex: 1 }]}>
+      <Text
+        style={[theme.typography.bodyMedium, { color: labelColor, flex: 1 }]}
+      >
         {label}
       </Text>
 

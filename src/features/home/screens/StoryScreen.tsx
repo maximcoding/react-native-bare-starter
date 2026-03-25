@@ -5,7 +5,10 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Animated, Pressable, StyleSheet, View } from 'react-native'
 import Svg, { Path, Polyline } from 'react-native-svg'
 import WebView from 'react-native-webview'
-import type { WebViewNavigation, WebViewProgressEvent } from 'react-native-webview/lib/WebViewTypes'
+import type {
+  WebViewNavigation,
+  WebViewProgressEvent,
+} from 'react-native-webview/lib/WebViewTypes'
 import type { RootStackParamList } from '@/navigation/root-param-list'
 import { ROUTES } from '@/navigation/routes'
 import { ScreenWrapper } from '@/shared/components/ui/ScreenWrapper'
@@ -13,11 +16,14 @@ import { Text } from '@/shared/components/ui/Text'
 import { spacing } from '@/shared/theme/tokens/spacing'
 import { useTheme } from '@/shared/theme/useTheme'
 
-type Props = NativeStackScreenProps<RootStackParamList, typeof ROUTES.HOME_STORY>
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  typeof ROUTES.HOME_STORY
+>
 
 // ─── Layout constants (derived from design tokens, never raw numbers) ─────────
-const HEADER_HEIGHT = spacing.xxxxxl  // 56 — matches ScreenHeader
-const ICON_SIZE = spacing.lg          // 20
+const HEADER_HEIGHT = spacing.xxxxxl // 56 — matches ScreenHeader
+const ICON_SIZE = spacing.lg // 20
 const ICON_STROKE = 2.2
 const PROGRESS_BAR_HEIGHT = spacing.xxs // 4
 

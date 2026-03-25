@@ -32,9 +32,12 @@ function iconForRoute(routeName: string): IconName {
 
 function labelForRoute(routeName: string, t: ReturnType<typeof useT>): string {
   switch (routeName) {
-    case ROUTES.TAB_HOME: return t('home.title')
-    case ROUTES.TAB_SETTINGS: return t('settings.title')
-    default: return routeName
+    case ROUTES.TAB_HOME:
+      return t('home.title')
+    case ROUTES.TAB_SETTINGS:
+      return t('settings.title')
+    default:
+      return routeName
   }
 }
 

@@ -20,7 +20,6 @@ export const constants = {
 
   /** MMKV key (`navigationStorage`) for persisted React Navigation root state. */
   NAVIGATION_STATE_V1: 'navigation.state.v1',
-
 }
 
 export const flags = {

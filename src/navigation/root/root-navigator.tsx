@@ -12,7 +12,7 @@ import SettingsScreen from '@/features/settings/screens/SettingsScreen'
 import ThemePickerModal from '@/features/settings/screens/ThemePickerModal'
 import { ROUTES } from '@/navigation/routes'
 import { AnimatedTabBar } from '@/navigation/tabs/AnimatedTabBar'
-import { getBootstrapRoute } from '@/session/bootstrap'
+import { getInitialRoute } from '@/session/bootstrap'
 
 const HALF_SHEET_OPTIONS = {
   presentation: 'transparentModal',
@@ -30,7 +30,7 @@ const HomeTabs = createBottomTabNavigator({
 })
 
 export const RootStack = createNativeStackNavigator({
-  initialRouteName: getBootstrapRoute(),
+  initialRouteName: getInitialRoute(),
   screenOptions: { headerShown: false },
   screens: {
     [ROUTES.ROOT_ONBOARDING]: OnboardingScreen,

@@ -7,12 +7,15 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 
-https://github.com/user-attachments/assets/f7e1c02d-bdcd-4ecc-96f8-ad315038b1eb
-
-
 A bare React Native starter for serious apps — no Expo, fast storage, modern state management, and a production-minded foundation from day one.
 
 ---
+
+<div align="center">
+
+[![Demo video](thumbnail.png)](https://github.com/user-attachments/assets/f7e1c02d-bdcd-4ecc-96f8-ad315038b1eb)
+
+</div>
 
 ## ✨ Features Included
 

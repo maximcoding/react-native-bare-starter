@@ -4,5 +4,4 @@ export type {
 } from '@/navigation/root-param-list'
 export * from './helpers/navigation-helpers'
 export * from './modals/global-modal'
-export * from './modals/half-sheet'
 export * from './root/root-navigator'

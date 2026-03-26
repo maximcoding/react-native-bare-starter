@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 
-A bare React Native starter for serious apps — no Expo, fast storage, modern state management, and a production-minded foundation from day one.
+A bare react native starter project — fast storage, modern state management, and a production-minded foundation.
 
 ---
 
@@ -39,7 +39,7 @@ A bare React Native starter for serious apps — no Expo, fast storage, modern s
 
 ### Prerequisites
 
-Standard bare React Native toolchain:
+Standard bare react native toolchain:
 
 - Node.js ≥ 20
 - Xcode for iOS
@@ -75,7 +75,7 @@ Feature-first structure with clear boundaries.
 
 ```text
 src/
-├── navigation/   # App navigation: stacks, tabs, modals, routes
+├── navigation/   # App navigation, it's persistence and helpers
 ├── session/      # App bootstrap and session flow
 ├── config/       # Env, constants, feature flags
 ├── i18n/         # Localization setup and typed translations
@@ -84,8 +84,9 @@ src/
 │   ├── hooks/
 │   ├── services/
 │   ├── stores/   # Global UI state only
-│   ├── theme/
-│   └── utils/
+│   ├── theme/    # context, provider , tokens
+│   ├── types/    
+│   └── utils/   
 └── features/     # auth, home, settings, user
 
 assets/

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/maximcoding/react-native-starter/compare/v1.0.2...v1.0.3) (2026-03-26)
+
+
+### Features
+
+* app launcher icon generator (iOS AppIcon + Android mipmap) ([116f381](https://github.com/maximcoding/react-native-starter/commit/116f3815212c506b2298ac9312e07f90ab5b0a1d)), closes [#111827](https://github.com/maximcoding/react-native-starter/issues/111827)
+
+
+### Bug Fixes
+
+* **assets:** lock splash source and prioritize bootsplash icons ([6e4e819](https://github.com/maximcoding/react-native-starter/commit/6e4e819faf3b2ecafc0b7875997b559057bf75e5))
+* **bootsplash:** restore curated splash assets; stop overwriting assets/bootsplash ([0f10e4f](https://github.com/maximcoding/react-native-starter/commit/0f10e4f00721663f349120505b55d012ecf03ee8))
+
 ### 1.0.2 (2026-03-25)
 
 

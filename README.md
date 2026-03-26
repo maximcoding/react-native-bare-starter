@@ -32,38 +32,6 @@ React native starter project (no Expo) - modern state management, fast storage, 
 
 </div>
 
-## 🛠️ Getting started
-
-### Prerequisites
-
-Standard bare react native toolchain:
-
-- Node.js ≥ 20
-- Xcode for iOS
-- Android Studio + SDK for Android
-- CocoaPods for iOS
-
----
-
-## 🚀 Quick Start
-
-```bash
-git clone https://github.com/maximcoding/react-native-starter.git
-cd react-native-starter
-npm install
-npx pod-install ios
-cp .env.example .env
-```
-
-**Launcher icon (optional):** `npm run gen:app-icon` is independent from splash generation and uses `assets/app-icon.png`. See [docs/development.md](docs/development.md#assets--guards).
-
-Edit `.env` as needed, then:
-
-```bash
-npm start       # Metro bundler
-npm run ios     # or: npm run android
-```
-
 ---
 
 ## 🧭 Project structure
@@ -95,6 +63,34 @@ assets/
 
 * **Repository layout** → [docs/development.md#repository-layout](docs/development.md#repository-layout)
 * **Code rules & ownership** → [AGENTS.md](AGENTS.md)
+
+## 🛠️ Getting started
+
+### Prerequisites
+
+Standard bare react native toolchain:
+
+- Node.js ≥ 20
+- Xcode for iOS
+- Android Studio + SDK for Android
+- CocoaPods for iOS
+
+```bash
+git clone https://github.com/maximcoding/react-native-starter.git
+cd react-native-starter
+npm install
+npx pod-install ios
+cp .env.example .env
+```
+
+**Launcher icon (optional):** `npm run gen:app-icon` is independent from splash generation and uses `assets/app-icon.png`. See [docs/development.md](docs/development.md#assets--guards).
+
+Edit `.env` as needed, then:
+
+```bash
+npm start       # Metro bundler
+npm run ios     # or: npm run android
+```
 
 ---
 

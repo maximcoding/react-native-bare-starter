@@ -26,7 +26,7 @@ A bare React Native starter for serious apps — no Expo, fast storage, modern s
 - **⚡ MMKV Storage 4.3** — `react-native-mmkv` via Nitro Modules, commonly described as up to **30× faster than AsyncStorage**
 - **📡 Offline-ready** — query persistence, queue/replay, cache restore, and transport-level offline mode for a solid experience on flaky networks
 - **🔌 Pluggable transport** — adapters for REST, GraphQL, WebSocket, and Firebase, so you can change backend strategy without rewiring the app
-- **🎨 Theming** — light/dark mode with semantic tokens
+- **🎨 Theming** — light/dark mode with semantic tokens, ```ThemeProvider``` and ```useTheme()``` hook.
 - **🌍 i18next 25.x** — typed translations with a typed `useT()` hook
 - **🖼️ SVG via script** — `react-native-svg 15.x` with scripted icon generation ```npm run gen:icons```
 - **🚀 BootSplash 6.x** — Shows a splash screen, put your icon into assets/logo.png and execute ```npm run bootsplash:generate```.

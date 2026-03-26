@@ -91,7 +91,6 @@ src/
 assets/
 ├── svgs/                # Source SVGs
 ├── logo.png             # BootSplash source of truth (`npm run bootsplash:generate`)
-├── bootsplash-logo.svg  # App icon fallback source (`npm run gen:app-icon`)
 ├── bootsplash/          # Splash PNGs + manifest (`npm run bootsplash:generate`)
 └── icons.ts             # Auto-generated icon registry
 ```
@@ -140,17 +139,6 @@ Useful docs:
 | `npm run android:clean`           | Clean Android build artifacts      |
 
 Full command reference: [docs/development.md#key-commands](docs/development.md#key-commands)
-
----
-
-## 🛠️ Android Troubleshooting
-
-* **No connected devices** — start an emulator or connect via USB, then `npm run android:devices`
-* **CMake / missing `codegen/jni`** — run `npm run android:clean`, then `npm run android`
-* **Still failing** — `rm -rf node_modules/*/android/build`, reinstall, rebuild
-* **Gradle clean without broken native tasks** — `npm run android:clean:gradle`
-
-Full detail: [docs/development.md#android-build](docs/development.md#android-build)
 
 ---
 

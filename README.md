@@ -24,8 +24,6 @@ React native starter project (no Expo) - modern state management, fast storage, 
 - **🧪 Developer experience** — Biome 2.x, Jest 29.x, GitHub Actions CI, and Maestro E2E
 - **AI / agent workflow docs** — includes `.claude` agents and repo rules for more consistent AI-assisted changes
 
----
-
 <div align="center">
 
 [![Demo video](thumbnail.png)](https://github.com/user-attachments/assets/f7e1c02d-bdcd-4ecc-96f8-ad315038b1eb)

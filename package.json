@@ -1,6 +1,6 @@
 {
   "name": "react-native-starter",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Production-ready React Native starter — TypeScript (strict), feature-first architecture, theme tokens, i18n (EN/DE/RU), offline-first, pluggable transport, Biome, Jest, GitHub Actions.",
   "keywords": [
     "react-native",
@@ -41,6 +41,7 @@
     "format": "biome check . --write",
     "test": "jest",
     "gen:icons": "node scripts/generate-icons.js",
+    "gen:app-icon": "node scripts/generate-app-icon.cjs",
     "cache:clean": "npm cache clean --force",
     "clean:auto": "react-native clean-project-auto",
     "clean": "react-native clean-project",
@@ -75,7 +76,7 @@
     "check:icons": "node scripts/check-icons-stale.js",
     "check:imports": "node scripts/check-import-paths.js",
     "android:rebuild": "node scripts/ensure-env.cjs && rm -rf android/app/build android/app/.cxx android/build android/.gradle && cd android && ./gradlew :app:assembleDebug && cd .. && node scripts/wait-for-android-device.cjs && npx react-native run-android",
-    "bootsplash:generate": "npx react-native-bootsplash generate assets/logo.png --platforms=android,ios --background=FFFFFF --logo-width=100 --assets-output=assets/bootsplash --flavor=main"
+    "bootsplash:generate": "node scripts/bootsplash-generate.cjs"
   },
   "dependencies": {
     "@react-native-clipboard/clipboard": "^1.14.1",
@@ -137,6 +138,7 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
     "react-test-renderer": "19.1.1",
+    "sharp": "0.34.2",
     "standard-version": "^9.5.0",
     "typescript": "^5.8.3"
   },

@@ -56,7 +56,9 @@ cd react-native-starter
 npm install
 npx pod-install ios
 cp .env.example .env
-````
+```
+
+**Launcher icon (optional):** `npm run gen:app-icon` is independent from splash generation and uses `assets/bootsplash/logo@*.png` first; fallback is `assets/app-icon.png` then `assets/bootsplash-logo.svg`. See [docs/development.md](docs/development.md#assets--guards).
 
 Edit `.env` as needed, then:
 
@@ -87,9 +89,11 @@ src/
 └── features/     # Per-feature slices: screens, hooks, services, api, navigation
 
 assets/
-├── svgs/         # Source SVGs
-├── bootsplash/   # Generated splash assets
-└── icons.ts      # Auto-generated icon registry
+├── svgs/                # Source SVGs
+├── logo.png             # BootSplash source of truth (`npm run bootsplash:generate`)
+├── bootsplash-logo.svg  # App icon fallback source (`npm run gen:app-icon`)
+├── bootsplash/          # Splash PNGs + manifest (`npm run bootsplash:generate`)
+└── icons.ts             # Auto-generated icon registry
 ```
 
 * **Repository layout** → [docs/development.md#repository-layout](docs/development.md#repository-layout)

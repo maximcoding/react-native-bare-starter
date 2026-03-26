@@ -11,4 +11,3 @@
 - **When stable:** bump all three `@react-navigation/*` packages together; check peer dep requirements for `react-native-screens` and `react-native-safe-area-context`; review breaking changes in changelog before migrating.
 - **Expected changes:** further static config improvements, possible `screenOptions` API changes, `react-native-screens` peer dep bump.
 
----

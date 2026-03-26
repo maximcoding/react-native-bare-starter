@@ -28,8 +28,8 @@ A bare React Native starter for serious apps — no Expo, fast storage, modern s
 - **🔌 Pluggable transport** — adapters for REST, GraphQL, WebSocket, and Firebase, so you can change backend strategy without rewiring the app
 - **🎨 Theming** — light/dark mode with semantic tokens
 - **🌍 i18next 25.x** — typed translations with a typed `useT()` hook
-- **🖼️ SVG via script** — `react-native-svg 15.x` with scripted icon generation
-- **🚀 BootSplash 6.x** — native splash screen setup already in place
+- **🖼️ SVG via script** — `react-native-svg 15.x` with scripted icon generation ```npm run gen:icons```
+- **🚀 BootSplash 6.x** — native splash screen setup already in place 
 - **🧪 Developer experience** — Biome 2.x, Jest 29.x, GitHub Actions CI, and Maestro E2E
 - **AI / agent workflow docs** — includes `.claude` agents and repo rules for more consistent AI-assisted changes
 

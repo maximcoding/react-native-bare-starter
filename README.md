@@ -6,10 +6,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-
 React native starter project (no Expo) - modern state management, fast storage, and a production-minded foundation.
-
----
 
 ## ✨ Features Included
 

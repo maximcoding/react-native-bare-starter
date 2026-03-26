@@ -75,9 +75,9 @@ Feature-first structure with clear boundaries.
 
 ```text
 src/
+├── config/       # Env, constants, feature flags
 ├── navigation/   # App navigation, it's persistence and helpers
 ├── session/      # App bootstrap and session flow
-├── config/       # Env, constants, feature flags
 ├── i18n/         # Localization setup and typed translations
 ├── shared/       # Cross-app code used by multiple features
 │   ├── components/

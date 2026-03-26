@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 
-A bare react native starter project — fast storage, modern state management, and a production-minded foundation.
+React native starter project (no Expo) - modern state management, fast storage, and a production-minded foundation.
 
 ---
 
